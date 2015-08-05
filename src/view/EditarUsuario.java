@@ -173,11 +173,15 @@ public class EditarUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
-        String p = "";
+        
                 // TODO add your handling code here:
         //if (tf_nombre.getText().length()!=0){
             int resp = JOptionPane.showConfirmDialog(null,"Desea guardar los cambios?", "Confirmar Modificación",JOptionPane.YES_NO_OPTION );
-            if (resp==JOptionPane.YES_OPTION){
+            if ( LoginView.idUsuario == Integer.parseInt(tf_idEmpleado.getText())){
+                JOptionPane.showMessageDialog(null, "No puede cambiar su rol usted mismo");
+                
+            } 
+            else if (resp==JOptionPane.YES_OPTION){
                 try {
                     EntityManagerFactory fact=Persistence.createEntityManagerFactory("proyectoPU");
                     EntityManager em=fact.createEntityManager();
@@ -222,7 +226,7 @@ public class EditarUsuario extends javax.swing.JFrame {
                 } catch (ParseException ex) {
                     Logger.getLogger(RolEdit.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+              
             } else{
                 this.setVisible(false);
             }

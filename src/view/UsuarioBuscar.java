@@ -65,6 +65,9 @@ public class UsuarioBuscar extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tf_valorKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tf_valorKeyTyped(evt);
+            }
         });
 
         btn_buscar.setText("Buscar");
@@ -224,21 +227,7 @@ public class UsuarioBuscar extends javax.swing.JFrame {
 
     private void tf_valorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_valorKeyPressed
         // TODO add your handling code here:
-        /*if (list_filtros.getSelectedItem()=="Codigo Empleado" || 
-                list_filtros.getSelectedItem()=="Codigo Rol"){
-             ch=evt.getKeyChar();
-             if(!Character.isDigit(ch)){
-                   getToolkit().beep();
-                    evt.consume();
-            }
-         }
-        else{
-              ch=evt.getKeyChar();
-             if(Character.isDigit(ch)){
-                   getToolkit().beep();
-                    evt.consume();
-              }
-         }*/
+
     }//GEN-LAST:event_tf_valorKeyPressed
 
     private void masterTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_masterTableMouseClicked
@@ -282,6 +271,25 @@ public class UsuarioBuscar extends javax.swing.JFrame {
               break;
       }
     }//GEN-LAST:event_masterTableMouseClicked
+
+    private void tf_valorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_valorKeyTyped
+        // TODO add your handling code here:
+       if (list_filtros.getSelectedItem()=="Codigo Empleado" || 
+                list_filtros.getSelectedItem()=="Codigo Rol"){
+             ch=evt.getKeyChar();
+             if(!Character.isDigit(ch)){
+                   getToolkit().beep();
+                    evt.consume();
+            }
+         }
+        else{
+              ch=evt.getKeyChar();
+             if(Character.isDigit(ch)){
+                   getToolkit().beep();
+                    evt.consume();
+              }
+         }
+    }//GEN-LAST:event_tf_valorKeyTyped
 
     /**
      * @param args the command line arguments

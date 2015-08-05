@@ -34,8 +34,10 @@ public class LoginView extends javax.swing.JFrame {
     private char ch;
     private int lim=11;
     private int limit=45;
+    
     private int codEmpl;
     public static String nombreUsuario;
+    public static int idUsuario;
 
     /** Creates new form LoginView */
     public LoginView() {
@@ -236,6 +238,8 @@ public class LoginView extends javax.swing.JFrame {
                         query.setParameter("codigoEmpleado", codEmpl);
                         List<Empleado> e = query.getResultList();
                         nombreUsuario=e.get(0).getNombre();
+                        //para evitar que cambie su rol por si mismo
+                        idUsuario=e.get(0).getCodigoEmpleado();
                         //registramos los datos necesarios para la auditoria
                         AuditoriaSistema as=new AuditoriaSistema();
                         as.setAccion("Inicio Sesion");

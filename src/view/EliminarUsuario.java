@@ -19,6 +19,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
+import static view.EditarUsuario.tf_idEmpleado;
 import static view.RolEliminar.tf_identi;
 
 /**
@@ -159,7 +160,10 @@ public class EliminarUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
                 // TODO add your handling code here:
         resp=  JOptionPane.showConfirmDialog(null,"Esta seguro que desea eliminar?", "Confirmar Eliminación",JOptionPane.YES_NO_OPTION );
-        if(resp==JOptionPane.YES_OPTION){
+        if ( LoginView.idUsuario == Integer.parseInt(tf_idEmpleado.getText())){
+                JOptionPane.showMessageDialog(null, "No puede eliminar su propia cuenta");        
+        } 
+        else if(resp==JOptionPane.YES_OPTION){
             try {
                 EntityManagerFactory fact=Persistence.createEntityManagerFactory("proyectoPU");
                 EntityManager ema= fact.createEntityManager();
