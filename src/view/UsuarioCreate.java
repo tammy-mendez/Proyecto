@@ -108,7 +108,8 @@ public class UsuarioCreate extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel1.setForeground(new java.awt.Color(204, 204, 255));
 
         list_rol.setRenderer(rolListRenderizar1);
 
@@ -235,7 +236,8 @@ public class UsuarioCreate extends javax.swing.JFrame {
                 u.setPassword(tf_passw.getText());
                 Rol r= new Rol();
                 r=(Rol) list_rol.getSelectedItem();
-                u.setIdRol(r.getIdRol());
+                u.setIdRol(r);
+                //u.setIdRol(r.getIdRol());
                 em.persist(u);
                 em.getTransaction().commit();
                 em.close();

@@ -60,6 +60,9 @@ public class MenuAdminSist extends javax.swing.JFrame {
         mItem_buscarR = new javax.swing.JMenuItem();
         menu_usuario = new javax.swing.JMenu();
         mitem_regis_usuario = new javax.swing.JMenuItem();
+        mitem_editarusuario = new javax.swing.JMenuItem();
+        mitem_eliminarusuario = new javax.swing.JMenuItem();
+        miItem_buscarUsuario = new javax.swing.JMenuItem();
         menu_auditoria = new javax.swing.JMenu();
         menu_salir = new javax.swing.JMenu();
 
@@ -130,6 +133,30 @@ public class MenuAdminSist extends javax.swing.JFrame {
             }
         });
         menu_usuario.add(mitem_regis_usuario);
+
+        mitem_editarusuario.setText("Editar Usuario");
+        mitem_editarusuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitem_editarusuarioActionPerformed(evt);
+            }
+        });
+        menu_usuario.add(mitem_editarusuario);
+
+        mitem_eliminarusuario.setText("Eliminar Usuario");
+        mitem_eliminarusuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitem_eliminarusuarioActionPerformed(evt);
+            }
+        });
+        menu_usuario.add(mitem_eliminarusuario);
+
+        miItem_buscarUsuario.setText("Buscar Usuario");
+        miItem_buscarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miItem_buscarUsuarioActionPerformed(evt);
+            }
+        });
+        menu_usuario.add(miItem_buscarUsuario);
 
         jMenuBar1.add(menu_usuario);
 
@@ -249,6 +276,31 @@ public class MenuAdminSist extends javax.swing.JFrame {
         UsuarioCreate.main(args);
     }//GEN-LAST:event_mitem_regis_usuarioActionPerformed
 
+    private void miItem_buscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miItem_buscarUsuarioActionPerformed
+        // TODO add your handling code here:
+        opcion = 3;
+        String args[]=new String[1];
+        args[0]="Buscar usuario";
+        UsuarioBuscar.main(args);
+    }//GEN-LAST:event_miItem_buscarUsuarioActionPerformed
+
+    private void mitem_editarusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitem_editarusuarioActionPerformed
+        // TODO add your handling code here:
+        opcion = 1;
+        String args[]=new String[1];
+        args[0]="Editar usuario";
+        UsuarioBuscar.main(args);
+    }//GEN-LAST:event_mitem_editarusuarioActionPerformed
+
+    private void mitem_eliminarusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitem_eliminarusuarioActionPerformed
+        // TODO add your handling code here:
+                // TODO add your handling code here:
+        opcion = 2;
+        String args[]=new String[1];
+        args[0]="Eliminar usuario";
+        UsuarioBuscar.main(args);
+    }//GEN-LAST:event_mitem_eliminarusuarioActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -280,6 +332,9 @@ public class MenuAdminSist extends javax.swing.JFrame {
     private javax.swing.JMenu menu_rol;
     private javax.swing.JMenu menu_salir;
     private javax.swing.JMenu menu_usuario;
+    private javax.swing.JMenuItem miItem_buscarUsuario;
+    private javax.swing.JMenuItem mitem_editarusuario;
+    private javax.swing.JMenuItem mitem_eliminarusuario;
     private javax.swing.JMenuItem mitem_regis_usuario;
     // End of variables declaration//GEN-END:variables
 
