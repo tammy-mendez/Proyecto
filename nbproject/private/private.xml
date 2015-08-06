@@ -4,11 +4,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Proyecto-II/src/bean/Rol.java</file>
             <file>file:/C:/Proyecto-II/src/view/RolCreate.java</file>
-            <file>file:/C:/Proyecto-II/src/view/LoginView.java</file>
-            <file>file:/C:/Proyecto-II/src/view/MenuAdminSist.java</file>
             <file>file:/C:/Proyecto-II/src/view/RolEdit.java</file>
-            <file>file:/C:/Proyecto-II/src/view/UsuarioCreate.java</file>
+            <file>file:/C:/Proyecto-II/src/view/CambiarPasswordView.java</file>
         </group>
     </open-files>
 </project-private>
