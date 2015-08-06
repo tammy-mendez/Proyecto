@@ -209,7 +209,7 @@ public class MenuAdminSist extends javax.swing.JFrame {
     }//GEN-LAST:event_mItem_editarRActionPerformed
 
     private void menu_salirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_salirMouseClicked
-        try {
+
             // TODO add your handling code here:
             EntityManagerFactory fact=Persistence.createEntityManagerFactory("proyectoPU");
             EntityManager ema= fact.createEntityManager();
@@ -221,7 +221,7 @@ public class MenuAdminSist extends javax.swing.JFrame {
             //trabajamos con la fecha
             Date fecha=new Date();
             DateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            as.setFechaHora(formato.parse(formato.format(fecha)));
+            as.setFechaHora(formato.format(fecha));
             as.setUsuario(LoginView.nombreUsuario);
             ema.persist(as);
             ema.getTransaction().commit();
@@ -230,9 +230,6 @@ public class MenuAdminSist extends javax.swing.JFrame {
             String args[]=new String[1];
             args[0]="Ingreso al sistema";
             LoginView.main(args);
-        } catch (ParseException ex) {
-            Logger.getLogger(MenuAdminSist.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_menu_salirMouseClicked
 
     private void menu_auditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_auditoriaActionPerformed

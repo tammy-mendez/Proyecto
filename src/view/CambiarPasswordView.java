@@ -347,13 +347,9 @@ public class CambiarPasswordView extends javax.swing.JFrame {
                 as.setAccion("Cambio su contraseña");
                 as.setTabla("Ninguna");
                 //trabajamos con la fecha
-                 try {
                 Date fecha=new Date();
-                DateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                as.setFechaHora(formato.parse(formato.format(fecha)));
-                } catch (ParseException ex) {
-                Logger.getLogger(CambiarPasswordView.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                as.setFechaHora(formato.format(fecha));
                 as.setUsuario(nombre);
                 entityManager.persist(as);
                 entityManager.getTransaction().commit();
@@ -465,6 +461,7 @@ public class CambiarPasswordView extends javax.swing.JFrame {
                 if(u.get(0).getPassword().equals(tf_actual.getText())){
                     tf_actual.setEnabled(false);
                     tf_codempl.setEnabled(false);
+                    btn_aceptar.setEnabled(false);
                     tf_nueva.setEnabled(true);
                     tf_nueva2.setEnabled(true);
                     btn_cambiar.setEnabled(true);

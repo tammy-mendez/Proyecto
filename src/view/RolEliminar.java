@@ -149,7 +149,6 @@ public class RolEliminar extends javax.swing.JFrame {
         // TODO add your handling code here:
         resp=  JOptionPane.showConfirmDialog(null,"Esta seguro que desea eliminar?", "Confirmar Eliminación",JOptionPane.YES_NO_OPTION );
         if(resp==JOptionPane.YES_OPTION){
-            try {
                 EntityManagerFactory fact=Persistence.createEntityManagerFactory("proyectoPU");
                 EntityManager ema= fact.createEntityManager();
                 ema.getTransaction().begin();
@@ -161,18 +160,14 @@ public class RolEliminar extends javax.swing.JFrame {
                 as.setTabla("Rol");
                 //trabajamos con la fecha
                 Date fecha=new Date();
-                DateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                as.setFechaHora(formato.parse(formato.format(fecha)));
+                DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                as.setFechaHora(formato.format(fecha));
                 as.setUsuario(LoginView.nombreUsuario);
                 ema.persist(as);
                 ema.getTransaction().commit();
                 ema.close();
                 JOptionPane.showMessageDialog(null, "Eliminación Exitosa");
                 this.setVisible(false);
-            } catch (ParseException ex) {
-                Logger.getLogger(RolEliminar.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
         }else{
            this.setVisible(false);
         }

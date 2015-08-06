@@ -7,18 +7,18 @@
 package bean;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Persistence;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -32,7 +32,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "AuditoriaSistema.findByTabla", query = "SELECT a FROM AuditoriaSistema a WHERE a.tabla = :tabla"),
     @NamedQuery(name = "AuditoriaSistema.findByAccion", query = "SELECT a FROM AuditoriaSistema a WHERE a.accion = :accion"),
     @NamedQuery(name = "AuditoriaSistema.findByFechaHora", query = "SELECT a FROM AuditoriaSistema a WHERE a.fechaHora = :fechaHora"),
-    @NamedQuery(name = "AuditoriaSistema.findByUsuario", query = "SELECT a FROM AuditoriaSistema a WHERE a.usuario = :usuario")})
+    @NamedQuery(name = "AuditoriaSistema.findByUsuario", query = "SELECT a FROM AuditoriaSistema a WHERE a.usuario = :usuario"),
+    @NamedQuery(name = "AuditoriaSistema.findByValores", query = "SELECT a FROM AuditoriaSistema a WHERE a.valores = :valores")})
 public class AuditoriaSistema implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,11 +49,12 @@ public class AuditoriaSistema implements Serializable {
     private String accion;
     @Basic(optional = false)
     @Column(name = "fechaHora")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaHora;
+    private String fechaHora;
     @Basic(optional = false)
     @Column(name = "usuario")
     private String usuario;
+    @Column(name = "valores")
+    private String valores;
 
     public AuditoriaSistema() {
     }
@@ -61,7 +63,7 @@ public class AuditoriaSistema implements Serializable {
         this.codigoAuditoria = codigoAuditoria;
     }
 
-    public AuditoriaSistema(Integer codigoAuditoria, String tabla, String accion, Date fechaHora, String usuario) {
+    public AuditoriaSistema(Integer codigoAuditoria, String tabla, String accion, String fechaHora, String usuario) {
         this.codigoAuditoria = codigoAuditoria;
         this.tabla = tabla;
         this.accion = accion;
@@ -93,11 +95,11 @@ public class AuditoriaSistema implements Serializable {
         this.accion = accion;
     }
 
-    public Date getFechaHora() {
+    public String getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(Date fechaHora) {
+    public void setFechaHora(String fechaHora) {
         this.fechaHora = fechaHora;
     }
 
@@ -108,6 +110,15 @@ public class AuditoriaSistema implements Serializable {
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
+
+    public String getValores() {
+        return valores;
+    }
+
+    public void setValores(String valores) {
+        this.valores = valores;
+    }
+  
 
     @Override
     public int hashCode() {

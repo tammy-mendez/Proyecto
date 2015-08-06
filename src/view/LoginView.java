@@ -250,13 +250,9 @@ public class LoginView extends javax.swing.JFrame {
                         as.setAccion("Inicio Sesion");
                         as.setTabla("Ninguna");
                         //trabajamos con la fecha
-                  try {
                         Date fecha=new Date();
-                        DateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        as.setFechaHora(formato.parse(formato.format(fecha)));
-                 } catch (ParseException ex) {
-                        Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                        DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                        as.setFechaHora(formato.format(fecha));
                         as.setUsuario(LoginView.nombreUsuario);
                         entityManager.getTransaction().begin();
                         entityManager.persist(as);

@@ -252,7 +252,6 @@ public class UsuarioCreate extends javax.swing.JFrame {
                   JOptionPane.showMessageDialog(null,"El empleado ya tiene una cuenta creada","Error",JOptionPane.ERROR_MESSAGE);
                   return;
              }else{
-                 try {
                      u.setCodigoEmpleado(e.getCodigoEmpleado());
                      u.setPassword(tf_passw.getText());
                      Rol r= new Rol();
@@ -266,7 +265,7 @@ public class UsuarioCreate extends javax.swing.JFrame {
                      //trabajamos con la fecha
                      Date fecha=new Date();
                      DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-                     as.setFechaHora(formato.parse(formato.format(fecha)));
+                     as.setFechaHora(formato.format(fecha));
                      as.setUsuario(LoginView.nombreUsuario);
                      em.persist(as);
                      em.getTransaction().commit();
@@ -283,9 +282,6 @@ public class UsuarioCreate extends javax.swing.JFrame {
                          this.setVisible(false);
                      }else{
                          JOptionPane.showMessageDialog(null,"Creación exitosa,sus datos no puedieron ser enviados; verifique su dirrecion de email", "Error",JOptionPane.ERROR_MESSAGE);
-                     }
-                 } catch (ParseException ex) {
-                     Logger.getLogger(UsuarioCreate.class.getName()).log(Level.SEVERE, null, ex);
                      }
                 }    
              }else{
