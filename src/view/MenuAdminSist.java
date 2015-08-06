@@ -89,6 +89,7 @@ public class MenuAdminSist extends javax.swing.JFrame {
         menu_rol.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         menu_rol.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
+        mItem_crearR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/add.png"))); // NOI18N
         mItem_crearR.setText("Crear Rol");
         mItem_crearR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +98,7 @@ public class MenuAdminSist extends javax.swing.JFrame {
         });
         menu_rol.add(mItem_crearR);
 
+        mItem_editarR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/refrescar.png"))); // NOI18N
         mItem_editarR.setText("Editar Rol");
         mItem_editarR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,6 +107,7 @@ public class MenuAdminSist extends javax.swing.JFrame {
         });
         menu_rol.add(mItem_editarR);
 
+        mItem_eliminarR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/trash.png"))); // NOI18N
         mItem_eliminarR.setText("Eliminar Rol");
         mItem_eliminarR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,6 +116,7 @@ public class MenuAdminSist extends javax.swing.JFrame {
         });
         menu_rol.add(mItem_eliminarR);
 
+        mItem_buscarR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/zoom.png"))); // NOI18N
         mItem_buscarR.setText("Buscar Rol");
         mItem_buscarR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,6 +130,7 @@ public class MenuAdminSist extends javax.swing.JFrame {
         menu_usuario.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         menu_usuario.setText("Administrar Usuario");
 
+        mitem_regis_usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icon-student.png"))); // NOI18N
         mitem_regis_usuario.setText("Registrar Usuario");
         mitem_regis_usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

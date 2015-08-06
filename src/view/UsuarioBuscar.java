@@ -233,11 +233,25 @@ public class UsuarioBuscar extends javax.swing.JFrame {
     private void masterTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_masterTableMouseClicked
         // TODO add your handling code here:
           String iden2;
+          try{
+              JOptionPane.showMessageDialog(null, masterTable.getValueAt(masterTable.getSelectedRow(), 1));
+          }
+          catch(NullPointerException e){
+              JOptionPane.showMessageDialog(null, "te atrape");
+          }catch(Exception e){
+              JOptionPane.showMessageDialog(null, "asd");
+          }
           switch (MenuAdminSist.opcion){
           case 1:
                  cantidad=masterTable.getSelectedRow();
                  id=(Integer) masterTable.getValueAt(cantidad, 0);
-                 nombre=(Integer)masterTable.getValueAt(cantidad, 1);
+                 if (masterTable.getValueAt(cantidad, 1) != null && masterTable.getValueAt(cantidad, 1).toString().trim().length() != 0){
+                    nombre=(Integer)masterTable.getValueAt(cantidad, 1); 
+                 }else {
+                    nombre = (Integer)null;
+                 }
+                    
+                 
                  iden=Integer.toString(id);
                  iden2=Integer.toString(nombre);
                  JFrame frame=new EditarUsuario();
@@ -250,9 +264,10 @@ public class UsuarioBuscar extends javax.swing.JFrame {
                  this.setVisible(false);
                  break;
           case 2:
-               cantidad=masterTable.getSelectedRow();
-                id=(Integer) masterTable.getValueAt(cantidad, 0);
-                nombre=(Integer)masterTable.getValueAt(cantidad, 1);
+              
+                 cantidad=masterTable.getSelectedRow();
+                 id=(Integer) masterTable.getValueAt(cantidad, 0);
+                 nombre=(Integer)masterTable.getValueAt(cantidad, 1);
                  iden=Integer.toString(id);
                  iden2=Integer.toString(nombre);
                  JFrame frame2=new EliminarUsuario();
@@ -270,6 +285,7 @@ public class UsuarioBuscar extends javax.swing.JFrame {
           case 3:
               break;
       }
+
     }//GEN-LAST:event_masterTableMouseClicked
 
     private void tf_valorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_valorKeyTyped
