@@ -182,7 +182,7 @@ public class EditarUsuario extends javax.swing.JFrame {
                 
             } 
             else if (resp==JOptionPane.YES_OPTION){
-                try {
+              
                     EntityManagerFactory fact=Persistence.createEntityManagerFactory("proyectoPU");
                     EntityManager em=fact.createEntityManager();
                     em.getTransaction().begin();
@@ -216,17 +216,13 @@ public class EditarUsuario extends javax.swing.JFrame {
                     //trabajamos con la fecha
                     Date fecha=new Date();
                     DateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    as.setFechaHora(formato.parse(formato.format(fecha)));
+                    as.setFechaHora(formato.format(fecha));
                     as.setUsuario(LoginView.nombreUsuario);
                     em.persist(as);
                     em.getTransaction().commit();
                     em.close();
                     JOptionPane.showMessageDialog(null, "Modificación Exitosa");
                     
-                } catch (ParseException ex) {
-                    Logger.getLogger(RolEdit.class.getName()).log(Level.SEVERE, null, ex);
-                }
-              
             } else{
                 this.setVisible(false);
             }

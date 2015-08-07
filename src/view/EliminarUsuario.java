@@ -164,7 +164,7 @@ public class EliminarUsuario extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No puede eliminar su propia cuenta");        
         } 
         else if(resp==JOptionPane.YES_OPTION){
-            try {
+           
                 EntityManagerFactory fact=Persistence.createEntityManagerFactory("proyectoPU");
                 EntityManager ema= fact.createEntityManager();
                 ema.getTransaction().begin();
@@ -177,17 +177,14 @@ public class EliminarUsuario extends javax.swing.JFrame {
                 //trabajamos con la fecha
                 Date fecha=new Date();
                 DateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                as.setFechaHora(formato.parse(formato.format(fecha)));
+                as.setFechaHora(formato.format(fecha));
                 as.setUsuario(LoginView.nombreUsuario);
                 ema.persist(as);
                 ema.getTransaction().commit();
                 ema.close();
                 JOptionPane.showMessageDialog(null, "Eliminación Exitosa");
                 this.setVisible(false);
-            } catch (ParseException ex) {
-                Logger.getLogger(RolEliminar.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
+        
         }else{
            this.setVisible(false);
         }
