@@ -147,17 +147,20 @@ public class RolEliminar extends javax.swing.JFrame {
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         // TODO add your handling code here:
+        String valores;
         resp=  JOptionPane.showConfirmDialog(null,"Esta seguro que desea eliminar?", "Confirmar Eliminación",JOptionPane.YES_NO_OPTION );
         if(resp==JOptionPane.YES_OPTION){
                 EntityManagerFactory fact=Persistence.createEntityManagerFactory("proyectoPU");
                 EntityManager ema= fact.createEntityManager();
                 ema.getTransaction().begin();
                 Rol rolFind=ema.find(Rol.class,Integer.parseInt(tf_identi.getText()) );
+                valores=rolFind.getIdRol()+"-"+rolFind.getNombre();//guardamos el objeto a elminar
                 ema.remove(rolFind);
                 //registramos los datos necesarios para la auditoria
                 AuditoriaSistema as=new AuditoriaSistema();
                 as.setAccion("Eliminación");
                 as.setTabla("Rol");
+                as.setValores(valores);
                 //trabajamos con la fecha
                 Date fecha=new Date();
                 DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");

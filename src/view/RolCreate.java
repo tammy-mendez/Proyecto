@@ -171,8 +171,7 @@ public class RolCreate extends javax.swing.JFrame {
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
-      
-
+            String valores;
              if (tf_nombre.getText().length()==0){
                 JOptionPane.showMessageDialog(null,"Ingrese algun valor para el campo nombre", "Advertencia",JOptionPane.ERROR_MESSAGE);
                 return;
@@ -187,24 +186,25 @@ public class RolCreate extends javax.swing.JFrame {
                 }else{
                      resp=  JOptionPane.showConfirmDialog(null,"Desea Registrar un nuevo rol?", "Confirmar Creación",JOptionPane.YES_NO_OPTION );
                      if (resp==JOptionPane.YES_OPTION){
-                        EntityManagerFactory fact=Persistence.createEntityManagerFactory("proyectoPU");
-                        EntityManager em=fact.createEntityManager();
-                        em.getTransaction().begin();
+                        entityManager.getTransaction().begin();
                         Rol r=new Rol();
                         r.setNombre(tf_nombre.getText().toLowerCase());
-                        em.persist(r);
+                        entityManager.persist(r);
+                        entityManager.flush();//es similar a un commit
+                        valores=r.getIdRol()+"-"+r.getNombre();//guardamos los datos del objeto a crear
                          //registramos los datos necesarios para la auditoria
                         AuditoriaSistema as=new AuditoriaSistema();
                         as.setAccion("Inserción");
                         as.setTabla("Rol");
+                        as.setValores(valores);
                         //trabajamos con la fecha
                         Date fecha=new Date();
                         DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                         as.setFechaHora(formato.format(fecha));
                         as.setUsuario(LoginView.nombreUsuario);  
-                        em.persist(as);
-                        em.getTransaction().commit();
-                        em.close();
+                        entityManager.persist(as);
+                        entityManager.getTransaction().commit();
+                        entityManager.close();
                         JOptionPane.showMessageDialog(null,"Creación exitosa", "Confirmación",JOptionPane.INFORMATION_MESSAGE);
                          tf_nombre.setText(null);
                     

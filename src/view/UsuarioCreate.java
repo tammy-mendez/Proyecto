@@ -235,16 +235,15 @@ public class UsuarioCreate extends javax.swing.JFrame {
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
+        String valores;
         resp=  JOptionPane.showConfirmDialog(null,"Desea Registrar un nuevo usuario?", "Confirmar Creación",JOptionPane.YES_NO_OPTION );
         if (resp==JOptionPane.YES_OPTION){
-             EntityManagerFactory fact=Persistence.createEntityManagerFactory("proyectoPU");
-             EntityManager em=fact.createEntityManager();
-             em.getTransaction().begin();
+             EntityManager.getTransaction().begin();
              Usuario u=new Usuario();
              Empleado e=new Empleado();
              //obtenemos el codigo del empleado seleccionado  en la lista
              e=(Empleado) list_empleado.getSelectedItem();
-             //verificamos si el empleado ya no tiene una cuenta creada
+             //verificamos si el empleado ya tiene una cuenta creada
              Query=EntityManager.createNamedQuery("Usuario.findByCodigoEmpleado");
              Query.setParameter("codigoEmpleado", e.getCodigoEmpleado());
              List<Usuario> usu=Query.getResultList();
@@ -257,19 +256,22 @@ public class UsuarioCreate extends javax.swing.JFrame {
                      Rol r= new Rol();
                      r=(Rol) list_rol.getSelectedItem();
                      u.setIdRol(r.getIdRol());
-                     em.persist(u);
+                     EntityManager.persist(u);
+                     EntityManager.flush();
+                     valores=u.getCodigoEmpleado()+" "+ r.getNombre();
                      //registramos los datos necesarios para la auditoria
                      AuditoriaSistema as=new AuditoriaSistema();
                      as.setAccion("Creación");
                      as.setTabla("Usuario");
+                     as.setValores(valores);
                      //trabajamos con la fecha
                      Date fecha=new Date();
                      DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                      as.setFechaHora(formato.format(fecha));
                      as.setUsuario(LoginView.nombreUsuario);
-                     em.persist(as);
-                     em.getTransaction().commit();
-                     em.close();
+                     EntityManager.persist(as);
+                     EntityManager.getTransaction().commit();
+                     EntityManager.close();
                      //perparamos los datos para el envio del correo electrónico
                      datos[0]=e.getEmail();
                      datos[1]="Creación de cuenta";

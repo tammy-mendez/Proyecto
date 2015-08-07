@@ -220,7 +220,7 @@ public class MenuAdminSist extends javax.swing.JFrame {
             as.setTabla("Ninguna");
             //trabajamos con la fecha
             Date fecha=new Date();
-            DateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             as.setFechaHora(formato.format(fecha));
             as.setUsuario(LoginView.nombreUsuario);
             ema.persist(as);
