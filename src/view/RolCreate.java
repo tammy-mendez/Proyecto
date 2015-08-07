@@ -17,6 +17,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -170,41 +171,48 @@ public class RolCreate extends javax.swing.JFrame {
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
-        resp=  JOptionPane.showConfirmDialog(null,"Desea Registrar un nuevo rol?", "Confirmar Creación",JOptionPane.YES_NO_OPTION );
-         if (resp==JOptionPane.YES_OPTION){
+            String valores;
              if (tf_nombre.getText().length()==0){
-            JOptionPane.showMessageDialog(null,"Ingrese algun valor para el campo nombre", "Advertencia",JOptionPane.ERROR_MESSAGE);
-            return;
+                JOptionPane.showMessageDialog(null,"Ingrese algun valor para el campo nombre", "Advertencia",JOptionPane.ERROR_MESSAGE);
+                return;
             }else{
-                 try {
-                EntityManagerFactory fact=Persistence.createEntityManagerFactory("proyectoPU");
-                EntityManager em=fact.createEntityManager();
-                em.getTransaction().begin();
-                Rol r=new Rol();
-                r.setNombre(tf_nombre.getText());
-                em.persist(r);
-                //registramos los datos necesarios para la auditoria
-                AuditoriaSistema as=new AuditoriaSistema();
-                as.setAccion("Inserción");
-                as.setTabla("Rol");
-                //trabajamos con la fecha
-                Date fecha=new Date();
-                DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-                as.setFechaHora(formato.parse(formato.format(fecha)));
-                as.setUsuario(LoginView.nombreUsuario);
-                em.persist(as);
-                em.getTransaction().commit();
-                em.close();
-                // this.Insertar();
-                JOptionPane.showMessageDialog(null,"Creación exitosa", "Confirmación",JOptionPane.INFORMATION_MESSAGE);
-                tf_nombre.setText(null);
-            } catch (ParseException ex) {
-                Logger.getLogger(RolCreate.class.getName()).log(Level.SEVERE, null, ex);
-            }
-             }
-        }else{
-                this.setVisible(false);
-        }  
+                query=entityManager.createNamedQuery("Rol.findByNombre");
+                query.setParameter("nombre",tf_nombre.getText().toLowerCase());
+                List<Rol> rol= query.getResultList();
+                if(rol.size()>=1){//comprueba si ya existe un rol con el mismo nombre
+                    JOptionPane.showMessageDialog(null,"Ya existe un rol con el mismo nombre", "Aviso",JOptionPane.ERROR_MESSAGE);
+                    tf_nombre.setText(null);
+                    return;
+                }else{
+                     resp=  JOptionPane.showConfirmDialog(null,"Desea Registrar un nuevo rol?", "Confirmar Creación",JOptionPane.YES_NO_OPTION );
+                     if (resp==JOptionPane.YES_OPTION){
+                        entityManager.getTransaction().begin();
+                        Rol r=new Rol();
+                        r.setNombre(tf_nombre.getText().toLowerCase());
+                        entityManager.persist(r);
+                        entityManager.flush();//es similar a un commit
+                        valores=r.getIdRol()+"-"+r.getNombre();//guardamos los datos del objeto a crear
+                         //registramos los datos necesarios para la auditoria
+                        AuditoriaSistema as=new AuditoriaSistema();
+                        as.setAccion("Inserción");
+                        as.setTabla("Rol");
+                        as.setValores(valores);
+                        //trabajamos con la fecha
+                        Date fecha=new Date();
+                        DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                        as.setFechaHora(formato.format(fecha));
+                        as.setUsuario(LoginView.nombreUsuario);  
+                        entityManager.persist(as);
+                        entityManager.getTransaction().commit();
+                        entityManager.close();
+                        JOptionPane.showMessageDialog(null,"Creación exitosa", "Confirmación",JOptionPane.INFORMATION_MESSAGE);
+                         tf_nombre.setText(null);
+                    
+                    }else{
+                        this.setVisible(false);
+                    }
+                 }
+                }
     }//GEN-LAST:event_btn_guardarActionPerformed
    
     private void tf_nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_nombreKeyTyped

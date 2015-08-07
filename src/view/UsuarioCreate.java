@@ -251,70 +251,33 @@ public class UsuarioCreate extends javax.swing.JFrame {
              if(usu.size()!=0){
                   JOptionPane.showMessageDialog(null,"El empleado ya tiene una cuenta creada","Error",JOptionPane.ERROR_MESSAGE);
                   return;
-             }else{/*
-                u.setCodigoEmpleado(e.getCodigoEmpleado());
-                u.setPassword(tf_passw.getText());
-                Rol r= new Rol();
-                r=(Rol) list_rol.getSelectedItem();
-                u.setIdRol(r);
-                //u.setIdRol(r.getIdRol());
-                em.persist(u);
-                em.getTransaction().commit();
-                em.close();
-                //perparamos los datos para el envio del correo electrónico
-                datos[0]=e.getEmail();
-                datos[1]="Creación de cuenta";
-                datos[2]="Su código de usuario es:"+" "+"'"+e.getCodigoEmpleado()+"'" +" "+
-                        "y su contraseña de acceso es:"+" "+"'"+u.getPassword()+"'";
-                //enviamos el corrreo
+             }else{u.setCodigoEmpleado(e.getCodigoEmpleado());
+             u.setPassword(tf_passw.getText());
+                 Rol r= new Rol();
+                 r=(Rol) list_rol.getSelectedItem();
+                 u.setIdRol(r);
+                 em.persist(u);
+                 AuditoriaSistema as=new AuditoriaSistema();
+                 as.setAccion("Creación");
+                 as.setTabla("Usuario");
+                 Date fecha=new Date();
+                 DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                 as.setFechaHora((formato.format(fecha)));
+                 as.setUsuario(LoginView.nombreUsuario);
+                 em.persist(as);
+                 em.getTransaction().commit();
+                 em.close();
+                 datos[0]=e.getEmail();
+                 datos[1]="Creación de cuenta";
+                 datos[2]="Su código de usuario es:"+" "+"'"+e.getCodigoEmpleado()+"'" +" "+
+                         "y su contraseña de acceso es:"+" "+"'"+u.getPassword()+"'";
                  Correo c=new Correo();
-               if(c.enviarCorreo(datos)){
-                   JOptionPane.showMessageDialog(null,"Creación Exitosa, sus datos fueron enviados a su email", "Aviso",JOptionPane.INFORMATION_MESSAGE);
-                   this.setVisible(false);
-               }else{
-                    JOptionPane.showMessageDialog(null,"Creación exitosa,sus datos no puedieron ser enviados; verifique su dirrecion de email", "Error",JOptionPane.ERROR_MESSAGE);
-               }
-                
-                 
-             }
-             
-             
-=======  */
-                 try {
-                     u.setCodigoEmpleado(e.getCodigoEmpleado());
-                     u.setPassword(tf_passw.getText());
-                     Rol r= new Rol();
-                     r=(Rol) list_rol.getSelectedItem();
-                     u.setIdRol(r);
-                     em.persist(u);
-                     //registramos los datos necesarios para la auditoria
-                     AuditoriaSistema as=new AuditoriaSistema();
-                     as.setAccion("Creación");
-                     as.setTabla("Usuario");
-                     //trabajamos con la fecha
-                     Date fecha=new Date();
-                     DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-                     as.setFechaHora(formato.parse(formato.format(fecha)));
-                     as.setUsuario(LoginView.nombreUsuario);
-                     em.persist(as);
-                     em.getTransaction().commit();
-                     em.close();
-                     //perparamos los datos para el envio del correo electrónico
-                     datos[0]=e.getEmail();
-                     datos[1]="Creación de cuenta";
-                     datos[2]="Su código de usuario es:"+" "+"'"+e.getCodigoEmpleado()+"'" +" "+
-                             "y su contraseña de acceso es:"+" "+"'"+u.getPassword()+"'";
-                     //enviamos el corrreo
-                     Correo c=new Correo();
-                     if(c.enviarCorreo(datos)){
-                         JOptionPane.showMessageDialog(null,"Creación Exitosa, sus datos fueron enviados a su email", "Aviso",JOptionPane.INFORMATION_MESSAGE);
-                         this.setVisible(false);
-                     }else{
-                         JOptionPane.showMessageDialog(null,"Creación exitosa,sus datos no puedieron ser enviados; verifique su dirrecion de email", "Error",JOptionPane.ERROR_MESSAGE);
-                     }
-                 } catch (ParseException ex) {
-                     Logger.getLogger(UsuarioCreate.class.getName()).log(Level.SEVERE, null, ex);
-                     }
+                 if(c.enviarCorreo(datos)){
+                     JOptionPane.showMessageDialog(null,"Creación Exitosa, sus datos fueron enviados a su email", "Aviso",JOptionPane.INFORMATION_MESSAGE);
+                     this.setVisible(false);
+                 }else{
+                     JOptionPane.showMessageDialog(null,"Creación exitosa,sus datos no puedieron ser enviados; verifique su dirrecion de email", "Error",JOptionPane.ERROR_MESSAGE);
+                 }
                 }    
              }else{
                     this.setVisible(false);

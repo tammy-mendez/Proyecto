@@ -12,6 +12,9 @@
 package view;
 
 import bean.AuditoriaSistema;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -58,7 +61,7 @@ public class VerAuditoriaSistema extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
-        list_filtros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fecha", "Entidad", "Acción", "Usuario" }));
+        list_filtros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Entidad", "Acción", "Usuario", "Fecha" }));
         list_filtros.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 list_filtrosFocusLost(evt);
@@ -135,41 +138,51 @@ public class VerAuditoriaSistema extends javax.swing.JFrame {
         columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fechaHora}"));
         columnBinding.setColumnName("Fecha Hora");
-        columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${usuario}"));
         columnBinding.setColumnName("Usuario");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${valores}"));
+        columnBinding.setColumnName("Valores");
         columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane2.setViewportView(jTable2);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setPreferredWidth(50);
+            jTable2.getColumnModel().getColumn(3).setPreferredWidth(80);
+            jTable2.getColumnModel().getColumn(4).setPreferredWidth(50);
+            jTable2.getColumnModel().getColumn(5).setPreferredWidth(150);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(124, 124, 124))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btn_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(332, 332, 332))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(88, 88, 88))))
+                .addGap(32, 32, 32)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 796, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 39, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(373, 373, 373)
+                .addComponent(btn_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addContainerGap(60, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69)
+                .addGap(45, 45, 45)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGap(49, 49, 49)
                 .addComponent(btn_cerrar)
-                .addGap(42, 42, 42))
+                .addGap(47, 47, 47))
         );
 
         bindingGroup.bind();
@@ -190,8 +203,8 @@ public class VerAuditoriaSistema extends javax.swing.JFrame {
         }else{
              opcion=(String) list_filtros.getSelectedItem();
              if(opcion.equals("Fecha")){
-                 query=entityManager.createNamedQuery("AuditoriaSistema.findByFecha");
-                 query.setParameter("fecha", tf_valor.getText());
+                 query=entityManager.createNativeQuery("SELECT * FROM auditoria_sistema WHERE fechaHora LIKE "
+                    +"'%"+tf_valor.getText()+"%'", AuditoriaSistema.class);
                  List<AuditoriaSistema> a=query.getResultList();
                  if(a.size()==0){
                      JOptionPane.showMessageDialog(null,"No se han encontrado registros para la fecha", "Error",JOptionPane.ERROR_MESSAGE);
@@ -203,8 +216,8 @@ public class VerAuditoriaSistema extends javax.swing.JFrame {
                  return;
              }
              if(opcion.equals("Acción")){
-                 query=entityManager.createNamedQuery("AuditoriaSistema.findByAccion");
-                 query.setParameter("accion", tf_valor.getText());
+                 query=entityManager.createNativeQuery("SELECT * FROM auditoria_sistema WHERE accion LIKE "
+                    +"'%"+tf_valor.getText()+"%'", AuditoriaSistema.class);
                  List<AuditoriaSistema> a=query.getResultList();
                  if(a.size()==0){
                      JOptionPane.showMessageDialog(null,"No se han encontrado registros para dicha acción", "Error",JOptionPane.ERROR_MESSAGE);
@@ -217,8 +230,8 @@ public class VerAuditoriaSistema extends javax.swing.JFrame {
 
              }
              if(opcion.equals("Entidad")){
-                 query=entityManager.createNamedQuery("AuditoriaSistema.findByTabla");
-                 query.setParameter("tabla", tf_valor.getText());
+                 query=entityManager.createNativeQuery("SELECT * FROM auditoria_sistema WHERE tabla LIKE "
+                    +"'%"+tf_valor.getText()+"%'", AuditoriaSistema.class);
                  List<AuditoriaSistema> a=query.getResultList();
                  if(a.size()==0){
                      JOptionPane.showMessageDialog(null,"No se han encontrado registros para dicha Entidad", "Error",JOptionPane.ERROR_MESSAGE);
@@ -231,8 +244,8 @@ public class VerAuditoriaSistema extends javax.swing.JFrame {
 
              }
              if(opcion.equals("Usuario")){
-                 query=entityManager.createNamedQuery("AuditoriaSistema.findByUsuario");
-                 query.setParameter("usuario", tf_valor.getText());
+                 query=entityManager.createNativeQuery("SELECT * FROM auditoria_sistema WHERE usuario LIKE "
+                    +"'%"+tf_valor.getText()+"%'", AuditoriaSistema.class);
                  List<AuditoriaSistema> a=query.getResultList();
                  if(a.size()==0){
                      JOptionPane.showMessageDialog(null,"No se han encontrado registros para dicho Usuario", "Error",JOptionPane.ERROR_MESSAGE);
@@ -263,9 +276,11 @@ public class VerAuditoriaSistema extends javax.swing.JFrame {
     private void list_filtrosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_list_filtrosFocusLost
         // TODO add your handling code here:
         if(list_filtros.getSelectedItem()=="Fecha"){
-            JOptionPane.showMessageDialog(null,"Ingrese la fecha en formato YYYY-MM-DD", "Aviso",JOptionPane.INFORMATION_MESSAGE);
-        }
-        
+             Date fecha= new Date(); 
+            DateFormat formato=new SimpleDateFormat("dd-MM-yyyy");
+            tf_valor.setText(formato.format(fecha));   
+         }
+            
     }//GEN-LAST:event_list_filtrosFocusLost
 
     /**

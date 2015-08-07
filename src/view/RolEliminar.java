@@ -167,40 +167,36 @@ public class RolEliminar extends javax.swing.JFrame {
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         // TODO add your handling code here:
+        String valores;
         resp=  JOptionPane.showConfirmDialog(null,"Esta seguro que desea eliminar?", "Confirmar Eliminación",JOptionPane.YES_NO_OPTION );
         if(resp==JOptionPane.YES_OPTION){
-            try {     
-                //asigno el valor de busqueda para ListaUsuariosConRoles
-                idRol = Integer.parseInt(tf_identi.getText());
-                ListaUsuariosConRoles ventana;
-                ventana = new ListaUsuariosConRoles(this, rootPaneCheckingEnabled);
-                ventana.setVisible(true);
-                EntityManagerFactory fact=Persistence.createEntityManagerFactory("proyectoPU");
-                EntityManager ema= fact.createEntityManager();
-                if(ListaUsuariosConRoles.respuesta_opcion.equals("Aceptado")){
-                    ventana.dispose();
-                    ema.getTransaction().begin();
-                    Rol rolFind=ema.find(Rol.class,Integer.parseInt(tf_identi.getText()) ); 
-                    ema.remove(rolFind);
-                    //registramos los datos necesarios para la auditoria
-                    AuditoriaSistema as=new AuditoriaSistema();
-                    as.setAccion("Eliminación");
-                    as.setTabla("Rol");
-                    //trabajamos con la fecha
-                    Date fecha=new Date();
-                    DateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    as.setFechaHora(formato.parse(formato.format(fecha)));
-                    as.setUsuario(LoginView.nombreUsuario);
-                    ema.persist(as);
-
-                    JOptionPane.showMessageDialog(null, "Eliminación Exitosa");
-                    this.setVisible(false);
-                }
-                ema.getTransaction().commit();
-                ema.close();
-            } catch (ParseException ex) {
-                Logger.getLogger(RolEliminar.class.getName()).log(Level.SEVERE, null, ex);
+            idRol = Integer.parseInt(tf_identi.getText());
+            ListaUsuariosConRoles ventana;
+            ventana = new ListaUsuariosConRoles(this, rootPaneCheckingEnabled);
+            ventana.setVisible(true);
+            EntityManagerFactory fact=Persistence.createEntityManagerFactory("proyectoPU");
+            EntityManager ema= fact.createEntityManager();
+            if(ListaUsuariosConRoles.respuesta_opcion.equals("Aceptado")){
+                ventana.dispose();
+                ema.getTransaction().begin();
+                Rol rolFind=ema.find(Rol.class,Integer.parseInt(tf_identi.getText()) );
+                ema.remove(rolFind);
+                //registramos los datos necesarios para la auditoria
+                AuditoriaSistema as=new AuditoriaSistema();
+                as.setAccion("Eliminación");
+                as.setTabla("Rol");
+                //trabajamos con la fecha
+                Date fecha=new Date();
+                DateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                as.setFechaHora((formato.format(fecha)));
+                as.setUsuario(LoginView.nombreUsuario);
+                ema.persist(as);
+                
+                JOptionPane.showMessageDialog(null, "Eliminación Exitosa");
+                this.setVisible(false);
             }
+            ema.getTransaction().commit();
+            ema.close();
 
         }else{
            this.setVisible(false);

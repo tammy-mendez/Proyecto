@@ -17,6 +17,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -162,45 +163,54 @@ public class RolEdit extends javax.swing.JFrame {
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
+        String antes;
+        String despues;
         if (tf_nombre.getText().length()==0){
             JOptionPane.showMessageDialog(null,"Ingrese algún valor para el campo nombre", "Advertencia",JOptionPane.ERROR_MESSAGE);
             return;
-        }
- else{
-         resp=  JOptionPane.showConfirmDialog(null,"Desea guardar los cambios?", "Confirmar Modificación",JOptionPane.YES_NO_OPTION );
-        if (resp==JOptionPane.YES_OPTION){
-             try {
-                 EntityManagerFactory fact=Persistence.createEntityManagerFactory("proyectoPU");
-                 EntityManager em=fact.createEntityManager();
-                 em.getTransaction().begin();
-                 Rol r=new Rol();
-                 r.setIdRol(Integer.parseInt(tf_identi.getText()));
-                 r.setNombre(tf_nombre.getText());
-                 em.merge(r);
-                 //registramos los datos necesarios para la auditoria
-                 AuditoriaSistema as=new AuditoriaSistema();
-                 as.setAccion("Modificación");
-                 as.setTabla("Rol");
-                 //trabajamos con la fecha
-                 Date fecha=new Date();
-                 DateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                 as.setFechaHora(formato.parse(formato.format(fecha)));
-                 as.setUsuario(LoginView.nombreUsuario);
-                 em.persist(as);
-                 em.getTransaction().commit();
-                 em.close();
-                 JOptionPane.showMessageDialog(null, "Modificación Exitosa");
-                 
-             } catch (ParseException ex) {
-                 Logger.getLogger(RolEdit.class.getName()).log(Level.SEVERE, null, ex);
-             }
-             
-       } else{
-           this.setVisible(false);
-       }
- }
-       
-
+        }else{
+                query=entityManager.createNamedQuery("Rol.findByNombre");
+                query.setParameter("nombre",tf_nombre.getText().toLowerCase());
+                List<Rol> rol= query.getResultList();
+                if(rol.size()>=1){//comprueba si ya existe un rol con el mismo nombre
+                    JOptionPane.showMessageDialog(null,"Ya existe un rol con el mismo nombre", "Aviso",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }else{
+                        resp=  JOptionPane.showConfirmDialog(null,"Desea guardar los cambios?", "Confirmar Modificación",JOptionPane.YES_NO_OPTION );
+                        if (resp==JOptionPane.YES_OPTION){
+                            entityManager.getTransaction().begin();
+                            //registramos el nombre del rol antes de que se cambie
+                            query=entityManager.createNamedQuery("Rol.findByIdRol");
+                            query.setParameter("idRol",Integer.parseInt(tf_identi.getText()));
+                            List<Rol> rl=query.getResultList();
+                            antes=tf_identi.getText()+"-"+rl.get(0).getNombre()+" ";
+                            //hacemos el merge, el cambio
+                            Rol r=new Rol();
+                            r.setIdRol(Integer.parseInt(tf_identi.getText()));
+                            r.setNombre(tf_nombre.getText().toLowerCase());//convertir a minuscula
+                            entityManager.merge(r);
+                            entityManager.flush();
+                            //guardamos los cambios
+                            despues=" "+r.getIdRol()+"-"+r.getNombre();
+                            //registramos los datos necesarios para la auditoria
+                             AuditoriaSistema as=new AuditoriaSistema();
+                             as.setAccion("Modificación");
+                             as.setTabla("Rol");
+                             as.setValores(antes+"to"+despues);
+                             //trabajamos con la fecha
+                              Date fecha=new Date();
+                              DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                              as.setFechaHora(formato.format(fecha));    
+                              as.setUsuario(LoginView.nombreUsuario);
+                              entityManager.persist(as);
+                              entityManager.getTransaction().commit();
+                              entityManager.close();
+                            JOptionPane.showMessageDialog(null, "Modificación Exitosa");    
+                         }else{
+                            this.setVisible(false);
+                        }
+                    }
+            }
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_guardarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_guardarKeyTyped
