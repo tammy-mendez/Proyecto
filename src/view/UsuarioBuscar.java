@@ -233,14 +233,6 @@ public class UsuarioBuscar extends javax.swing.JFrame {
     private void masterTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_masterTableMouseClicked
         // TODO add your handling code here:
           String iden2;
-          try{
-              JOptionPane.showMessageDialog(null, masterTable.getValueAt(masterTable.getSelectedRow(), 1));
-          }
-          catch(NullPointerException e){
-              JOptionPane.showMessageDialog(null, "te atrape");
-          }catch(Exception e){
-              JOptionPane.showMessageDialog(null, "asd");
-          }
           switch (MenuAdminSist.opcion){
           case 1:
                  cantidad=masterTable.getSelectedRow();

@@ -13,17 +13,22 @@ package view;
 
 import bean.AuditoriaSistema;
 import bean.Rol;
+import bean.Usuario;
+import java.awt.Dialog;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -31,6 +36,7 @@ import javax.swing.JOptionPane;
  */
 public class RolEliminar extends javax.swing.JFrame {
     private int resp;
+    public static int idRol;
 
     /** Creates new form RolEliminar */
     public RolEliminar() {
@@ -46,6 +52,8 @@ public class RolEliminar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         tf_nombre = new javax.swing.JTextField();
         lbl_identi = new javax.swing.JLabel();
@@ -53,6 +61,19 @@ public class RolEliminar extends javax.swing.JFrame {
         lbl_nombre = new javax.swing.JLabel();
         btn_eliminar = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,7 +116,7 @@ public class RolEliminar extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_nombre)
                     .addComponent(tf_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         btn_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/trash.png"))); // NOI18N
@@ -119,27 +140,26 @@ public class RolEliminar extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(btn_eliminar)
-                        .addGap(54, 54, 54)
-                        .addComponent(btn_cancelar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                    .addComponent(btn_eliminar)
+                    .addComponent(btn_cancelar))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_eliminar)
-                    .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47))
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(btn_eliminar)
+                        .addGap(33, 33, 33)
+                        .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -149,26 +169,35 @@ public class RolEliminar extends javax.swing.JFrame {
         // TODO add your handling code here:
         resp=  JOptionPane.showConfirmDialog(null,"Esta seguro que desea eliminar?", "Confirmar Eliminación",JOptionPane.YES_NO_OPTION );
         if(resp==JOptionPane.YES_OPTION){
-            try {
+            try {     
+                //asigno el valor de busqueda para ListaUsuariosConRoles
+                idRol = Integer.parseInt(tf_identi.getText());
+                ListaUsuariosConRoles ventana;
+                ventana = new ListaUsuariosConRoles(this, rootPaneCheckingEnabled);
+                ventana.setVisible(true);
                 EntityManagerFactory fact=Persistence.createEntityManagerFactory("proyectoPU");
                 EntityManager ema= fact.createEntityManager();
-                ema.getTransaction().begin();
-                Rol rolFind=ema.find(Rol.class,Integer.parseInt(tf_identi.getText()) );
-                ema.remove(rolFind);
-                //registramos los datos necesarios para la auditoria
-                AuditoriaSistema as=new AuditoriaSistema();
-                as.setAccion("Eliminación");
-                as.setTabla("Rol");
-                //trabajamos con la fecha
-                Date fecha=new Date();
-                DateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                as.setFechaHora(formato.parse(formato.format(fecha)));
-                as.setUsuario(LoginView.nombreUsuario);
-                ema.persist(as);
+                if(ListaUsuariosConRoles.respuesta_opcion.equals("Aceptado")){
+                    ventana.dispose();
+                    ema.getTransaction().begin();
+                    Rol rolFind=ema.find(Rol.class,Integer.parseInt(tf_identi.getText()) ); 
+                    ema.remove(rolFind);
+                    //registramos los datos necesarios para la auditoria
+                    AuditoriaSistema as=new AuditoriaSistema();
+                    as.setAccion("Eliminación");
+                    as.setTabla("Rol");
+                    //trabajamos con la fecha
+                    Date fecha=new Date();
+                    DateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    as.setFechaHora(formato.parse(formato.format(fecha)));
+                    as.setUsuario(LoginView.nombreUsuario);
+                    ema.persist(as);
+
+                    JOptionPane.showMessageDialog(null, "Eliminación Exitosa");
+                    this.setVisible(false);
+                }
                 ema.getTransaction().commit();
                 ema.close();
-                JOptionPane.showMessageDialog(null, "Eliminación Exitosa");
-                this.setVisible(false);
             } catch (ParseException ex) {
                 Logger.getLogger(RolEliminar.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -201,9 +230,11 @@ public class RolEliminar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_cancelar;
+    public static javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_identi;
     private javax.swing.JLabel lbl_nombre;
     public static javax.swing.JTextField tf_identi;
