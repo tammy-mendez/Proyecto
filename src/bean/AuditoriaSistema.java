@@ -6,19 +6,19 @@
 
 package bean;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -33,8 +33,11 @@ import javax.persistence.Table;
     @NamedQuery(name = "AuditoriaSistema.findByAccion", query = "SELECT a FROM AuditoriaSistema a WHERE a.accion = :accion"),
     @NamedQuery(name = "AuditoriaSistema.findByFechaHora", query = "SELECT a FROM AuditoriaSistema a WHERE a.fechaHora = :fechaHora"),
     @NamedQuery(name = "AuditoriaSistema.findByUsuario", query = "SELECT a FROM AuditoriaSistema a WHERE a.usuario = :usuario"),
-    @NamedQuery(name = "AuditoriaSistema.findByValores", query = "SELECT a FROM AuditoriaSistema a WHERE a.valores = :valores")})
+    @NamedQuery(name = "AuditoriaSistema.findByAntes", query = "SELECT a FROM AuditoriaSistema a WHERE a.antes = :antes"),
+    @NamedQuery(name = "AuditoriaSistema.findByDespues", query = "SELECT a FROM AuditoriaSistema a WHERE a.despues = :despues")})
 public class AuditoriaSistema implements Serializable {
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,8 +56,10 @@ public class AuditoriaSistema implements Serializable {
     @Basic(optional = false)
     @Column(name = "usuario")
     private String usuario;
-    @Column(name = "valores")
-    private String valores;
+    @Column(name = "antes")
+    private String antes;
+    @Column(name = "despues")
+    private String despues;
 
     public AuditoriaSistema() {
     }
@@ -76,7 +81,9 @@ public class AuditoriaSistema implements Serializable {
     }
 
     public void setCodigoAuditoria(Integer codigoAuditoria) {
+        Integer oldCodigoAuditoria = this.codigoAuditoria;
         this.codigoAuditoria = codigoAuditoria;
+        changeSupport.firePropertyChange("codigoAuditoria", oldCodigoAuditoria, codigoAuditoria);
     }
 
     public String getTabla() {
@@ -84,7 +91,9 @@ public class AuditoriaSistema implements Serializable {
     }
 
     public void setTabla(String tabla) {
+        String oldTabla = this.tabla;
         this.tabla = tabla;
+        changeSupport.firePropertyChange("tabla", oldTabla, tabla);
     }
 
     public String getAccion() {
@@ -92,7 +101,9 @@ public class AuditoriaSistema implements Serializable {
     }
 
     public void setAccion(String accion) {
+        String oldAccion = this.accion;
         this.accion = accion;
+        changeSupport.firePropertyChange("accion", oldAccion, accion);
     }
 
     public String getFechaHora() {
@@ -100,7 +111,9 @@ public class AuditoriaSistema implements Serializable {
     }
 
     public void setFechaHora(String fechaHora) {
+        String oldFechaHora = this.fechaHora;
         this.fechaHora = fechaHora;
+        changeSupport.firePropertyChange("fechaHora", oldFechaHora, fechaHora);
     }
 
     public String getUsuario() {
@@ -108,17 +121,30 @@ public class AuditoriaSistema implements Serializable {
     }
 
     public void setUsuario(String usuario) {
+        String oldUsuario = this.usuario;
         this.usuario = usuario;
+        changeSupport.firePropertyChange("usuario", oldUsuario, usuario);
     }
 
-    public String getValores() {
-        return valores;
+    public String getAntes() {
+        return antes;
     }
 
-    public void setValores(String valores) {
-        this.valores = valores;
+    public void setAntes(String antes) {
+        String oldAntes = this.antes;
+        this.antes = antes;
+        changeSupport.firePropertyChange("antes", oldAntes, antes);
     }
-  
+
+    public String getDespues() {
+        return despues;
+    }
+
+    public void setDespues(String despues) {
+        String oldDespues = this.despues;
+        this.despues = despues;
+        changeSupport.firePropertyChange("despues", oldDespues, despues);
+    }
 
     @Override
     public int hashCode() {
@@ -143,6 +169,14 @@ public class AuditoriaSistema implements Serializable {
     @Override
     public String toString() {
         return "bean.AuditoriaSistema[ codigoAuditoria=" + codigoAuditoria + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

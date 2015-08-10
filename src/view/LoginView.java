@@ -240,9 +240,15 @@ public class LoginView extends javax.swing.JFrame {
                  tf_codempl.setText(null);
                  return;
             }else{
-                if(u.get(0).getPassword().equals(tf_password.getText())){
-                   
-                        //aqui obtenemos el nombre del usuariopara luego almacenarlo en la entidad Auditoria
+                if(u.get(0).getPassword().equals(tf_password.getText())){ 
+                        //si no tiene asigado ningun rol, no puede ingresar
+                         if("sin rol".equals(u.get(0).getIdRol().getNombre())){
+                             JOptionPane.showMessageDialog(null, "No tiene asignado ningun rol, no puede ingresar al sistema","Error",JOptionPane.ERROR_MESSAGE );
+                             tf_codempl.setText(null);
+                             tf_password.setText(null);
+                             return;
+                        }
+                        //aqui obtenemos el nombre del usuario para luego almacenarlo en la entidad Auditoria
                         query=entityManager.createNamedQuery("Empleado.findByCodigoEmpleado");
                         query.setParameter("codigoEmpleado", codEmpl);
                         List<Empleado> e = query.getResultList();
@@ -262,13 +268,20 @@ public class LoginView extends javax.swing.JFrame {
                         entityManager.persist(as);
                         entityManager.getTransaction().commit();
                         entityManager.close();
-                        //hacemos visible el menu para el usuario
-                        String args[]=new String[1];
-                        args[0]="Menu Administrador del Sistema";
-                        MenuAdminSist.main(args);
-                        this.setVisible(false);
-                    
-                      
+                        //hacemos visible el menu para el usuario segun el rol que tenga asignado
+                        if("administrador del sistema".equals(u.get(0).getIdRol().getNombre())){
+                            String args[]=new String[1];
+                            args[0]="Menu Administrador del Sistema";
+                            MenuAdminSist.main(args);
+                            this.setVisible(false);
+                        }
+                        if("recepcionista".equals(u.get(0).getIdRol().getNombre())){
+                             String args[]=new String[1];
+                            args[0]="Menu Recepcionista";
+                            MenuRecepcionista.main(args);
+                            this.setVisible(false);
+                        }
+                                   
                 }else{
                      JOptionPane.showMessageDialog(null,"Contraseña Incorrecta", "Error",JOptionPane.ERROR_MESSAGE);
                      tf_password.setText(null);

@@ -186,6 +186,11 @@ public class MenuAdminSist extends javax.swing.JFrame {
                 menu_salirMouseClicked(evt);
             }
         });
+        menu_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_salirActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(menu_salir);
 
         setJMenuBar(jMenuBar1);
@@ -302,6 +307,10 @@ public class MenuAdminSist extends javax.swing.JFrame {
         args[0]="Eliminar usuario";
         UsuarioBuscar.main(args);
     }//GEN-LAST:event_mitem_eliminarusuarioActionPerformed
+
+    private void menu_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_salirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menu_salirActionPerformed
 
     /**
     * @param args the command line arguments

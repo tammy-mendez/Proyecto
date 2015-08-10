@@ -115,10 +115,15 @@ public class Usuario implements Serializable {
         return true;
     }
 
+    /*   @Override
+    public String toString() {
+    return "bean.Usuario[ codigoEmpleado=" + codigoEmpleado + " ]";
+    }*/
     @Override
     public String toString() {
-        return "bean.Usuario[ codigoEmpleado=" + codigoEmpleado + " ]";
+        return  "codigoEmpleado=" + codigoEmpleado  +  ", idRol=" + idRol;
     }
+    
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.addPropertyChangeListener(listener);

@@ -337,10 +337,11 @@ public class CambiarPasswordView extends javax.swing.JFrame {
                 Usuario usu =new Usuario();
                 usu.setCodigoEmpleado(u.get(0).getCodigoEmpleado());
                 usu.setPassword(tf_nueva.getText());
-                entityManager.merge(usu);  
+                usu.setIdRol(u.get(0).getIdRol());
+                entityManager.merge(usu);
                 //registramos los datos necesarios para la auditoria
                 query=entityManager.createNamedQuery("Empleado.findByCodigoEmpleado");
-                query.setParameter("codigoEmpleado", usu.getCodigoEmpleado());
+                query.setParameter("codigoEmpleado", u.get(0).getCodigoEmpleado());
                 List<Empleado> e = query.getResultList();
                 nombre=e.get(0).getNombre();
                 AuditoriaSistema as=new AuditoriaSistema();
@@ -353,11 +354,8 @@ public class CambiarPasswordView extends javax.swing.JFrame {
                 as.setUsuario(nombre);
                 entityManager.persist(as);
                 entityManager.getTransaction().commit();
-                query=entityManager.createNamedQuery("Empleado.findByCodigoEmpleado");
-                query.setParameter("codigoEmpleado", usu.getCodigoEmpleado());
-                List<Empleado> em=query.getResultList();
-                 entityManager.close();
-                 datos[0]=em.get(0).getEmail();
+                entityManager.close();
+                 datos[0]=e.get(0).getEmail();
                  datos[1]="Modificación de Contraseña";
                  datos[2]="Su nueva contraseña de acceso al sistema es:"+" "+"'"+usu.getPassword()+"'";
                  Correo c=new Correo();
@@ -437,7 +435,7 @@ public class CambiarPasswordView extends javax.swing.JFrame {
     private void tf_codemplFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_codemplFocusLost
         // TODO add your handling code here:
         if(tf_codempl.getText().length()==0){
-             JOptionPane.showMessageDialog(null,"No ha ingreasado su codigo de usuario", "Error",JOptionPane.ERROR_MESSAGE);
+             JOptionPane.showMessageDialog(null,"No ha ingresado su codigo de usuario", "Error",JOptionPane.ERROR_MESSAGE);
             
         }
     }//GEN-LAST:event_tf_codemplFocusLost

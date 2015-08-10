@@ -235,12 +235,12 @@ public class UsuarioCreate extends javax.swing.JFrame {
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
+        
         resp=  JOptionPane.showConfirmDialog(null,"Desea Registrar un nuevo usuario?", "Confirmar Creación",JOptionPane.YES_NO_OPTION );
         if (resp==JOptionPane.YES_OPTION){
              EntityManagerFactory fact=Persistence.createEntityManagerFactory("proyectoPU");
              EntityManager em=fact.createEntityManager();
              em.getTransaction().begin();
-             Usuario u=new Usuario();
              Empleado e=new Empleado();
              //obtenemos el codigo del empleado seleccionado  en la lista
              e=(Empleado) list_empleado.getSelectedItem();
@@ -251,15 +251,22 @@ public class UsuarioCreate extends javax.swing.JFrame {
              if(usu.size()!=0){
                   JOptionPane.showMessageDialog(null,"El empleado ya tiene una cuenta creada","Error",JOptionPane.ERROR_MESSAGE);
                   return;
-             }else{u.setCodigoEmpleado(e.getCodigoEmpleado());
-             u.setPassword(tf_passw.getText());
+             }else{
+                 Usuario u=new Usuario();
+                 u.setCodigoEmpleado(e.getCodigoEmpleado());
+                 u.setPassword(tf_passw.getText());
                  Rol r= new Rol();
                  r=(Rol) list_rol.getSelectedItem();
                  u.setIdRol(r);
                  em.persist(u);
+                 em.flush();
+                 //registramos los datos de la auditoria
                  AuditoriaSistema as=new AuditoriaSistema();
                  as.setAccion("Creación");
                  as.setTabla("Usuario");
+                 as.setAntes(u.toString());
+                 as.setDespues("No hay cambios");
+                 //trabajmos con la fecha
                  Date fecha=new Date();
                  DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                  as.setFechaHora((formato.format(fecha)));
@@ -277,12 +284,13 @@ public class UsuarioCreate extends javax.swing.JFrame {
                      this.setVisible(false);
                  }else{
                      JOptionPane.showMessageDialog(null,"Creación exitosa,sus datos no puedieron ser enviados; verifique su dirrecion de email", "Error",JOptionPane.ERROR_MESSAGE);
-                 }
-                }    
+                     this.setVisible(false);
+                    }
+               }    
              }else{
                     this.setVisible(false);
              }      
-//>>>>>>> 7752fa995483bd5e39d468e1005364d798cc101a
+
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void list_rolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_list_rolActionPerformed

@@ -95,10 +95,15 @@ public class Rol implements Serializable {
         return true;
     }
 
+    /* @Override
+    public String toString() {
+    return "bean.Rol[ idRol=" + idRol + " ]";
+    }*/
     @Override
     public String toString() {
-        return "bean.Rol[ idRol=" + idRol + " ]";
+        return  "idRol=" + idRol + ", nombre=" + nombre;
     }
+    
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.addPropertyChangeListener(listener);

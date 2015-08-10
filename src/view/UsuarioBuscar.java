@@ -182,6 +182,7 @@ public class UsuarioBuscar extends javax.swing.JFrame {
                     + "WHERE r.idRol = "
                     +id, Usuario.class);
             List<Usuario> r = query.getResultList();
+          
             if (r.size()==0){
                 JOptionPane.showMessageDialog(null,"Identificación inexistente", "Error",JOptionPane.ERROR_MESSAGE);
                  tf_valor.setText(null);
