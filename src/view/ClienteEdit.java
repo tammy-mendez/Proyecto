@@ -380,14 +380,7 @@ public class ClienteEdit extends javax.swing.JFrame {
 
     private void tf_rucFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_rucFocusLost
         // TODO add your handling code here:
-         if(tf_ruc.getText().length()!=0){
-           query=entityManager.createNamedQuery("Cliente.findByRuc");
-           query.setParameter("ruc", tf_ruc.getText().toLowerCase());
-            List<Cliente> c=query.getResultList();
-             if(c.size()>=1){
-                JOptionPane.showMessageDialog(null,"El número de RUC ya ha sido registrado", "Error",JOptionPane.ERROR_MESSAGE);
-             }  
-        }   
+          
     }//GEN-LAST:event_tf_rucFocusLost
 
     private void tf_rucKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_rucKeyTyped
@@ -405,13 +398,7 @@ public class ClienteEdit extends javax.swing.JFrame {
 
     private void tf_cedulaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_cedulaFocusLost
         // TODO add your handling code here:
-        query=entityManager.createNamedQuery("Cliente.findByCedula");
-        query.setParameter("cedula", tf_cedula.getText());
-        List<Cliente> c=query.getResultList();
-        if(c.size()>=1){
-              JOptionPane.showMessageDialog(null,"El número de cedula ya ha sido registrado", "Error",JOptionPane.ERROR_MESSAGE);
-              tf_cedula.setText(null);
-        }
+        
     }//GEN-LAST:event_tf_cedulaFocusLost
 
     private void tf_cedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_cedulaKeyTyped
@@ -462,33 +449,58 @@ public class ClienteEdit extends javax.swing.JFrame {
         // TODO add your handling code here:
         String antes;
         String despues;
+        int codigo;
           if(tf_cedula.getText().length()==0 || tf_nombre.getText().length()==0
              || tf_apellido.getText().length()==0 || tf_email.getText().length()==0
               || tf_direccion.getText().length()==0 || tf_telef.getText().length()==0  ){
              JOptionPane.showMessageDialog(null,"No se permiten campos con valores nulos", "Error",JOptionPane.ERROR_MESSAGE);
              return;    
         }else{
+              query=entityManager.createNamedQuery("Cliente.findByCedula");
+              query.setParameter("cedula", tf_cedula.getText());
+              List<Cliente> c=query.getResultList();
+              if(c.size()!=0){
+                    codigo=c.get(0).getCodigoCliente();
+                    if(Integer.parseInt(tf_codigo.getText())!=codigo){//pregunta si esta intentando cambiar por un numero de cedula ya existente
+                            JOptionPane.showMessageDialog(null,"El numero de cedula ya ha sido registrado", "Error",JOptionPane.ERROR_MESSAGE);
+                            tf_cedula.setText(null);
+                            return;
+                     }
+                }
+               if(tf_ruc.getText().length()!=0){//si el ruc no es nulo
+                    query=entityManager.createNamedQuery("Cliente.findByRuc");
+                    query.setParameter("ruc", tf_ruc.getText().toLowerCase());
+                    List<Cliente> clie=query.getResultList();
+                    if(clie.size()!=0){
+                        codigo=clie.get(0).getCodigoCliente();
+                        if(Integer.parseInt(tf_codigo.getText())!=codigo){//pregunta si esta intentando cambiar por un numero de cedula ya existente
+                            JOptionPane.showMessageDialog(null,"El numero de RUC ya ha sido registrado", "Error",JOptionPane.ERROR_MESSAGE);
+                            tf_ruc.setText(null);
+                            return;
+                        }  
+                     }  
+                } 
               resp=  JOptionPane.showConfirmDialog(null,"Desea guardar los cambios?", "Confirmar Modificación",JOptionPane.YES_NO_OPTION );
               if (resp==JOptionPane.YES_OPTION){
-                  entityManager.getTransaction().begin();
                    query=entityManager.createNamedQuery("Cliente.findByCodigoCliente");
                    query.setParameter("codigoCliente",Integer.parseInt(tf_codigo.getText()));
                     List<Cliente> cl=query.getResultList();
                     //antes de los cambios
                     antes=cl.get(0).toString();
-                    Cliente c=new Cliente();
-                    c.setCodigoCliente(Integer.parseInt(tf_codigo.getText()));
-                    c.setCedula(tf_cedula.getText());
-                    c.setRuc(tf_ruc.getText().toLowerCase());
-                    c.setNombre(tf_nombre.getText().toLowerCase());
-                    c.setApellido(tf_apellido.getText().toLowerCase());
-                    c.setDireccion(tf_direccion.getText().toLowerCase());
-                    c.setEmail(tf_email.getText().toLowerCase());
-                    c.setTelefono(Integer.parseInt(tf_telef.getText()));
-                    entityManager.merge(c);
+                    Cliente cli=new Cliente();
+                    cli.setCodigoCliente(Integer.parseInt(tf_codigo.getText()));
+                    cli.setCedula(tf_cedula.getText());
+                    cli.setRuc(tf_ruc.getText().toLowerCase());
+                    cli.setNombre(tf_nombre.getText().toLowerCase());
+                    cli.setApellido(tf_apellido.getText().toLowerCase());
+                    cli.setDireccion(tf_direccion.getText().toLowerCase());
+                    cli.setEmail(tf_email.getText().toLowerCase());
+                    cli.setTelefono(Integer.parseInt(tf_telef.getText()));
+                    entityManager.getTransaction().begin();
+                    entityManager.merge(cli);
                     entityManager.flush();
                     //despues de los cambios
-                    despues=c.toString();
+                    despues=cli.toString();
                     //registramos los datos necesarios para la auditoria
                      AuditoriaSistema as=new AuditoriaSistema();
                      as.setAccion("Modificación");

@@ -8,6 +8,10 @@ package view;
 
 import bean.Usuario;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.swing.JOptionPane;
 
 /**
@@ -139,15 +143,15 @@ public class ListaUsuariosConRoles extends java.awt.Dialog {
         int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro que quiere desasignar este Rol a los usuarios de la lista?");
         if ( respuesta == JOptionPane.YES_OPTION){
             respuesta_opcion = "Aceptado";  
-            this.dispose();
+            this.setVisible(false);
         }
         else if (respuesta == JOptionPane.YES_NO_OPTION){
             respuesta_opcion = "Rechazado";
-            this.dispose();
+            this.setVisible(false);
         }
         else{
             respuesta_opcion = "Rechazado";
-            this.dispose();        
+            this.setVisible(false);
         }
     }//GEN-LAST:event_btn_confirmarActionPerformed
 

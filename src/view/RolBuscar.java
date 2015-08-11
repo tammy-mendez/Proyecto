@@ -105,6 +105,11 @@ public class RolBuscar extends javax.swing.JFrame {
                 btn_buscarActionPerformed(evt);
             }
         });
+        btn_buscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                btn_buscarFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -192,11 +197,11 @@ public class RolBuscar extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(panel_BuscarRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addGap(34, 34, 34)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
                 .addComponent(btn_cancelar)
                 .addGap(18, 18, 18))
         );
@@ -213,7 +218,7 @@ public class RolBuscar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Ingrese algún valor para efectuar la búsqueda", "Advertencia",JOptionPane.ERROR_MESSAGE);
             return;
         }
- else{
+        else{
          if (list_filtros.getSelectedItem()=="Identificacion"){
             id=Integer.parseInt(tf_valor.getText());
             query = entityManager.createNamedQuery( "Rol.findByIdRol");
@@ -305,6 +310,11 @@ public class RolBuscar extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_tf_valorKeyTyped
 
+    private void btn_buscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_buscarFocusLost
+        // TODO add your handling code here:
+        tf_valor.setText(null);
+    }//GEN-LAST:event_btn_buscarFocusLost
+
     /**
     * @param args the command line arguments
     */
@@ -315,7 +325,7 @@ public class RolBuscar extends javax.swing.JFrame {
                 frame.pack();
                 frame.setVisible(true);
                 frame.setLocationRelativeTo(null);
-                frame.setTitle(args[0]);
+                frame.setTitle("Buscar Rol");
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
          }

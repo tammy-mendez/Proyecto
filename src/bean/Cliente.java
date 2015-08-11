@@ -6,8 +6,6 @@
 
 package bean;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -18,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  *
@@ -37,8 +34,6 @@ import javax.persistence.Transient;
     @NamedQuery(name = "Cliente.findByTelefono", query = "SELECT c FROM Cliente c WHERE c.telefono = :telefono"),
     @NamedQuery(name = "Cliente.findByRuc", query = "SELECT c FROM Cliente c WHERE c.ruc = :ruc")})
 public class Cliente implements Serializable {
-    @Transient
-    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -88,9 +83,7 @@ public class Cliente implements Serializable {
     }
 
     public void setCodigoCliente(Integer codigoCliente) {
-        Integer oldCodigoCliente = this.codigoCliente;
         this.codigoCliente = codigoCliente;
-        changeSupport.firePropertyChange("codigoCliente", oldCodigoCliente, codigoCliente);
     }
 
     public String getCedula() {
@@ -98,9 +91,7 @@ public class Cliente implements Serializable {
     }
 
     public void setCedula(String cedula) {
-        String oldCedula = this.cedula;
         this.cedula = cedula;
-        changeSupport.firePropertyChange("cedula", oldCedula, cedula);
     }
 
     public String getNombre() {
@@ -108,9 +99,7 @@ public class Cliente implements Serializable {
     }
 
     public void setNombre(String nombre) {
-        String oldNombre = this.nombre;
         this.nombre = nombre;
-        changeSupport.firePropertyChange("nombre", oldNombre, nombre);
     }
 
     public String getApellido() {
@@ -118,9 +107,7 @@ public class Cliente implements Serializable {
     }
 
     public void setApellido(String apellido) {
-        String oldApellido = this.apellido;
         this.apellido = apellido;
-        changeSupport.firePropertyChange("apellido", oldApellido, apellido);
     }
 
     public String getEmail() {
@@ -128,9 +115,7 @@ public class Cliente implements Serializable {
     }
 
     public void setEmail(String email) {
-        String oldEmail = this.email;
         this.email = email;
-        changeSupport.firePropertyChange("email", oldEmail, email);
     }
 
     public String getDireccion() {
@@ -138,9 +123,7 @@ public class Cliente implements Serializable {
     }
 
     public void setDireccion(String direccion) {
-        String oldDireccion = this.direccion;
         this.direccion = direccion;
-        changeSupport.firePropertyChange("direccion", oldDireccion, direccion);
     }
 
     public int getTelefono() {
@@ -148,9 +131,7 @@ public class Cliente implements Serializable {
     }
 
     public void setTelefono(int telefono) {
-        int oldTelefono = this.telefono;
         this.telefono = telefono;
-        changeSupport.firePropertyChange("telefono", oldTelefono, telefono);
     }
 
     public String getRuc() {
@@ -158,9 +139,7 @@ public class Cliente implements Serializable {
     }
 
     public void setRuc(String ruc) {
-        String oldRuc = this.ruc;
         this.ruc = ruc;
-        changeSupport.firePropertyChange("ruc", oldRuc, ruc);
     }
 
     @Override
@@ -183,19 +162,15 @@ public class Cliente implements Serializable {
         return true;
     }
 
+   /* @Override
+    public String toString() {
+        return "bean.Cliente[ codigoCliente=" + codigoCliente + " ]";
+    }*/
+
     @Override
     public String toString() {
         return  "codigoCliente=" + codigoCliente + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", direccion=" + direccion + ", telefono=" + telefono + ", ruc=" + ruc;
     }
-
     
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
-    }
     
 }

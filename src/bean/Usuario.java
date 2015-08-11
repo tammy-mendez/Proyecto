@@ -42,7 +42,7 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
-    @OneToMany
+    //@OneToMany
     //@Basic(optional = false)
     //@Column(name = "idRol")
     //private Integer idRol;
