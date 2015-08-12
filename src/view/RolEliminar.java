@@ -167,51 +167,29 @@ public class RolEliminar extends javax.swing.JFrame {
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         // TODO add your handling code here:
-        String valores;
-        resp=  JOptionPane.showConfirmDialog(null,"Esta seguro que desea eliminar?", "Confirmar Eliminación",JOptionPane.YES_NO_OPTION );
+        resp=  JOptionPane.showConfirmDialog(null,"Esta seguro que desea eliminar?", "Confirmar EliminaciÃ³n",JOptionPane.YES_NO_OPTION );
         if(resp==JOptionPane.YES_OPTION){
-            //idRol = Integer.parseInt(tf_identi.getText());
-            //ListaUsuariosConRoles ventana;
-            //ventana = new ListaUsuariosConRoles(this, rootPaneCheckingEnabled);
-            //ventana.setVisible(true);
-            int respuesta;
             EntityManagerFactory fact=Persistence.createEntityManagerFactory("proyectoPU");
             EntityManager ema= fact.createEntityManager();
             ema.getTransaction().begin();
-            Query query = ema.createNativeQuery( "SELECT * FROM usuario u "
-                    + "INNER JOIN rol r "
-                    + "on u.idRol = r.idRol "
-                    + "WHERE r.idRol = "
-                    +tf_identi.getText(), Usuario.class);
-            if(!query.getResultList().isEmpty()){
-                    respuesta = JOptionPane.showConfirmDialog(null, "Rol asignado a Usuarios ¿Continuará "
-                            + "la operación?");
-                    if (respuesta == JOptionPane.YES_OPTION){
-                        Rol rolFind=ema.find(Rol.class,Integer.parseInt(tf_identi.getText()) );
-                        ema.remove(rolFind);
-                        //registramos los datos necesarios para la auditoria
-                        AuditoriaSistema as=new AuditoriaSistema();
-                        as.setAccion("Eliminación");
-                        as.setTabla("Rol");
-                        //trabajamos con la fecha
-                        Date fecha=new Date();
-                        DateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        as.setFechaHora((formato.format(fecha)));
-                        as.setUsuario(LoginView.nombreUsuario);
-                        ema.persist(as);
-                        ema.getTransaction().commit();
-                        ema.close();
-                        JOptionPane.showMessageDialog(null, "Eliminación Exitosa");
-                        this.dispose();
-                    }
-                    else{
-                        this.dispose();
-                    }
-             }
-            else{
-                this.dispose();
-            }
+            Rol rolFind=ema.find(Rol.class,Integer.parseInt(tf_identi.getText()) );
+            ema.remove(rolFind);
+            AuditoriaSistema as=new AuditoriaSistema();
+            as.setAccion("Eliminación");
+            as.setTabla("Rol");
+            Date fecha=new Date();
+            DateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            as.setFechaHora(formato.format(fecha));
+            as.setUsuario(LoginView.nombreUsuario);
+            as.setDespues("Datos elimandos del sistema");
+            as.setAntes("IdRol: "+rolFind.getIdRol()+ ", Nombre:"+ rolFind.getNombre());
+            ema.persist(as);
+            ema.flush();
+            ema.getTransaction().commit();
+            ema.close();
+            JOptionPane.showMessageDialog(null, "Eliminación Exitosa");
         }
+        this.dispose();
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed

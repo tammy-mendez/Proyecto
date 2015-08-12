@@ -15,6 +15,7 @@ import bean.AuditoriaSistema;
 import bean.Empleado;
 import bean.Usuario;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -98,6 +99,9 @@ public class LoginView extends javax.swing.JFrame {
         lbl_password.setText("Password");
 
         tf_password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tf_passwordKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tf_passwordKeyTyped(evt);
             }
@@ -252,7 +256,6 @@ public class LoginView extends javax.swing.JFrame {
                         query=entityManager.createNamedQuery("Empleado.findByCodigoEmpleado");
                         query.setParameter("codigoEmpleado", codEmpl);
                         List<Empleado> e = query.getResultList();
-                        //AQUI OBTENEMOS EL NOMBRE DEL USUARIO QUE INICIA SESIÓN 
                         nombreUsuario=e.get(0).getNombre();
                         //para evitar que cambie su rol por si mismo
                         idUsuario=e.get(0).getCodigoEmpleado();
@@ -270,24 +273,26 @@ public class LoginView extends javax.swing.JFrame {
                         entityManager.getTransaction().commit();
                         entityManager.close();
                         //hacemos visible el menu para el usuario segun el rol que tenga asignado
-                        if("administrador del sistema".equals(u.get(0).getIdRol().getNombre())){
+                        //if("Administrador del Sistema".equals(u.get(0).getIdRol().getNombre())){
                             String args[]=new String[1];
                             args[0]="Menu Administrador del Sistema";
                             MenuAdminSist.main(args);
                             this.setVisible(false);
-                        }
-                        if("recepcionista".equals(u.get(0).getIdRol().getNombre())){
+                        //}
+                        /*if("recepcionista".equals(u.get(0).getIdRol().getNombre())){
                              String args[]=new String[1];
                             args[0]="Menu Recepcionista";
                             MenuRecepcionista.main(args);
                             this.setVisible(false);
-                        }
+                        }*/
                                    
                 }else{
                      JOptionPane.showMessageDialog(null,"Contraseña Incorrecta", "Error",JOptionPane.ERROR_MESSAGE);
                      tf_password.setText(null);
                      return;
                 }
+                //AQUI OBTENDREMOS EL NOMBRE DEL USUARIO QUE INICIA SESIÓN 
+
             }
             
         }
@@ -331,6 +336,13 @@ public class LoginView extends javax.swing.JFrame {
         args[0]="Cambiar contraseña";
         CambiarPasswordView.main(args);
     }//GEN-LAST:event_btn_cambiarActionPerformed
+
+    private void tf_passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_passwordKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btn_iniciar.doClick();
+} 
+    }//GEN-LAST:event_tf_passwordKeyPressed
 
     /**
     * @param args the command line arguments

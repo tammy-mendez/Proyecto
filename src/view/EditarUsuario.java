@@ -10,20 +10,14 @@ import bean.AuditoriaSistema;
 import bean.Rol;
 import bean.Usuario;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import static view.RolEdit.tf_identi;
-import static view.RolEdit.tf_nombre;
 
 /**
  *
@@ -218,20 +212,15 @@ public class EditarUsuario extends javax.swing.JFrame {
                     DateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     as.setFechaHora(formato.format(fecha));
                     as.setUsuario(LoginView.nombreUsuario);
+                    as.setAntes(r.toString());
+                    as.setDespues("CodEmpleado: "+usu.getCodigoEmpleado()
+                            +", IdRol: "+usu.getIdRol().getIdRol());
                     em.persist(as);
                     em.getTransaction().commit();
                     em.close();
                     JOptionPane.showMessageDialog(null, "Modificación Exitosa");
-                    
-            } else{
-                this.setVisible(false);
             }
-        //}
-        /*else{
-            JOptionPane.showMessageDialog(null,"Ingrese algún valor para el campo nombre", "Advertencia",JOptionPane.ERROR_MESSAGE);
-            return;
-        }*/
-       
+            this.dispose();
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed

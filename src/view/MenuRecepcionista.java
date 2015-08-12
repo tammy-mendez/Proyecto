@@ -44,6 +44,9 @@ public class MenuRecepcionista extends javax.swing.JFrame {
         mItem_editarC = new javax.swing.JMenuItem();
         mItem_eliminarC = new javax.swing.JMenuItem();
         mItem_buscarC = new javax.swing.JMenuItem();
+        menu_reserva = new javax.swing.JMenu();
+        mItem_registrarReserva = new javax.swing.JMenuItem();
+        mItem_buscarReserva = new javax.swing.JMenuItem();
         menu_salir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -92,6 +95,33 @@ public class MenuRecepcionista extends javax.swing.JFrame {
 
         jMenuBar1.add(menu_cliente);
 
+        menu_reserva.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        menu_reserva.setText("Administrar Reserva");
+        menu_reserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_reservaActionPerformed(evt);
+            }
+        });
+
+        mItem_registrarReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icon-student.png"))); // NOI18N
+        mItem_registrarReserva.setText("Registrar Reserva");
+        mItem_registrarReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItem_registrarReservaActionPerformed(evt);
+            }
+        });
+        menu_reserva.add(mItem_registrarReserva);
+
+        mItem_buscarReserva.setText("Buscar Reserva");
+        mItem_buscarReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItem_buscarReservaActionPerformed(evt);
+            }
+        });
+        menu_reserva.add(mItem_buscarReserva);
+
+        jMenuBar1.add(menu_reserva);
+
         menu_salir.setText("Salir");
         menu_salir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -110,7 +140,7 @@ public class MenuRecepcionista extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 276, Short.MAX_VALUE)
+            .addGap(0, 278, Short.MAX_VALUE)
         );
 
         pack();
@@ -176,6 +206,22 @@ public class MenuRecepcionista extends javax.swing.JFrame {
                                   
     }//GEN-LAST:event_menu_salirMouseClicked
 
+    private void mItem_registrarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItem_registrarReservaActionPerformed
+        // TODO add your handling code here:
+        String args[]=new String[1];
+        args[0]="Registrar Reserva";
+        CrearReserva.main(args);
+        
+    }//GEN-LAST:event_mItem_registrarReservaActionPerformed
+
+    private void menu_reservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_reservaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menu_reservaActionPerformed
+
+    private void mItem_buscarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItem_buscarReservaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mItem_buscarReservaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -218,10 +264,13 @@ public class MenuRecepcionista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem mItem_buscarC;
+    private javax.swing.JMenuItem mItem_buscarReserva;
     private javax.swing.JMenuItem mItem_crearC;
     private javax.swing.JMenuItem mItem_editarC;
     private javax.swing.JMenuItem mItem_eliminarC;
+    private javax.swing.JMenuItem mItem_registrarReserva;
     private javax.swing.JMenu menu_cliente;
+    private javax.swing.JMenu menu_reserva;
     private javax.swing.JMenu menu_salir;
     // End of variables declaration//GEN-END:variables
 }

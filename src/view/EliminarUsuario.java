@@ -179,15 +179,15 @@ public class EliminarUsuario extends javax.swing.JFrame {
                 DateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 as.setFechaHora(formato.format(fecha));
                 as.setUsuario(LoginView.nombreUsuario);
+                as.setAntes("CodEmpleado: "+usuarioFind.getCodigoEmpleado()
+                        + ", IdRol: "+usuarioFind.getIdRol().getIdRol());
+                as.setDespues("Datos eliminados del sistema");
                 ema.persist(as);
                 ema.getTransaction().commit();
                 ema.close();
-                JOptionPane.showMessageDialog(null, "Eliminación Exitosa");
-                this.setVisible(false);
-        
-        }else{
-           this.setVisible(false);
+                JOptionPane.showMessageDialog(null, "Eliminación Exitosa");        
         }
+        this.dispose();
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     /**
