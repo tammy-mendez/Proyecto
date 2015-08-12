@@ -51,22 +51,29 @@ public class EditarUsuario extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         list_roles = new javax.swing.JComboBox();
-        btn_guardar = new javax.swing.JButton();
-        btn_cancelar = new javax.swing.JButton();
         tf_idEmpleado = new javax.swing.JTextField();
         tf_idRol = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        btn_guardar = new javax.swing.JButton();
+        btn_cancelar = new javax.swing.JButton();
+        panel_editarUsuario = new javax.swing.JPanel();
+        lbl_editarUsuario = new javax.swing.JLabel();
 
         rolListRenderizar1.setText("rolListRenderizar1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setForeground(new java.awt.Color(204, 204, 255));
 
+        jLabel1.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
         jLabel1.setText("Id Empleado:");
 
-        jLabel2.setText("id Rol:");
+        jLabel2.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
+        jLabel2.setText("Id Rol:");
 
+        jLabel3.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
         jLabel3.setText("Rol:");
 
         list_roles.setRenderer(rolListRenderizar1);
@@ -75,20 +82,6 @@ public class EditarUsuario extends javax.swing.JFrame {
         bindingGroup.addBinding(jComboBoxBinding);
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tf_idRol, org.jdesktop.beansbinding.ObjectProperty.create(), list_roles, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
-
-        btn_guardar.setText("Guardar");
-        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_guardarActionPerformed(evt);
-            }
-        });
-
-        btn_cancelar.setText("Cancelar");
-        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cancelarActionPerformed(evt);
-            }
-        });
 
         tf_idEmpleado.setEnabled(false);
 
@@ -102,24 +95,17 @@ public class EditarUsuario extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(list_roles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tf_idEmpleado)
-                            .addComponent(tf_idRol)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(btn_guardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                        .addComponent(btn_cancelar)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(list_roles, 0, 170, Short.MAX_VALUE)
+                    .addComponent(tf_idEmpleado)
+                    .addComponent(tf_idRol))
                 .addGap(38, 38, 38))
         );
         jPanel1Layout.setVerticalGroup(
@@ -129,19 +115,79 @@ public class EditarUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tf_idEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(tf_idRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(list_roles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_guardar)
-                    .addComponent(btn_cancelar))
-                .addGap(45, 45, 45))
+                    .addComponent(list_roles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(25, 25, 25))
+        );
+
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/guardar.png"))); // NOI18N
+        btn_guardar.setText("Guardar");
+        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guardarActionPerformed(evt);
+            }
+        });
+
+        btn_cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/excluded.png"))); // NOI18N
+        btn_cancelar.setText("Cancelar");
+        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(btn_guardar)
+                .addGap(34, 34, 34)
+                .addComponent(btn_cancelar)
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_cancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panel_editarUsuario.setBackground(new java.awt.Color(0, 153, 255));
+        panel_editarUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+
+        lbl_editarUsuario.setFont(new java.awt.Font("Corbel", 1, 30)); // NOI18N
+        lbl_editarUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_editarUsuario.setText("Editar Usuario");
+
+        javax.swing.GroupLayout panel_editarUsuarioLayout = new javax.swing.GroupLayout(panel_editarUsuario);
+        panel_editarUsuario.setLayout(panel_editarUsuarioLayout);
+        panel_editarUsuarioLayout.setHorizontalGroup(
+            panel_editarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_editarUsuarioLayout.createSequentialGroup()
+                .addContainerGap(78, Short.MAX_VALUE)
+                .addComponent(lbl_editarUsuario)
+                .addGap(83, 83, 83))
+        );
+        panel_editarUsuarioLayout.setVerticalGroup(
+            panel_editarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_editarUsuarioLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbl_editarUsuario)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -149,16 +195,27 @@ public class EditarUsuario extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panel_editarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(panel_editarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
 
         bindingGroup.bind();
@@ -169,7 +226,8 @@ public class EditarUsuario extends javax.swing.JFrame {
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         
                 // TODO add your handling code here:
-        //if (tf_nombre.getText().length()!=0){
+                String antes;
+                String despues;
             int resp = JOptionPane.showConfirmDialog(null,"Desea guardar los cambios?", "Confirmar Modificación",JOptionPane.YES_NO_OPTION );
             if ( LoginView.idUsuario == Integer.parseInt(tf_idEmpleado.getText())){
                 JOptionPane.showMessageDialog(null, "No puede cambiar su rol usted mismo");
@@ -180,21 +238,13 @@ public class EditarUsuario extends javax.swing.JFrame {
                     EntityManagerFactory fact=Persistence.createEntityManagerFactory("proyectoPU");
                     EntityManager em=fact.createEntityManager();
                     em.getTransaction().begin();
-                   /* String consulta = "UPDATE Usuario "
-                            + "SET idRol = " +tf_idRol.getText().toString()
-                            + " WHERE codigoEmpleado = :p";
-                    Query query = em.createQuery(consulta);
-                    int updateCount = query.setParameter(p, tf_idEmpleado.getText()).executeUpdate();
-                    */
-                    Usuario usu = new Usuario();
-                    
+                    Usuario usu = new Usuario();     
                     Query query = em.createNamedQuery("Usuario.findByCodigoEmpleado");
                     int idEmpleadoAux = Integer.parseInt(tf_idEmpleado.getText());
                     query.setParameter("codigoEmpleado", idEmpleadoAux);
-                    
                     usu= (Usuario)query.getSingleResult();
                     String pass = usu.getPassword();
-                    
+                    antes=usu.toString();
                     Usuario u=new Usuario();
                     //u.setCodigoEmpleado(Integer.parseInt(tf_idEmpleado.getText()));
                     u.setCodigoEmpleado(usu.getCodigoEmpleado());
@@ -203,18 +253,19 @@ public class EditarUsuario extends javax.swing.JFrame {
                     r = (Rol)(list_roles.getSelectedItem());
                     u.setIdRol(r);
                     em.merge(u);
+                    em.flush();
+                    despues=u.toString();
                     //registramos los datos necesarios para la auditoria
                     AuditoriaSistema as=new AuditoriaSistema();
                     as.setAccion("Modificación");
                     as.setTabla("Usuario");
                     //trabajamos con la fecha
                     Date fecha=new Date();
-                    DateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                     as.setFechaHora(formato.format(fecha));
                     as.setUsuario(LoginView.nombreUsuario);
-                    as.setAntes(r.toString());
-                    as.setDespues("CodEmpleado: "+usu.getCodigoEmpleado()
-                            +", IdRol: "+usu.getIdRol().getIdRol());
+                    as.setAntes(antes);
+                    as.setDespues(despues);
                     em.persist(as);
                     em.getTransaction().commit();
                     em.close();
@@ -274,7 +325,10 @@ public class EditarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lbl_editarUsuario;
     private javax.swing.JComboBox list_roles;
+    private javax.swing.JPanel panel_editarUsuario;
     private javax.persistence.EntityManager proyectoPUEntityManager;
     private java.util.List<bean.Rol> rolList;
     private renderizar.RolListRenderizar rolListRenderizar1;

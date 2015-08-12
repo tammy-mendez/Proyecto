@@ -81,11 +81,14 @@ public class MenuAdminSist extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Menu Administrador del Sistema");
 
-        jMenuBar1.setBackground(new java.awt.Color(211, 219, 227));
+        jMenuBar1.setBackground(new java.awt.Color(0, 153, 255));
         jMenuBar1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jMenuBar1.setForeground(new java.awt.Color(0, 153, 255));
 
-        menu_rol.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        menu_rol.setBackground(new java.awt.Color(204, 204, 204));
+        menu_rol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         menu_rol.setText("Administrar Rol");
+        menu_rol.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
         menu_rol.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         menu_rol.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
@@ -127,8 +130,9 @@ public class MenuAdminSist extends javax.swing.JFrame {
 
         jMenuBar1.add(menu_rol);
 
-        menu_usuario.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        menu_usuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         menu_usuario.setText("Administrar Usuario");
+        menu_usuario.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
 
         mitem_regis_usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icon-student.png"))); // NOI18N
         mitem_regis_usuario.setText("Registrar Usuario");
@@ -139,6 +143,7 @@ public class MenuAdminSist extends javax.swing.JFrame {
         });
         menu_usuario.add(mitem_regis_usuario);
 
+        mitem_editarusuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editarusuario.png"))); // NOI18N
         mitem_editarusuario.setText("Editar Usuario");
         mitem_editarusuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,8 +170,9 @@ public class MenuAdminSist extends javax.swing.JFrame {
 
         jMenuBar1.add(menu_usuario);
 
-        menu_auditoria.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        menu_auditoria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         menu_auditoria.setText("Ver Auditoría de Sistema");
+        menu_auditoria.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
         menu_auditoria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 menu_auditoriaMouseClicked(evt);
@@ -179,8 +185,9 @@ public class MenuAdminSist extends javax.swing.JFrame {
         });
         jMenuBar1.add(menu_auditoria);
 
-        menu_salir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        menu_salir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         menu_salir.setText("Salir");
+        menu_salir.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
         menu_salir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 menu_salirMouseClicked(evt);
@@ -203,7 +210,7 @@ public class MenuAdminSist extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 286, Short.MAX_VALUE)
+            .addGap(0, 290, Short.MAX_VALUE)
         );
 
         pack();
@@ -258,7 +265,7 @@ public class MenuAdminSist extends javax.swing.JFrame {
             ema.persist(as);
             ema.getTransaction().commit();
             ema.close();
-            this.setVisible(false);
+            this.dispose();
             String args[]=new String[1];
             args[0]="Ingreso al sistema";
             LoginView.main(args);

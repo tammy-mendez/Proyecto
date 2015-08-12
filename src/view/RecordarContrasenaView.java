@@ -248,12 +248,13 @@ public class RecordarContrasenaView extends javax.swing.JFrame {
                 Correo c=new Correo();
                if(c.enviarCorreo(datos)){
                    JOptionPane.showMessageDialog(null,"Su contrasenha fue enviada exitosamente a su email", "Aviso",JOptionPane.INFORMATION_MESSAGE);
-                   this.setVisible(false);
+                   
                }else{
                     JOptionPane.showMessageDialog(null,"Dirección de correo invalida", "Error",JOptionPane.ERROR_MESSAGE);
                }
-         }
+            }
         }
+         this.dispose();
     }//GEN-LAST:event_btn_aceptarActionPerformed
 
     /**

@@ -259,18 +259,17 @@ public class CategHabitEdit extends javax.swing.JFrame {
                         as.setDespues(despues);
                         entityManager.persist(as);
                         entityManager.getTransaction().commit();
+                        entityManager.close();
                         JOptionPane.showMessageDialog(null, "Modificación Exitosa");
-                        this.setVisible(false);
-                    }else{
-                        this.setVisible(false);
+                        
                     }
-                    
                 }
+                this.dispose();
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
     private void tf_nombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_nombreFocusLost

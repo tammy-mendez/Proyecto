@@ -66,7 +66,7 @@ public class RolCreate extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lbl_nombre.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
+        lbl_nombre.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
         lbl_nombre.setText("Nombre:");
 
         tf_nombre.addActionListener(new java.awt.event.ActionListener() {
@@ -266,7 +266,7 @@ public class RolCreate extends javax.swing.JFrame {
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
     private void tf_nombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_nombreFocusLost
@@ -284,7 +284,7 @@ public class RolCreate extends javax.swing.JFrame {
                 frame.pack();
                 frame.setVisible(true);
                 frame.setLocationRelativeTo(null);
-                frame.setTitle(args[0]);
+                frame.setTitle("Crear Rol");
                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });

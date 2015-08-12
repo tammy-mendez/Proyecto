@@ -234,7 +234,7 @@ private int resp;
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
@@ -272,14 +272,11 @@ private int resp;
                         as.setUsuario("nadie");  
                         entityManager.persist(as);
                         entityManager.getTransaction().commit();
-                        JOptionPane.showMessageDialog(null,"Creación exitosa", "Confirmación",JOptionPane.INFORMATION_MESSAGE);
-                        tf_nombre.setText(null);
-                        tf_costo.setText(null);
-                        //this.setVisible(false);
-             }else{
-                        this.setVisible(false);
-               }
+                        entityManager.close();
+                        JOptionPane.showMessageDialog(null,"Creación exitosa", "Confirmación",JOptionPane.INFORMATION_MESSAGE);             
+             }
         }
+        this.dispose();
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     /**

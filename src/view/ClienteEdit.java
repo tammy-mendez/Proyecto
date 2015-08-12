@@ -442,7 +442,7 @@ public class ClienteEdit extends javax.swing.JFrame {
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
@@ -516,11 +516,10 @@ public class ClienteEdit extends javax.swing.JFrame {
                      entityManager.getTransaction().commit();
                      entityManager.close();
                      JOptionPane.showMessageDialog(null, "Modificación Exitosa");
-                     this.setVisible(false);
-              }else{
-                  this.setVisible(false);
+                     
               }
           }
+          this.dispose();
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     /**

@@ -199,7 +199,7 @@ public class MenuRecepcionista extends javax.swing.JFrame {
             ema.persist(as);
             ema.getTransaction().commit();
             ema.close();
-            this.setVisible(false);
+            this.dispose();
             String args[]=new String[1];
             args[0]="Ingreso al sistema";
             LoginView.main(args);

@@ -46,19 +46,25 @@ public class UsuarioBuscar extends javax.swing.JFrame {
         tf_valor = new javax.swing.JTextField();
         btn_buscar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        masterTable = new javax.swing.JTable();
+        masterTableUsuario = new javax.swing.JTable();
+        panel_BuscarUsuario = new javax.swing.JPanel();
+        lbl_BuscarUsuario = new javax.swing.JLabel();
+        btn_cancelar = new javax.swing.JButton();
 
         usuarioListRenderizar1.setText("usuarioListRenderizar1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setForeground(new java.awt.Color(204, 204, 255));
 
+        jLabel1.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
         jLabel1.setText("Buscar por:");
 
         list_filtros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Codigo Empleado", "Codigo Rol", "Rol", "Empleado" }));
 
+        jLabel2.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
         jLabel2.setText("Valor:");
 
         tf_valor.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -70,6 +76,7 @@ public class UsuarioBuscar extends javax.swing.JFrame {
             }
         });
 
+        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/zoom.png"))); // NOI18N
         btn_buscar.setText("Buscar");
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,15 +91,15 @@ public class UsuarioBuscar extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(list_filtros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tf_valor, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tf_valor, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(btn_buscar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,10 +111,10 @@ public class UsuarioBuscar extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(tf_valor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_buscar))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, masterTable);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, masterTableUsuario);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigoEmpleado}"));
         columnBinding.setColumnName("Codigo Empleado");
         columnBinding.setColumnClass(Integer.class);
@@ -119,32 +126,73 @@ public class UsuarioBuscar extends javax.swing.JFrame {
         columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
-        masterTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        masterTableUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                masterTableMouseClicked(evt);
+                masterTableUsuarioMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(masterTable);
+        jScrollPane2.setViewportView(masterTableUsuario);
+
+        panel_BuscarUsuario.setBackground(new java.awt.Color(0, 153, 255));
+        panel_BuscarUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+
+        lbl_BuscarUsuario.setFont(new java.awt.Font("Corbel", 1, 30)); // NOI18N
+        lbl_BuscarUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_BuscarUsuario.setText("Buscar Usuario");
+
+        javax.swing.GroupLayout panel_BuscarUsuarioLayout = new javax.swing.GroupLayout(panel_BuscarUsuario);
+        panel_BuscarUsuario.setLayout(panel_BuscarUsuarioLayout);
+        panel_BuscarUsuarioLayout.setHorizontalGroup(
+            panel_BuscarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_BuscarUsuarioLayout.createSequentialGroup()
+                .addGap(185, 185, 185)
+                .addComponent(lbl_BuscarUsuario)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panel_BuscarUsuarioLayout.setVerticalGroup(
+            panel_BuscarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_BuscarUsuarioLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbl_BuscarUsuario)
+                .addContainerGap())
+        );
+
+        btn_cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/delete.png"))); // NOI18N
+        btn_cancelar.setText("Cancelar");
+        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2)
+                    .addComponent(panel_BuscarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_cancelar)
+                .addGap(279, 279, 279))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(19, 19, 19)
+                .addComponent(panel_BuscarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(29, 29, 29)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(btn_cancelar)
+                .addGap(21, 21, 21))
         );
 
         bindingGroup.bind();
@@ -231,20 +279,18 @@ public class UsuarioBuscar extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tf_valorKeyPressed
 
-    private void masterTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_masterTableMouseClicked
+    private void masterTableUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_masterTableUsuarioMouseClicked
         // TODO add your handling code here:
           String iden2;
           switch (MenuAdminSist.opcion){
           case 1:
-                 cantidad=masterTable.getSelectedRow();
-                 id=(Integer) masterTable.getValueAt(cantidad, 0);
-                 if (masterTable.getValueAt(cantidad, 1) != null && masterTable.getValueAt(cantidad, 1).toString().trim().length() != 0){
-                    nombre=(Integer)masterTable.getValueAt(cantidad, 1); 
+                 cantidad=masterTableUsuario.getSelectedRow();
+                 id=(Integer) masterTableUsuario.getValueAt(cantidad, 0);
+                 if (masterTableUsuario.getValueAt(cantidad, 1) != null && masterTableUsuario.getValueAt(cantidad, 1).toString().trim().length() != 0){
+                    nombre=(Integer)masterTableUsuario.getValueAt(cantidad, 1); 
                  }else {
                     nombre = (Integer)null;
-                 }
-                    
-                 
+                 } 
                  iden=Integer.toString(id);
                  iden2=Integer.toString(nombre);
                  JFrame frame=new EditarUsuario();
@@ -258,16 +304,15 @@ public class UsuarioBuscar extends javax.swing.JFrame {
                  break;
           case 2:
               
-                 cantidad=masterTable.getSelectedRow();
-                 id=(Integer) masterTable.getValueAt(cantidad, 0);
-                 nombre=(Integer)masterTable.getValueAt(cantidad, 1);
+                 cantidad=masterTableUsuario.getSelectedRow();
+                 id=(Integer) masterTableUsuario.getValueAt(cantidad, 0);
+                 nombre=(Integer)masterTableUsuario.getValueAt(cantidad, 1);
                  iden=Integer.toString(id);
                  iden2=Integer.toString(nombre);
                  JFrame frame2=new EliminarUsuario();
                  EliminarUsuario.tf_idEmpleado.setText(iden);
                  EliminarUsuario.tf_idrol.setText(iden2);
-                 
-                 EliminarUsuario.tf_nombreRol.setText(masterTable.getValueAt(cantidad, 2).toString());
+                 EliminarUsuario.tf_nombreRol.setText(masterTableUsuario.getValueAt(cantidad, 2).toString());
                  frame2.setVisible(true);
                  frame2.setTitle("Eliminar Usuario");
                  frame2.setLocationRelativeTo(null);
@@ -279,7 +324,7 @@ public class UsuarioBuscar extends javax.swing.JFrame {
               break;
       }
 
-    }//GEN-LAST:event_masterTableMouseClicked
+    }//GEN-LAST:event_masterTableUsuarioMouseClicked
 
     private void tf_valorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_valorKeyTyped
         // TODO add your handling code here:
@@ -299,6 +344,11 @@ public class UsuarioBuscar extends javax.swing.JFrame {
               }
          }
     }//GEN-LAST:event_tf_valorKeyTyped
+
+    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btn_cancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -334,9 +384,8 @@ public class UsuarioBuscar extends javax.swing.JFrame {
                 frame.pack();
                 frame.setVisible(true);
                 frame.setLocationRelativeTo(null);
-                frame.setTitle(args[0]);
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                
+                frame.setTitle("Buscar usuario");
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);   
             }
             /* setTitle(args[0]);*/
         });
@@ -344,15 +393,18 @@ public class UsuarioBuscar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_buscar;
-    private javax.persistence.EntityManager entityManager;
+    private javax.swing.JButton btn_cancelar;
+    public static javax.persistence.EntityManager entityManager;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private java.util.List<bean.Usuario> list;
+    private javax.swing.JLabel lbl_BuscarUsuario;
+    public static java.util.List<bean.Usuario> list;
     private javax.swing.JComboBox list_filtros;
-    private javax.swing.JTable masterTable;
-    private javax.persistence.Query query;
+    public static javax.swing.JTable masterTableUsuario;
+    private javax.swing.JPanel panel_BuscarUsuario;
+    public static javax.persistence.Query query;
     private javax.swing.JTextField tf_valor;
     private renderizar.UsuarioListRenderizar usuarioListRenderizar1;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;

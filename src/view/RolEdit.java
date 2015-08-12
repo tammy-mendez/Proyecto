@@ -224,7 +224,8 @@ public class RolEdit extends javax.swing.JFrame {
         
         if (tf_nombre.getText().length()==0){
             JOptionPane.showMessageDialog(null,"Ingrese algún valor para el campo nombre", "Advertencia",JOptionPane.ERROR_MESSAGE);
-            return; 
+            return;
+             
           }else{
                     query=entityManager.createNamedQuery("Rol.findByNombre");
                     query.setParameter("nombre",tf_nombre.getText().toLowerCase());
@@ -264,12 +265,10 @@ public class RolEdit extends javax.swing.JFrame {
                                entityManager.persist(as);
                                entityManager.getTransaction().commit();
                                entityManager.close();
-                                JOptionPane.showMessageDialog(null, "Modificación Exitosa"); 
-                                this.setVisible(false);
-                     }else{
-                            this.setVisible(false);
-                      }   
+                                JOptionPane.showMessageDialog(null, "Modificación Exitosa");   
+                      }          
           }
+        this.dispose();
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_guardarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_guardarKeyTyped
@@ -293,7 +292,7 @@ public class RolEdit extends javax.swing.JFrame {
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
     private void tf_nombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_nombreFocusLost
@@ -309,6 +308,7 @@ public class RolEdit extends javax.swing.JFrame {
             public void run() {
                 JFrame frame= new RolBuscar();
                 frame.pack();
+                frame.setTitle("Buscar rol");
                 frame.setVisible(true);
                 frame.setLocationRelativeTo(null);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

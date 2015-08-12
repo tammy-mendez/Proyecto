@@ -421,7 +421,7 @@ public class ClienteCreate extends javax.swing.JFrame {
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
     private void tf_cedulaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_cedulaFocusLost
@@ -488,17 +488,9 @@ public class ClienteCreate extends javax.swing.JFrame {
                     entityManager.persist(as);
                     entityManager.getTransaction().commit();
                     JOptionPane.showMessageDialog(null,"Creación exitosa", "Confirmación",JOptionPane.INFORMATION_MESSAGE);
-                     tf_cedula.setText(null);
-                     tf_ruc.setText(null);
-                     tf_nombre.setText(null);
-                     tf_apellido.setText(null);
-                     tf_telef.setText(null);
-                     tf_direccion.setText(null);
-                     tf_email.setText(null);
-               }else{
-                   this.setVisible(false);
                }
         }
+        this.dispose();
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     /**

@@ -355,20 +355,20 @@ public class CambiarPasswordView extends javax.swing.JFrame {
                 entityManager.persist(as);
                 entityManager.getTransaction().commit();
                 entityManager.close();
-                 datos[0]=e.get(0).getEmail();
-                 datos[1]="Modificación de Contraseña";
-                 datos[2]="Su nueva contraseña de acceso al sistema es:"+" "+"'"+usu.getPassword()+"'";
+                datos[0]=e.get(0).getEmail();
+                datos[1]="Modificación de Contraseña";
+                datos[2]="Su nueva contraseña de acceso al sistema es:"+" "+"'"+usu.getPassword()+"'";
                  Correo c=new Correo();
                      if(c.enviarCorreo(datos)){
                          JOptionPane.showMessageDialog(null,"Modificacion Exitosa, su nueva contraseña fue enviada a su email", "Aviso",JOptionPane.INFORMATION_MESSAGE);
-
-                         this.setVisible(false);
+                         this.dispose();
                          String args[]=new String[1];
                          args[0]="Ingreso al Sistema";
                          LoginView.main(args);
                          
                      }else{
-                         JOptionPane.showMessageDialog(null,"Modificación Exitosa,su nueva contraseñano pudo ser enviada; verifique su dirrecion de email", "Error",JOptionPane.ERROR_MESSAGE);
+                         JOptionPane.showMessageDialog(null,"Modificación Exitosa,su nueva contraseña no pudo ser enviada; verifique su dirrecion de email", "Error",JOptionPane.ERROR_MESSAGE);
+                         this.dispose();
                      }       
         }
         else{
@@ -376,7 +376,7 @@ public class CambiarPasswordView extends javax.swing.JFrame {
             tf_nueva2.setText(null);
             cantidad++;
             if(cantidad==3){
-               this.setVisible(false);
+               this.dispose();
                cantidad=0;
                String args[]=new String[1];
                args[0]="Ingreso al Sistema";
