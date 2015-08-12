@@ -7,6 +7,7 @@
 package view;
 
 import bean.AuditoriaSistema;
+import bean.CategHabitacion;
 import bean.Cliente;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -414,9 +415,9 @@ public class ClienteEliminar extends javax.swing.JFrame {
              as.setDespues("No hay cambios");
              //trabajamos con la fecha
              Date fecha=new Date();
-             DateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+             DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
              as.setFechaHora((formato.format(fecha)));
-             as.setUsuario(LoginView.nombreUsuario);
+             as.setUsuario("nadie");
              entityManager.persist(as);
              entityManager.getTransaction().commit();
              entityManager.close();

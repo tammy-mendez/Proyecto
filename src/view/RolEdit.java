@@ -221,6 +221,7 @@ public class RolEdit extends javax.swing.JFrame {
         // TODO add your handling code here:
         String antes;
         String despues;
+        
         if (tf_nombre.getText().length()==0){
             JOptionPane.showMessageDialog(null,"Ingrese algún valor para el campo nombre", "Advertencia",JOptionPane.ERROR_MESSAGE);
             return; 
@@ -228,12 +229,13 @@ public class RolEdit extends javax.swing.JFrame {
                     query=entityManager.createNamedQuery("Rol.findByNombre");
                     query.setParameter("nombre",tf_nombre.getText().toLowerCase());
                     List<Rol> rol= query.getResultList();
-                    if(rol.size()>=1){//comprueba si ya existe un rol con el mismo nombre
+                    if(rol.size()!=0){//comprueba si ya existe un rol con el mismo nombre
                         JOptionPane.showMessageDialog(null,"Ya existe un rol con el mismo nombre", "Aviso",JOptionPane.ERROR_MESSAGE);
+                        tf_nombre.setText(null);
                         return;
-                    }else{
-                            resp=  JOptionPane.showConfirmDialog(null,"Desea guardar los cambios?", "Confirmar Modificación",JOptionPane.YES_NO_OPTION );
-                            if (resp==JOptionPane.YES_OPTION){
+                    }
+                    resp=  JOptionPane.showConfirmDialog(null,"Desea guardar los cambios?", "Confirmar Modificación",JOptionPane.YES_NO_OPTION );
+                    if (resp==JOptionPane.YES_OPTION){
                                 entityManager.getTransaction().begin();
                                 //registramos el nombre el rol antes de que se cambie
                                 query=entityManager.createNamedQuery("Rol.findByIdRol");
@@ -264,10 +266,9 @@ public class RolEdit extends javax.swing.JFrame {
                                entityManager.close();
                                 JOptionPane.showMessageDialog(null, "Modificación Exitosa"); 
                                 this.setVisible(false);
-                        }else{
+                     }else{
                             this.setVisible(false);
-                         }
-                    }     
+                      }   
           }
     }//GEN-LAST:event_btn_guardarActionPerformed
 

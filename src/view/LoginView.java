@@ -252,6 +252,7 @@ public class LoginView extends javax.swing.JFrame {
                         query=entityManager.createNamedQuery("Empleado.findByCodigoEmpleado");
                         query.setParameter("codigoEmpleado", codEmpl);
                         List<Empleado> e = query.getResultList();
+                        //AQUI OBTENEMOS EL NOMBRE DEL USUARIO QUE INICIA SESIÓN 
                         nombreUsuario=e.get(0).getNombre();
                         //para evitar que cambie su rol por si mismo
                         idUsuario=e.get(0).getCodigoEmpleado();
@@ -287,8 +288,6 @@ public class LoginView extends javax.swing.JFrame {
                      tf_password.setText(null);
                      return;
                 }
-                //AQUI OBTENDREMOS EL NOMBRE DEL USUARIO QUE INICIA SESIÓN 
-
             }
             
         }

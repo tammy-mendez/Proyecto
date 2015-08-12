@@ -8,6 +8,10 @@
     <class>bean.Usuario</class>
     <class>bean.Cargo</class>
     <class>bean.Cliente</class>
+    <class>view.Reserva</class>
+    <class>bean.Reserva</class>
+    <class>bean.CategHabitacion</class>
+    <class>bean.Habitacion</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/hotel db?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.password" value="user"/>

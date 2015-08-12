@@ -66,7 +66,7 @@ public class RolCreate extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lbl_nombre.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
+        lbl_nombre.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
         lbl_nombre.setText("Nombre:");
 
         tf_nombre.addActionListener(new java.awt.event.ActionListener() {
@@ -185,7 +185,7 @@ public class RolCreate extends javax.swing.JFrame {
                 .addComponent(panel_crearRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
             .addGroup(layout.createSequentialGroup()
-                .addGap(81, 81, 81)
+                .addGap(89, 89, 89)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -221,9 +221,9 @@ public class RolCreate extends javax.swing.JFrame {
                                 JOptionPane.showMessageDialog(null,"Ya existe un rol con el mismo nombre", "Aviso",JOptionPane.ERROR_MESSAGE);
                                  tf_nombre.setText(null);
                                  return;
-                        }else{
-                             resp=  JOptionPane.showConfirmDialog(null,"Desea Registrar un nuevo rol?", "Confirmar Creación",JOptionPane.YES_NO_OPTION );
-                             if (resp==JOptionPane.YES_OPTION){
+                        }
+                        resp=  JOptionPane.showConfirmDialog(null,"Desea Registrar un nuevo rol?", "Confirmar Creación",JOptionPane.YES_NO_OPTION );
+                        if (resp==JOptionPane.YES_OPTION){
                                  entityManager.getTransaction().begin();
                                  Rol r=new Rol();
                                  r.setNombre(tf_nombre.getText().toLowerCase());
@@ -242,13 +242,12 @@ public class RolCreate extends javax.swing.JFrame {
                                  as.setUsuario(LoginView.nombreUsuario);  
                                  entityManager.persist(as);
                                  entityManager.getTransaction().commit();
-                                 entityManager.close();
-                                JOptionPane.showMessageDialog(null,"Creación exitosa", "Confirmación",JOptionPane.INFORMATION_MESSAGE);
+                                 JOptionPane.showMessageDialog(null,"Creación exitosa", "Confirmación",JOptionPane.INFORMATION_MESSAGE);
+                                 tf_nombre.setText(null);
+                                
+                         }else{
                                 this.setVisible(false);
-                            }else{
-                                this.setVisible(false);
-                              }
-                        }          
+                           }         
                 }           
     }//GEN-LAST:event_btn_guardarActionPerformed
    

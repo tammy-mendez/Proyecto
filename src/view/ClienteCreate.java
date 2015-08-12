@@ -427,25 +427,12 @@ public class ClienteCreate extends javax.swing.JFrame {
     private void tf_cedulaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_cedulaFocusLost
         // TODO add your handling code here:
       
-        query=entityManager.createNamedQuery("Cliente.findByCedula");
-        query.setParameter("cedula", tf_cedula.getText());
-        List<Cliente> c=query.getResultList();
-        if(c.size()>=1){
-              JOptionPane.showMessageDialog(null,"El número de cedula ya ha sido registrado", "Error",JOptionPane.ERROR_MESSAGE);
-              tf_cedula.setText(null);
-        }
+      
     }//GEN-LAST:event_tf_cedulaFocusLost
 
     private void tf_rucFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_rucFocusLost
         // TODO add your handling code here:
-        if(tf_ruc.getText().length()!=0){
-           query=entityManager.createNamedQuery("Cliente.findByRuc");
-           query.setParameter("ruc", tf_ruc.getText().toLowerCase());
-            List<Cliente> c=query.getResultList();
-             if(c.size()>=1){
-                JOptionPane.showMessageDialog(null,"El número de RUC ya ha sido registrado", "Error",JOptionPane.ERROR_MESSAGE);
-             }  
-        } 
+      
     }//GEN-LAST:event_tf_rucFocusLost
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
@@ -457,7 +444,24 @@ public class ClienteCreate extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(null,"No se permiten campos con valores nulos", "Error",JOptionPane.ERROR_MESSAGE);
              return;    
         }else{
-              resp=  JOptionPane.showConfirmDialog(null,"Desea Registrar un nuevo Cliente?", "Confirmar Creación",JOptionPane.YES_NO_OPTION );
+                query=entityManager.createNamedQuery("Cliente.findByCedula");
+                query.setParameter("cedula", tf_cedula.getText());
+                List<Cliente> cli=query.getResultList();
+                if(cli.size()>=1){
+                    JOptionPane.showMessageDialog(null,"El número de cedula ya ha sido registrado", "Error",JOptionPane.ERROR_MESSAGE);
+                    tf_cedula.setText(null);
+                    return;
+                 }
+                 if(tf_ruc.getText().length()!=0){
+                    query=entityManager.createNamedQuery("Cliente.findByRuc");
+                    query.setParameter("ruc", tf_ruc.getText().toLowerCase());
+                    List<Cliente> cl=query.getResultList();
+                    if(cl.size()>=1){
+                         JOptionPane.showMessageDialog(null,"El número de RUC ya ha sido registrado", "Error",JOptionPane.ERROR_MESSAGE);
+                         return;
+                     }  
+                 } 
+               resp=  JOptionPane.showConfirmDialog(null,"Desea Registrar un nuevo Cliente?", "Confirmar Creación",JOptionPane.YES_NO_OPTION );
                if (resp==JOptionPane.YES_OPTION){
                    entityManager.getTransaction().begin();
                    Cliente c=new Cliente();
@@ -483,9 +487,14 @@ public class ClienteCreate extends javax.swing.JFrame {
                     as.setUsuario(LoginView.nombreUsuario);  
                     entityManager.persist(as);
                     entityManager.getTransaction().commit();
-                    entityManager.close();
                     JOptionPane.showMessageDialog(null,"Creación exitosa", "Confirmación",JOptionPane.INFORMATION_MESSAGE);
-                         this.setVisible(false);
+                     tf_cedula.setText(null);
+                     tf_ruc.setText(null);
+                     tf_nombre.setText(null);
+                     tf_apellido.setText(null);
+                     tf_telef.setText(null);
+                     tf_direccion.setText(null);
+                     tf_email.setText(null);
                }else{
                    this.setVisible(false);
                }
