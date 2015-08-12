@@ -414,7 +414,7 @@ public class CrearReserva extends javax.swing.JFrame {
         EntityManagerFactory fact = Persistence.createEntityManagerFactory("proyectoPU");
         EntityManager ema = fact.createEntityManager();
         ema.getTransaction().begin();
-        
+        //En vez del query de abajo debemos invocar a la funcion de la base de datos
         Query query = ema.createNativeQuery( "SELECT * FROM habitacion h "
                     + "INNER JOIN categ_habitacion c "
                     + "on h.codigoCategoria = c.codigoCategoria "
