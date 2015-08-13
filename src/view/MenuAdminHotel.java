@@ -39,7 +39,7 @@ public class MenuAdminHotel extends javax.swing.JFrame {
         mItem_buscar = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         mItem_buscarCH.setText("Administrar Categoría de Habitación");
 
@@ -78,6 +78,11 @@ public class MenuAdminHotel extends javax.swing.JFrame {
         jMenuBar1.add(mItem_buscarCH);
 
         jMenu2.setText("Salir");
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -126,6 +131,11 @@ public class MenuAdminHotel extends javax.swing.JFrame {
         args[0]="Buscar Categoría de Habitación";
         CategHabitBuscar.main(args);
     }//GEN-LAST:event_mItem_buscarActionPerformed
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jMenu2ActionPerformed
 
     /**
      * @param args the command line arguments

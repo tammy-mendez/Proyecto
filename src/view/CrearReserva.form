@@ -43,6 +43,16 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;bean.Cliente&gt;"/>
       </AuxValues>
     </Component>
+    <Component class="renderizar.CategoriaHabitacionListRenderizar" name="categoriaHabitacionListRenderizar1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="categoriaHabitacionListRenderizar1"/>
+      </Properties>
+    </Component>
+    <Component class="renderizar.ClienteListRenderizar" name="clienteListRenderizar1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="clienteListRenderizar1"/>
+      </Properties>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -130,11 +140,12 @@
                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="btn_buscar" max="32767" attributes="0"/>
                       <Component id="tf_numeroHabitacion" alignment="0" max="32767" attributes="0"/>
                       <Component id="tf_precioCategoria" alignment="0" max="32767" attributes="0"/>
-                      <Component id="cb_categoriaHabitacion" linkSize="2" alignment="1" max="32767" attributes="0"/>
-                      <Component id="cb_cliente" max="32767" attributes="0"/>
+                      <Component id="cb_categoriaHabitacion" linkSize="2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="cb_cliente" alignment="1" max="32767" attributes="0"/>
                       <Component id="tf_cantidadPersonas" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
@@ -211,6 +222,8 @@
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="tf_numeroHabitacion" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btn_buscar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -265,6 +278,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cb_categoriaHabitacion">
+          <Properties>
+            <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="categoriaHabitacionListRenderizar1"/>
+            </Property>
+          </Properties>
           <BindingProperties>
             <BindingProperty name="elements" source="categHabitacionList" target="cb_categoriaHabitacion" targetPath="elements" updateStrategy="0" immediately="false"/>
           </BindingProperties>
@@ -312,6 +330,11 @@
           </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="cb_cliente">
+          <Properties>
+            <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="clienteListRenderizar1"/>
+            </Property>
+          </Properties>
           <BindingProperties>
             <BindingProperty name="elements" source="clienteList" target="cb_cliente" targetPath="elements" updateStrategy="0" immediately="false"/>
           </BindingProperties>
@@ -322,6 +345,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_calcularMontoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_buscar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Buscar Habitaci&#xf3;n"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_buscarActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

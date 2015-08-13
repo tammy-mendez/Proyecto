@@ -11,9 +11,11 @@ import bean.CategHabitacion;
 import bean.Cliente;
 import bean.Habitacion;
 import bean.Reserva;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -22,15 +24,14 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Vladimir
  */
 public class CrearReserva extends javax.swing.JFrame {
-
+    private Connection connection;
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     /**
      * Creates new form CrearReserva
      */
@@ -53,6 +54,8 @@ public class CrearReserva extends javax.swing.JFrame {
         categHabitacionList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : categHabitacionQuery.getResultList();
         clienteQuery = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT c FROM Cliente c");
         clienteList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : clienteQuery.getResultList();
+        categoriaHabitacionListRenderizar1 = new renderizar.CategoriaHabitacionListRenderizar();
+        clienteListRenderizar1 = new renderizar.ClienteListRenderizar();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -73,10 +76,15 @@ public class CrearReserva extends javax.swing.JFrame {
         tf_numeroHabitacion = new javax.swing.JTextField();
         cb_cliente = new javax.swing.JComboBox();
         btn_calcularMonto = new javax.swing.JButton();
+        btn_buscar = new javax.swing.JButton();
         btn_registrarcliente = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btn_registrar = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
+
+        categoriaHabitacionListRenderizar1.setText("categoriaHabitacionListRenderizar1");
+
+        clienteListRenderizar1.setText("clienteListRenderizar1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -113,6 +121,8 @@ public class CrearReserva extends javax.swing.JFrame {
 
         jLabel6.setText("Categoría Hab:");
 
+        cb_categoriaHabitacion.setRenderer(categoriaHabitacionListRenderizar1);
+
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, categHabitacionList, cb_categoriaHabitacion);
         bindingGroup.addBinding(jComboBoxBinding);
 
@@ -145,6 +155,8 @@ public class CrearReserva extends javax.swing.JFrame {
             }
         });
 
+        cb_cliente.setRenderer(clienteListRenderizar1);
+
         jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, clienteList, cb_cliente);
         bindingGroup.addBinding(jComboBoxBinding);
 
@@ -152,6 +164,13 @@ public class CrearReserva extends javax.swing.JFrame {
         btn_calcularMonto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_calcularMontoActionPerformed(evt);
+            }
+        });
+
+        btn_buscar.setText("Buscar Habitación");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
             }
         });
 
@@ -173,12 +192,14 @@ public class CrearReserva extends javax.swing.JFrame {
                                 .addComponent(jLabel6)
                                 .addComponent(jLabel11)))
                         .addGap(28, 28, 28)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(tf_numeroHabitacion, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tf_precioCategoria, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cb_categoriaHabitacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cb_cliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tf_cantidadPersonas))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_buscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(tf_numeroHabitacion, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tf_precioCategoria, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cb_categoriaHabitacion, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cb_cliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tf_cantidadPersonas)))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
@@ -241,6 +262,8 @@ public class CrearReserva extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(tf_numeroHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_buscar)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -327,64 +350,84 @@ public class CrearReserva extends javax.swing.JFrame {
 
     private void btn_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarActionPerformed
         // TODO add your handling code here:
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateIn = new Date();
-        dateIn = jc_checkin.getDate();
-        Cliente cliente = new Cliente();
-        Habitacion habitacion = new Habitacion();
-        cliente = (Cliente)cb_cliente.getSelectedItem();
-        try {
-        int respuesta = JOptionPane.showConfirmDialog(null, "¿Confirma el registro?");
-        if (respuesta == JOptionPane.YES_OPTION){
-            
-            EntityManagerFactory fact = Persistence.createEntityManagerFactory("proyectoPU");
-            EntityManager ema = fact.createEntityManager();
-            Reserva reserva = new Reserva();
-            ema.getTransaction().begin();
-            reserva.setCantPersonas(Integer.parseInt(tf_cantidadPersonas.getText()));
-            
-            reserva.setCheckIn(format.parse(format.format(jc_checkin.toString())));
+        java.util.Date fecha = new Date();
+        //JOptionPane.showConfirmDialog(null, fecha);
+        if ((jc_checkin.getDate() != null) 
+                && (jc_checkout.getDate() != null) 
+                && !tf_montoTotal.getText().equals("")
+                && !tf_cantidadPersonas.getText().equals("")
+                && !tf_numeroHabitacion.getText().equals("Sin habitaciones"))
+                        {
+           if(jc_checkin.getDate().before(jc_checkout.getDate())                
+                   && Integer.parseInt(tf_montoAbonado.getText()) < Integer.parseInt(tf_montoTotal.getText())
+             //      &&jc_checkin.getDate().after(fecha)
+             //      &&jc_checkin.getDate().after(fecha)
+                   ){
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                String dIN = format.format(jc_checkin.getDate());
+                String dOUT = format.format(jc_checkout.getDate());
+                Date dateIn = null;
+                Date dateOut = null;
+                try {
+                    dateIn = format.parse(dIN);
+                    dateOut = format.parse(dOUT);
+                } catch (ParseException ex) {
+                    System.out.println("Formateo de fechas fallido");
+                }
+                Cliente cliente = new Cliente();
+                Habitacion habitacion = new Habitacion();
+                cliente = (Cliente)cb_cliente.getSelectedItem();
+                int respuesta = JOptionPane.showConfirmDialog(null, "¿Confirma el registro?");
+                if (respuesta == JOptionPane.YES_OPTION){
 
-            reserva.setCheckOut(format.parse(format.format(jc_checkout.toString())));
-            reserva.setCodigoCliente(cliente);
-            reserva.setMontoAbonado(Integer.parseInt(tf_montoAbonado.getText()));
-            reserva.setMontoTotal(Integer.parseInt(tf_montoTotal.getText()));
-            //consulta para obtener habitacion
-            Query query = ema.createNamedQuery("Habitacion.findByNumero");
-            query.setParameter("numero", Integer.parseInt(tf_numeroHabitacion.getText()));
-            habitacion = (Habitacion)query.getSingleResult();
-            //cambio estado de la habitacion
-            query = ema.createNativeQuery(""
-                    + "Update habitacion "
-                    + "set estado = 'Ocupado' "
-                    + "where numero = "+tf_numeroHabitacion.getText());
-            query.executeUpdate();
-            ema.flush();
-            reserva.setNumHabitacion(habitacion);
-            ema.persist(reserva);
-            ema.flush();
-            //creacion de auditoria de sistema
-            AuditoriaSistema as=new AuditoriaSistema();
-            as.setAccion("Inserción");
-            as.setTabla("Reserva");
-            as.setAntes(reserva.toString());
-            as.setDespues("No hay cambios");
-            //trabajamos con la fecha
-            Date fecha=new Date();
-            DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            as.setFechaHora(formato.format(fecha));
-            as.setUsuario(LoginView.nombreUsuario);
-            ema.persist(as);
-            ema.flush();
-            ema.getTransaction().commit();
-            ema.close();
-            JOptionPane.showMessageDialog(null, "Registro Exitoso");
-            this.dispose();
-        }else
-            this.dispose();
-       } catch (ParseException ex) {
-                Logger.getLogger(CrearReserva.class.getName()).log(Level.SEVERE, null, ex);
-       }
+                    EntityManagerFactory fact = Persistence.createEntityManagerFactory("proyectoPU");
+                    EntityManager ema = fact.createEntityManager();
+                    Reserva reserva = new Reserva();
+                    ema.getTransaction().begin();
+                    reserva.setCantPersonas(Integer.parseInt(tf_cantidadPersonas.getText()));
+
+                    reserva.setCheckIn(dateIn);
+                    reserva.setCheckOut(dateOut);
+                    //reserva.setCheckOut(format.parse(format.format(jc_checkout.toString())));
+                    reserva.setCodigoCliente(cliente);
+                    reserva.setMontoAbonado(Integer.parseInt(tf_montoAbonado.getText()));
+                    reserva.setMontoTotal(Integer.parseInt(tf_montoTotal.getText()));
+                    //consulta para obtener habitacion
+                    Query query = ema.createNamedQuery("Habitacion.findByNumero");
+                    query.setParameter("numero", Integer.parseInt(tf_numeroHabitacion.getText()));
+                    habitacion = (Habitacion)query.getSingleResult();
+                    reserva.setNumHabitacion(habitacion);
+                    ema.persist(reserva);
+                    ema.flush();
+                    //creacion de auditoria de sistema
+                    AuditoriaSistema as=new AuditoriaSistema();
+                    as.setAccion("Inserción");
+                    as.setTabla("Reserva");
+                    as.setAntes(reserva.toString());
+                    as.setDespues("No hay cambios");
+                    //trabajamos con la fecha
+                    DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                    as.setFechaHora(formato.format(fecha));
+                    as.setUsuario(LoginView.nombreUsuario);
+                    ema.persist(as);
+                    ema.flush();
+                    ema.getTransaction().commit();
+                    ema.close();
+                    JOptionPane.showMessageDialog(null, "Registro Exitoso");
+                    this.dispose();
+                }
+                else{
+                    this.dispose();
+                }
+           }else{
+                     JOptionPane.showMessageDialog(null, "Datos Invalidos o Incompletos "
+                   + "impiden el registro");             
+           }
+        }
+        else{
+        JOptionPane.showMessageDialog(null, "Datos Invalidos o Incompletos "
+                   + "impiden el registro");  
+     }
     }//GEN-LAST:event_btn_registrarActionPerformed
 
     private void btn_registrarclienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarclienteActionPerformed
@@ -406,34 +449,6 @@ public class CrearReserva extends javax.swing.JFrame {
     }//GEN-LAST:event_cb_categoriaHabitacionFocusLost
 
     private void cb_categoriaHabitacionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cb_categoriaHabitacionFocusGained
-        // TODO add your handling code here:
-        tf_numeroHabitacion.setText("");
-        int numeroHabitacion;
-        CategHabitacion categoria = new CategHabitacion();
-        categoria = (CategHabitacion)cb_categoriaHabitacion.getSelectedItem();
-        EntityManagerFactory fact = Persistence.createEntityManagerFactory("proyectoPU");
-        EntityManager ema = fact.createEntityManager();
-        ema.getTransaction().begin();
-        //En vez del query de abajo debemos invocar a la funcion de la base de datos
-        Query query = ema.createNativeQuery( "SELECT * FROM habitacion h "
-                    + "INNER JOIN categ_habitacion c "
-                    + "on h.codigoCategoria = c.codigoCategoria "
-                    + " WHERE c.codigoCategoria  = "
-                    + categoria.getCodigoCategoria()
-                    +" AND estado LIKE 'Libre' ", Habitacion.class);
-        //SELECT e FROM Employee e LEFT JOIN e.address a ORDER BY a.city
-        
-            //List<Habitacion> hab = query.getResultList();
-            if(query.getResultList().isEmpty()){
-                tf_numeroHabitacion.setText("Sin habitaciones");
-                
-            }else{
-                List<Habitacion> hab = query.getResultList();
-                numeroHabitacion = hab.get(0).getNumero();
-                tf_numeroHabitacion.setText(Integer.toString(numeroHabitacion));
-                ema.getTransaction().commit();
-                ema.close();
-            }
 
     }//GEN-LAST:event_cb_categoriaHabitacionFocusGained
 
@@ -465,11 +480,114 @@ public class CrearReserva extends javax.swing.JFrame {
 
     private void btn_calcularMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calcularMontoActionPerformed
         // TODO add your handling code here:
-        int cantidadPersonas = Integer.parseInt(tf_cantidadPersonas.getText());
-        int precioxnoche = Integer.parseInt(tf_precioCategoria.getText());
-        int precioTotal = cantidadPersonas * precioxnoche;
-        tf_montoTotal.setText(Integer.toString(precioTotal));
+        java.util.Date fecha = new Date();
+        if(jc_checkin.getDate() != null && jc_checkout.getDate() != null && !tf_cantidadPersonas.getText().equals("")){
+            if (jc_checkin.getDate().before(jc_checkout.getDate())
+                   // &&jc_checkin.getDate().after(fecha)
+                   //&&jc_checkout.getDate().after(fecha)
+                    ){
+                final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000;
+                long cantidadPersonas = Integer.parseInt(tf_cantidadPersonas.getText());
+                long precioxnoche = Integer.parseInt(tf_precioCategoria.getText());
+                long cantidadDias = (jc_checkout.getDate().getTime() - jc_checkin.getDate().getTime())/MILLSECS_PER_DAY;
+                long precioTotal = cantidadPersonas * precioxnoche * cantidadDias;
+                tf_montoTotal.setText(Long.toString(precioTotal));
+            }else{
+                JOptionPane.showMessageDialog(null, "Fecha de checkin posterior a checkout");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Datos sin especificar");
+        }
     }//GEN-LAST:event_btn_calcularMontoActionPerformed
+
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        java.util.Date fecha = new Date();
+        if ((jc_checkin.getDate() != null) 
+                && (jc_checkout.getDate() != null)){ 
+            if( jc_checkin.getDate().before(jc_checkout.getDate())
+                  //  &&jc_checkin.getDate().after(fecha)
+                   //&&jc_checkin.getDate().after(fecha)
+                    ){
+                    //Declaraciones
+                    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+                    String fechain = sf.format(jc_checkin.getDate());
+                    String fechaout = sf.format(jc_checkout.getDate());
+                    //java.sql.Date fechaInSql = null;
+                    //java.sql.Date fechaOutSql = null;
+                  /*  try {
+                        fechaInSql = new java.sql.Date(sf.parse(fechain).getTime());
+                        fechaOutSql = new java.sql.Date(sf.parse(fechaout).getTime());
+                    } catch (ParseException ex) {
+                        System.out.println("Fechas no funcionan");
+                    }*/
+                    int numeroHabitacion = 0, resultado = 0;
+                    CategHabitacion categoria = new CategHabitacion();
+                    categoria = (CategHabitacion)cb_categoriaHabitacion.getSelectedItem();
+                    int numCategoria = categoria.getCodigoCategoria();
+
+                    //********************************************************************
+
+                    Conneccion();
+                    String query = "select funcion_hab_libre(" +"'"
+                            +fechain+"', "+"'"+fechaout+"', "+Integer.toString(numCategoria)
+                            + ") as libre";
+                    //JOptionPane.showMessageDialog(null, query);
+                    try {
+                        java.sql.Statement stm = connection.createStatement();
+                        java.sql.ResultSet rs = stm.executeQuery(query);
+                        while(rs.next()){
+                            numeroHabitacion = rs.getInt("libre");
+                        }
+                        rs.close();
+                    } catch (SQLException ex) {
+                        System.out.println("Algo falló");
+                    }catch(Exception e){
+                        System.out.println("Error");
+                    }
+                    try {
+                        connection.close();
+                    } catch (SQLException ex) {
+                        System.out.println("No pudo cerrarse la conexion");
+                    }
+
+                  /*  try{
+                        CallableStatement proc;
+                        proc = connection.prepareCall("{?=CALL funcion_hab_libre(?,?,?)}");
+
+                        proc.setDate("dateIn",  fechaInSql);
+                        proc.setDate("dateOut", fechaOutSql);
+                        proc.setInt("categ_hab", numCategoria);
+                        proc.registerOutParameter(1 , Types.INTEGER);
+                        if (proc.execute()){
+                            resultado = proc.getInt(1);
+                            proc.close();
+                            proc.close();
+                        }else{
+                            System.out.println("Sin resultados");
+                        }
+                    }catch(SQLException e){
+                        System.out.println("Error sql");;
+                    }catch(Exception e){
+                        System.out.println("Error");
+                    }*/
+                        tf_numeroHabitacion.setText("");
+                        if(numeroHabitacion == 0){
+                            tf_numeroHabitacion.setText("Sin habitaciones");
+
+                        }else{
+                            tf_numeroHabitacion.setText(Integer.toString(numeroHabitacion));
+                        }
+                    }
+                    else{
+                       JOptionPane.showMessageDialog(null, "Datos Invalidos o Incompletos "
+                               + "impiden el registro");
+                    }
+        } 
+        else{
+                JOptionPane.showMessageDialog(null, "Datos Invalidos o Incompletos "
+                + "impiden el registro");  
+            }
+    }//GEN-LAST:event_btn_buscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -510,17 +628,33 @@ public class CrearReserva extends javax.swing.JFrame {
             }
         });
     }
-
+    private void Conneccion(){
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            String BaseDeDatos = "jdbc:mysql://localhost/hotel db?user=root&password=user";
+            connection = DriverManager.getConnection(BaseDeDatos);
+            if(connection != null){
+                System.out.println("Conexion Exitosa!");
+            }else{
+                System.out.println("Conexion Fallida!");                
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_calcularMonto;
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_registrar;
     private javax.swing.JButton btn_registrarcliente;
     private java.util.List<bean.CategHabitacion> categHabitacionList;
     private javax.persistence.Query categHabitacionQuery;
+    private renderizar.CategoriaHabitacionListRenderizar categoriaHabitacionListRenderizar1;
     private javax.swing.JComboBox cb_categoriaHabitacion;
     private javax.swing.JComboBox cb_cliente;
     private java.util.List<bean.Cliente> clienteList;
+    private renderizar.ClienteListRenderizar clienteListRenderizar1;
     private javax.persistence.Query clienteQuery;
     private javax.persistence.EntityManager entityManager;
     private javax.swing.JLabel jLabel1;
@@ -544,7 +678,4 @@ public class CrearReserva extends javax.swing.JFrame {
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
-    private void connection(){
-        
-    }
 }
