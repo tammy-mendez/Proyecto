@@ -67,6 +67,11 @@ public class ClienteBuscar extends javax.swing.JFrame {
         lbl_valor.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
         lbl_valor.setText("Valor:");
 
+        tf_valor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_valorActionPerformed(evt);
+            }
+        });
         tf_valor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tf_valorKeyTyped(evt);
@@ -381,6 +386,10 @@ public class ClienteBuscar extends javax.swing.JFrame {
               }
             
     }//GEN-LAST:event_masterTableMouseClicked
+
+    private void tf_valorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_valorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_valorActionPerformed
 
     /**
      * @param args the command line arguments

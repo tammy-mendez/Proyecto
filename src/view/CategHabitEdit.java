@@ -254,7 +254,7 @@ public class CategHabitEdit extends javax.swing.JFrame {
                         Date fecha=new Date();
                         DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                         as.setFechaHora(formato.format(fecha));    
-                        as.setUsuario("nadie");//cambiar
+                        as.setUsuario(LoginView.nombreUsuario);
                         as.setAntes(antes);
                         as.setDespues(despues);
                         entityManager.persist(as);

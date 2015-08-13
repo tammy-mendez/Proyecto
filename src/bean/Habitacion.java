@@ -6,46 +6,41 @@
 
 package bean;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.persistence.Transient;
 
 /**
  *
- * @author Vladimir
+ * @author Jorge
  */
 @Entity
 @Table(name = "habitacion")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Habitacion.findAll", query = "SELECT h FROM Habitacion h"),
     @NamedQuery(name = "Habitacion.findByNumero", query = "SELECT h FROM Habitacion h WHERE h.numero = :numero")})
 public class Habitacion implements Serializable {
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "numero")
     private Integer numero;
-    @JoinColumn(name = "codigoCategoria", referencedColumnName = "codigoCategoria")
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "codigoCategoria", referencedColumnName="codigoCategoria")
+    @ManyToOne
     private CategHabitacion codigoCategoria;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "numHabitacion")
-    private Collection<Reserva> reservaCollection;
+   
 
     public Habitacion() {
     }
@@ -59,24 +54,18 @@ public class Habitacion implements Serializable {
     }
 
     public void setNumero(Integer numero) {
+        Integer oldNumero = this.numero;
         this.numero = numero;
+        changeSupport.firePropertyChange("numero", oldNumero, numero);
     }
 
-    public CategHabitacion getCodigoCategoria() {
-        return codigoCategoria;
+     public CategHabitacion getCodigoCategoria() {
+    return codigoCategoria;
     }
-
     public void setCodigoCategoria(CategHabitacion codigoCategoria) {
-        this.codigoCategoria = codigoCategoria;
-    }
-
-    @XmlTransient
-    public Collection<Reserva> getReservaCollection() {
-        return reservaCollection;
-    }
-
-    public void setReservaCollection(Collection<Reserva> reservaCollection) {
-        this.reservaCollection = reservaCollection;
+        CategHabitacion oldCodigoCategoria = this.codigoCategoria;
+    this.codigoCategoria = codigoCategoria;
+        changeSupport.firePropertyChange("codigoCategoria", oldCodigoCategoria, codigoCategoria);
     }
 
     @Override
@@ -99,9 +88,22 @@ public class Habitacion implements Serializable {
         return true;
     }
 
-    @Override
+   /* @Override
     public String toString() {
         return "bean.Habitacion[ numero=" + numero + " ]";
+    }*/
+
+    @Override
+    public String toString() {
+        return "numero=" + numero + ", codigoCategoria=" + codigoCategoria;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

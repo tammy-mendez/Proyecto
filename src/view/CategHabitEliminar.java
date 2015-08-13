@@ -241,7 +241,7 @@ public class CategHabitEliminar extends javax.swing.JFrame {
              Date fecha=new Date();
              DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
              as.setFechaHora((formato.format(fecha)));
-             as.setUsuario("nadie");
+             as.setUsuario(LoginView.nombreUsuario);
              entityManager.persist(as);
              entityManager.getTransaction().commit();
              entityManager.close();

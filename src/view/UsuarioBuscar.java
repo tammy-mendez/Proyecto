@@ -254,22 +254,10 @@ public class UsuarioBuscar extends javax.swing.JFrame {
             list.clear();
             list.addAll(r);
 
-            //SELECT p FROM Teacher t JOIN t.phones p WHERE t.firstName = :firstName
+          
          }
-        /*     
-         else {
-            query = entityManager.createNativeQuery( "SELECT * FROM rol WHERE nombre LIKE "
-                    +"'%"+tf_valor.getText()+"%'", Rol.class);
-            List<Rol> r = query.getResultList();
-             if (r.isEmpty()){
-                 JOptionPane.showMessageDialog(null, "Nombre inexistente","Error",JOptionPane.ERROR_MESSAGE );
-                 tf_valor.setText(null);
-                  return;
-            }
-            list.clear();
-            list.addAll(r);
-
-        } */     
+    
+           
     }
       
     }//GEN-LAST:event_btn_buscarActionPerformed
