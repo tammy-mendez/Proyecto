@@ -8,6 +8,7 @@ package view;
 
 import bean.AuditoriaSistema;
 import bean.CategHabitacion;
+import bean.Habitacion;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -231,6 +232,7 @@ public class CategHabitEliminar extends javax.swing.JFrame {
              CategHabitacion c=entityManager.find(CategHabitacion.class,Integer.parseInt(tf_codigo.getText()) );
              valor=c.toString();//guardamos el objeto antes de eliminar
              entityManager.remove(c);
+            
              //registramos los datos necesarios para la auditoria
              AuditoriaSistema as=new AuditoriaSistema();
              as.setAccion("Eliminación");

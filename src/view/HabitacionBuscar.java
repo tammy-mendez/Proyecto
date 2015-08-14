@@ -18,6 +18,10 @@ import static org.eclipse.persistence.sessions.remote.corba.sun.TransporterHelpe
  * @author Jorge
  */
 public class HabitacionBuscar extends javax.swing.JFrame {
+    private int fila;
+    public static int numero;
+    private int categoria;
+    String nombre;
     private char ch;
 
     /**
@@ -43,7 +47,7 @@ public class HabitacionBuscar extends javax.swing.JFrame {
         panel_BuscarHabitacion = new javax.swing.JPanel();
         lbl_BuscarHabitacion = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        masterTable = new javax.swing.JTable();
         btn_cancelar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -78,7 +82,7 @@ public class HabitacionBuscar extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, jTable1);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, masterTable);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${numero}"));
         columnBinding.setColumnName("Numero");
         columnBinding.setColumnClass(Integer.class);
@@ -90,10 +94,15 @@ public class HabitacionBuscar extends javax.swing.JFrame {
         columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
+        masterTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                masterTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(masterTable);
+        if (masterTable.getColumnModel().getColumnCount() > 0) {
+            masterTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+            masterTable.getColumnModel().getColumn(1).setPreferredWidth(50);
         }
 
         btn_cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/delete.png"))); // NOI18N
@@ -296,6 +305,45 @@ public class HabitacionBuscar extends javax.swing.JFrame {
         tf_valor.setText(null);
     }//GEN-LAST:event_btn_buscarFocusLost
 
+    private void masterTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_masterTableMouseClicked
+        // TODO add your handling code here:
+        switch (MenuAdminHotel.opcion){
+            case 1:
+                    fila=masterTable.getSelectedRow();
+                    numero=(Integer) masterTable.getValueAt(fila, 0);
+                    categoria=(Integer)masterTable.getValueAt(fila, 1);
+                    nombre=(String)masterTable.getValueAt(fila, 2);
+                    JFrame frame= new HabitacionEdit();
+                    HabitacionEdit.tf_numeroHabit.setText(Integer.toString(numero));
+                    HabitacionEdit.tf_codigo.setText(Integer.toString(categoria));
+                    HabitacionEdit.list_categoria.setSelectedItem(nombre);
+                    frame.setVisible(true);
+                    frame.setTitle("Modificar Habitación");
+                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frame.setLocationRelativeTo(null);
+                    this.dispose();
+                    break;
+            case 2:
+                    fila=masterTable.getSelectedRow();
+                    numero=(Integer) masterTable.getValueAt(fila, 0);
+                    categoria=(Integer)masterTable.getValueAt(fila, 1);
+                    nombre=(String)masterTable.getValueAt(fila, 2);
+                    JFrame frame2= new HabitacionEliminar();
+                    HabitacionEliminar.tf_numeroHabit.setText(Integer.toString(numero));
+                    HabitacionEliminar.tf_codigo.setText(Integer.toString(categoria));
+                    HabitacionEliminar.tf_categoria.setText(nombre);
+                    frame2.setVisible(true);
+                    frame2.setTitle("Eliminar Habitación");
+                    frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frame2.setLocationRelativeTo(null);
+                    this.dispose();
+                    break;
+            case 3:
+                     break;
+            
+        }
+    }//GEN-LAST:event_masterTableMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -342,11 +390,11 @@ public class HabitacionBuscar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_BuscarHabitacion;
     private javax.swing.JLabel lbl_valor;
     private java.util.List<bean.Habitacion> list;
     private javax.swing.JComboBox list_filtros;
+    private javax.swing.JTable masterTable;
     private javax.swing.JPanel panel_BuscarHabitacion;
     private javax.persistence.Query query;
     private javax.swing.JTextField tf_valor;

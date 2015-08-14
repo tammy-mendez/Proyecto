@@ -54,7 +54,6 @@ public class CrearReserva extends javax.swing.JFrame {
         categHabitacionList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : categHabitacionQuery.getResultList();
         clienteQuery = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT c FROM Cliente c");
         clienteList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : clienteQuery.getResultList();
-        categoriaHabitacionListRenderizar1 = new renderizar.CategoriaHabitacionListRenderizar();
         clienteListRenderizar1 = new renderizar.ClienteListRenderizar();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -81,8 +80,7 @@ public class CrearReserva extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btn_registrar = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
-
-        categoriaHabitacionListRenderizar1.setText("categoriaHabitacionListRenderizar1");
+        categHabitacionRenderizar1 = new renderizar.CategHabitacionRenderizar();
 
         clienteListRenderizar1.setText("clienteListRenderizar1");
 
@@ -121,7 +119,7 @@ public class CrearReserva extends javax.swing.JFrame {
 
         jLabel6.setText("Categoría Hab:");
 
-        cb_categoriaHabitacion.setRenderer(categoriaHabitacionListRenderizar1);
+        cb_categoriaHabitacion.setRenderer(categHabitacionRenderizar1);
 
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, categHabitacionList, cb_categoriaHabitacion);
         bindingGroup.addBinding(jComboBoxBinding);
@@ -194,12 +192,11 @@ public class CrearReserva extends javax.swing.JFrame {
                         .addGap(28, 28, 28)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_buscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(tf_numeroHabitacion, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(tf_precioCategoria, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(cb_categoriaHabitacion, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cb_cliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tf_cantidadPersonas)))
+                    .addComponent(tf_numeroHabitacion)
+                    .addComponent(tf_precioCategoria)
+                    .addComponent(cb_categoriaHabitacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cb_cliente, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tf_cantidadPersonas, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
@@ -309,6 +306,8 @@ public class CrearReserva extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        categHabitacionRenderizar1.setText("categHabitacionRenderizar1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -317,7 +316,9 @@ public class CrearReserva extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(btn_registrarcliente))
+                        .addComponent(btn_registrarcliente)
+                        .addGap(110, 110, 110)
+                        .addComponent(categHabitacionRenderizar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -329,9 +330,15 @@ public class CrearReserva extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(btn_registrarcliente)
-                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(btn_registrarcliente)
+                        .addGap(17, 17, 17))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(categHabitacionRenderizar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -408,7 +415,7 @@ public class CrearReserva extends javax.swing.JFrame {
                     //trabajamos con la fecha
                     DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                     as.setFechaHora(formato.format(fecha));
-                    as.setUsuario(LoginView.nombreUsuario);
+                    as.setUsuario("nadie");
                     ema.persist(as);
                     ema.flush();
                     ema.getTransaction().commit();
@@ -650,7 +657,7 @@ public class CrearReserva extends javax.swing.JFrame {
     private javax.swing.JButton btn_registrarcliente;
     private java.util.List<bean.CategHabitacion> categHabitacionList;
     private javax.persistence.Query categHabitacionQuery;
-    private renderizar.CategoriaHabitacionListRenderizar categoriaHabitacionListRenderizar1;
+    private renderizar.CategHabitacionRenderizar categHabitacionRenderizar1;
     private javax.swing.JComboBox cb_categoriaHabitacion;
     private javax.swing.JComboBox cb_cliente;
     private java.util.List<bean.Cliente> clienteList;

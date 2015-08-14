@@ -259,10 +259,6 @@ private int resp;
                         entityManager.getTransaction().begin();//necesario
                         entityManager.persist(ca);
                         entityManager.flush();
-                        //prueba
-                         query=entityManager.createNamedQuery("CategHabitacion.findAll");
-                         List<CategHabitacion> h=query.getResultList();
-                         System.out.println(h);
                         //registramos los datos necesarios para la auditoria
                         AuditoriaSistema as=new AuditoriaSistema();
                         as.setAccion("Inserción");

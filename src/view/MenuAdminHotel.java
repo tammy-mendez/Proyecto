@@ -32,16 +32,20 @@ public class MenuAdminHotel extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuBar1 = new javax.swing.JMenuBar();
-        mItem_buscarCH = new javax.swing.JMenu();
+        menu_categHabitacion = new javax.swing.JMenu();
         mItem_crearCH = new javax.swing.JMenuItem();
         mItem_editarCH = new javax.swing.JMenuItem();
         mItem_eliminarCH = new javax.swing.JMenuItem();
         mItem_buscar = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        menu_Habitacion = new javax.swing.JMenu();
+        mItem_crearHabit = new javax.swing.JMenuItem();
+        mItem_editarHabit = new javax.swing.JMenuItem();
+        mItem_eliminarHabit = new javax.swing.JMenuItem();
+        mItem_buscarHabit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        mItem_buscarCH.setText("Administrar Categoría de Habitación");
+        menu_categHabitacion.setText("Administrar Categoría de Habitación");
 
         mItem_crearCH.setText("Crear Categoría");
         mItem_crearCH.addActionListener(new java.awt.event.ActionListener() {
@@ -49,7 +53,7 @@ public class MenuAdminHotel extends javax.swing.JFrame {
                 mItem_crearCHActionPerformed(evt);
             }
         });
-        mItem_buscarCH.add(mItem_crearCH);
+        menu_categHabitacion.add(mItem_crearCH);
 
         mItem_editarCH.setText("Editar Categoría");
         mItem_editarCH.addActionListener(new java.awt.event.ActionListener() {
@@ -57,7 +61,7 @@ public class MenuAdminHotel extends javax.swing.JFrame {
                 mItem_editarCHActionPerformed(evt);
             }
         });
-        mItem_buscarCH.add(mItem_editarCH);
+        menu_categHabitacion.add(mItem_editarCH);
 
         mItem_eliminarCH.setText("Eliminar Categoría");
         mItem_eliminarCH.addActionListener(new java.awt.event.ActionListener() {
@@ -65,7 +69,7 @@ public class MenuAdminHotel extends javax.swing.JFrame {
                 mItem_eliminarCHActionPerformed(evt);
             }
         });
-        mItem_buscarCH.add(mItem_eliminarCH);
+        menu_categHabitacion.add(mItem_eliminarCH);
 
         mItem_buscar.setText("Buscar Categoría");
         mItem_buscar.addActionListener(new java.awt.event.ActionListener() {
@@ -73,17 +77,50 @@ public class MenuAdminHotel extends javax.swing.JFrame {
                 mItem_buscarActionPerformed(evt);
             }
         });
-        mItem_buscarCH.add(mItem_buscar);
+        menu_categHabitacion.add(mItem_buscar);
 
-        jMenuBar1.add(mItem_buscarCH);
+        jMenuBar1.add(menu_categHabitacion);
 
-        jMenu2.setText("Salir");
-        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+        menu_Habitacion.setText("Administrar Habitación");
+        menu_Habitacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu2ActionPerformed(evt);
+                menu_HabitacionActionPerformed(evt);
             }
         });
-        jMenuBar1.add(jMenu2);
+
+        mItem_crearHabit.setText("Crear Habitación");
+        mItem_crearHabit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItem_crearHabitActionPerformed(evt);
+            }
+        });
+        menu_Habitacion.add(mItem_crearHabit);
+
+        mItem_editarHabit.setText("Editar Habitación");
+        mItem_editarHabit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItem_editarHabitActionPerformed(evt);
+            }
+        });
+        menu_Habitacion.add(mItem_editarHabit);
+
+        mItem_eliminarHabit.setText("Eliminar Habitación");
+        mItem_eliminarHabit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItem_eliminarHabitActionPerformed(evt);
+            }
+        });
+        menu_Habitacion.add(mItem_eliminarHabit);
+
+        mItem_buscarHabit.setText("Buscar Habitación");
+        mItem_buscarHabit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItem_buscarHabitActionPerformed(evt);
+            }
+        });
+        menu_Habitacion.add(mItem_buscarHabit);
+
+        jMenuBar1.add(menu_Habitacion);
 
         setJMenuBar(jMenuBar1);
 
@@ -91,7 +128,7 @@ public class MenuAdminHotel extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 616, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,10 +169,42 @@ public class MenuAdminHotel extends javax.swing.JFrame {
         CategHabitBuscar.main(args);
     }//GEN-LAST:event_mItem_buscarActionPerformed
 
-    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+    private void menu_HabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_HabitacionActionPerformed
+     
+    }//GEN-LAST:event_menu_HabitacionActionPerformed
+
+    private void mItem_buscarHabitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItem_buscarHabitActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_jMenu2ActionPerformed
+        opcion=3;
+        String args[]=new String[1];
+        args[0]="Buscar Habitación";
+        HabitacionBuscar.main(args);
+    }//GEN-LAST:event_mItem_buscarHabitActionPerformed
+
+    private void mItem_crearHabitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItem_crearHabitActionPerformed
+        // TODO add your handling code here:
+       
+        String args[]=new String[1];
+        args[0]="Crear Habitación";
+        HabitacionCreate.main(args);
+    }//GEN-LAST:event_mItem_crearHabitActionPerformed
+
+    private void mItem_editarHabitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItem_editarHabitActionPerformed
+        // TODO add your handling code here:
+        opcion=1;
+        String args[]=new String[1];
+        args[0]="Buscar Habitación";
+        HabitacionBuscar.main(args);
+    }//GEN-LAST:event_mItem_editarHabitActionPerformed
+
+    private void mItem_eliminarHabitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItem_eliminarHabitActionPerformed
+        // TODO add your handling code here:
+         opcion=2;
+        String args[]=new String[1];
+        args[0]="Buscar Habitación";
+        HabitacionBuscar.main(args);
+                                     
+    }//GEN-LAST:event_mItem_eliminarHabitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,12 +246,16 @@ public class MenuAdminHotel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem mItem_buscar;
-    private javax.swing.JMenu mItem_buscarCH;
+    private javax.swing.JMenuItem mItem_buscarHabit;
     private javax.swing.JMenuItem mItem_crearCH;
+    private javax.swing.JMenuItem mItem_crearHabit;
     private javax.swing.JMenuItem mItem_editarCH;
+    private javax.swing.JMenuItem mItem_editarHabit;
     private javax.swing.JMenuItem mItem_eliminarCH;
+    private javax.swing.JMenuItem mItem_eliminarHabit;
+    private javax.swing.JMenu menu_Habitacion;
+    private javax.swing.JMenu menu_categHabitacion;
     // End of variables declaration//GEN-END:variables
 }
