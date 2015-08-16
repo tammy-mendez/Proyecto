@@ -4,7 +4,7 @@
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="menu_categHabitacion">
+        <Menu class="javax.swing.JMenu" name="menu_CategHabitacion">
           <Properties>
             <Property name="text" type="java.lang.String" value="Administrar Categor&#xed;a de Habitaci&#xf3;n"/>
           </Properties>
@@ -81,6 +81,46 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItem_buscarHabitActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="menu_CategPS">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Administrar Categor&#xed;a de P/S"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mItem_crearCategPS">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Crear Categor&#xed;a P/S"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItem_crearCategPSActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mItem_editarCategPS">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Modificar Categor&#xed;a P/S"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItem_editarCategPSActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mItem_eliminarCategPS">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Eliminar Categor&#xed;a P/S"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItem_eliminarCategPSActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mItem_buscarCategPS">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Buscar Categor&#xed;a P/S"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mItem_buscarCategPSMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItem_buscarCategPSActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

@@ -120,6 +120,9 @@ public class HabitacionEdit extends javax.swing.JFrame {
 
         tf_codigo.setEnabled(false);
 
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list_categoria, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.codigoCategoria}"), tf_codigo, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(

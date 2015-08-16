@@ -7,11 +7,9 @@
 package view;
 
 import bean.Habitacion;
-import bean.Usuario;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import static org.eclipse.persistence.sessions.remote.corba.sun.TransporterHelper.id;
 
 /**
  *
@@ -343,7 +341,7 @@ public class HabitacionBuscar extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_masterTableMouseClicked
-
+ 
     /**
      * @param args the command line arguments
      */
@@ -376,9 +374,9 @@ public class HabitacionBuscar extends javax.swing.JFrame {
             public void run() {
                JFrame frame=new HabitacionBuscar();
                frame.setVisible(true);
-               frame.setTitle("Buscar Habitación");
                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                frame.setLocationRelativeTo(null);
+               frame.setTitle("Buscar Habitación");
             }
         });
     }
@@ -386,17 +384,17 @@ public class HabitacionBuscar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_cancelar;
-    private javax.persistence.EntityManager entityManager;
+    public static javax.persistence.EntityManager entityManager;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_BuscarHabitacion;
     private javax.swing.JLabel lbl_valor;
-    private java.util.List<bean.Habitacion> list;
+    public static java.util.List<bean.Habitacion> list;
     private javax.swing.JComboBox list_filtros;
     private javax.swing.JTable masterTable;
     private javax.swing.JPanel panel_BuscarHabitacion;
-    private javax.persistence.Query query;
+    public static javax.persistence.Query query;
     private javax.swing.JTextField tf_valor;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables

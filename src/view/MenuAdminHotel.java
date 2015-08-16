@@ -32,7 +32,7 @@ public class MenuAdminHotel extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuBar1 = new javax.swing.JMenuBar();
-        menu_categHabitacion = new javax.swing.JMenu();
+        menu_CategHabitacion = new javax.swing.JMenu();
         mItem_crearCH = new javax.swing.JMenuItem();
         mItem_editarCH = new javax.swing.JMenuItem();
         mItem_eliminarCH = new javax.swing.JMenuItem();
@@ -42,10 +42,15 @@ public class MenuAdminHotel extends javax.swing.JFrame {
         mItem_editarHabit = new javax.swing.JMenuItem();
         mItem_eliminarHabit = new javax.swing.JMenuItem();
         mItem_buscarHabit = new javax.swing.JMenuItem();
+        menu_CategPS = new javax.swing.JMenu();
+        mItem_crearCategPS = new javax.swing.JMenuItem();
+        mItem_editarCategPS = new javax.swing.JMenuItem();
+        mItem_eliminarCategPS = new javax.swing.JMenuItem();
+        mItem_buscarCategPS = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        menu_categHabitacion.setText("Administrar Categoría de Habitación");
+        menu_CategHabitacion.setText("Administrar Categoría de Habitación");
 
         mItem_crearCH.setText("Crear Categoría");
         mItem_crearCH.addActionListener(new java.awt.event.ActionListener() {
@@ -53,7 +58,7 @@ public class MenuAdminHotel extends javax.swing.JFrame {
                 mItem_crearCHActionPerformed(evt);
             }
         });
-        menu_categHabitacion.add(mItem_crearCH);
+        menu_CategHabitacion.add(mItem_crearCH);
 
         mItem_editarCH.setText("Editar Categoría");
         mItem_editarCH.addActionListener(new java.awt.event.ActionListener() {
@@ -61,7 +66,7 @@ public class MenuAdminHotel extends javax.swing.JFrame {
                 mItem_editarCHActionPerformed(evt);
             }
         });
-        menu_categHabitacion.add(mItem_editarCH);
+        menu_CategHabitacion.add(mItem_editarCH);
 
         mItem_eliminarCH.setText("Eliminar Categoría");
         mItem_eliminarCH.addActionListener(new java.awt.event.ActionListener() {
@@ -69,7 +74,7 @@ public class MenuAdminHotel extends javax.swing.JFrame {
                 mItem_eliminarCHActionPerformed(evt);
             }
         });
-        menu_categHabitacion.add(mItem_eliminarCH);
+        menu_CategHabitacion.add(mItem_eliminarCH);
 
         mItem_buscar.setText("Buscar Categoría");
         mItem_buscar.addActionListener(new java.awt.event.ActionListener() {
@@ -77,9 +82,9 @@ public class MenuAdminHotel extends javax.swing.JFrame {
                 mItem_buscarActionPerformed(evt);
             }
         });
-        menu_categHabitacion.add(mItem_buscar);
+        menu_CategHabitacion.add(mItem_buscar);
 
-        jMenuBar1.add(menu_categHabitacion);
+        jMenuBar1.add(menu_CategHabitacion);
 
         menu_Habitacion.setText("Administrar Habitación");
         menu_Habitacion.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +126,47 @@ public class MenuAdminHotel extends javax.swing.JFrame {
         menu_Habitacion.add(mItem_buscarHabit);
 
         jMenuBar1.add(menu_Habitacion);
+
+        menu_CategPS.setText("Administrar Categoría de P/S");
+
+        mItem_crearCategPS.setText("Crear Categoría P/S");
+        mItem_crearCategPS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItem_crearCategPSActionPerformed(evt);
+            }
+        });
+        menu_CategPS.add(mItem_crearCategPS);
+
+        mItem_editarCategPS.setText("Modificar Categoría P/S");
+        mItem_editarCategPS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItem_editarCategPSActionPerformed(evt);
+            }
+        });
+        menu_CategPS.add(mItem_editarCategPS);
+
+        mItem_eliminarCategPS.setText("Eliminar Categoría P/S");
+        mItem_eliminarCategPS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItem_eliminarCategPSActionPerformed(evt);
+            }
+        });
+        menu_CategPS.add(mItem_eliminarCategPS);
+
+        mItem_buscarCategPS.setText("Buscar Categoría P/S");
+        mItem_buscarCategPS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mItem_buscarCategPSMouseClicked(evt);
+            }
+        });
+        mItem_buscarCategPS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItem_buscarCategPSActionPerformed(evt);
+            }
+        });
+        menu_CategPS.add(mItem_buscarCategPS);
+
+        jMenuBar1.add(menu_CategPS);
 
         setJMenuBar(jMenuBar1);
 
@@ -206,6 +252,43 @@ public class MenuAdminHotel extends javax.swing.JFrame {
                                      
     }//GEN-LAST:event_mItem_eliminarHabitActionPerformed
 
+    private void mItem_crearCategPSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItem_crearCategPSActionPerformed
+        // TODO add your handling code here:
+        String args[]=new String[1];
+        args[0]="Crear Categoría P/S";
+        CategPSCreate.main(args);
+    }//GEN-LAST:event_mItem_crearCategPSActionPerformed
+
+    private void mItem_buscarCategPSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mItem_buscarCategPSMouseClicked
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_mItem_buscarCategPSMouseClicked
+
+    private void mItem_editarCategPSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItem_editarCategPSActionPerformed
+        // TODO add your handling code here:
+         opcion=1;
+        String args[]=new String[1];
+        args[0]="Buscar Categoría P/S";
+        CategPSBuscar.main(args);
+    }//GEN-LAST:event_mItem_editarCategPSActionPerformed
+
+    private void mItem_eliminarCategPSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItem_eliminarCategPSActionPerformed
+        // TODO add your handling code here:
+         opcion=2;
+        String args[]=new String[1];
+        args[0]="Buscar Categoría P/S";
+        CategPSBuscar.main(args);
+    }//GEN-LAST:event_mItem_eliminarCategPSActionPerformed
+
+    private void mItem_buscarCategPSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItem_buscarCategPSActionPerformed
+        // TODO add your handling code here:
+         opcion=3;
+        String args[]=new String[1];
+        args[0]="Buscar Categoría P/S";
+        CategPSBuscar.main(args);
+     
+    }//GEN-LAST:event_mItem_buscarCategPSActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -248,14 +331,19 @@ public class MenuAdminHotel extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem mItem_buscar;
+    private javax.swing.JMenuItem mItem_buscarCategPS;
     private javax.swing.JMenuItem mItem_buscarHabit;
     private javax.swing.JMenuItem mItem_crearCH;
+    private javax.swing.JMenuItem mItem_crearCategPS;
     private javax.swing.JMenuItem mItem_crearHabit;
     private javax.swing.JMenuItem mItem_editarCH;
+    private javax.swing.JMenuItem mItem_editarCategPS;
     private javax.swing.JMenuItem mItem_editarHabit;
     private javax.swing.JMenuItem mItem_eliminarCH;
+    private javax.swing.JMenuItem mItem_eliminarCategPS;
     private javax.swing.JMenuItem mItem_eliminarHabit;
+    private javax.swing.JMenu menu_CategHabitacion;
+    private javax.swing.JMenu menu_CategPS;
     private javax.swing.JMenu menu_Habitacion;
-    private javax.swing.JMenu menu_categHabitacion;
     // End of variables declaration//GEN-END:variables
 }

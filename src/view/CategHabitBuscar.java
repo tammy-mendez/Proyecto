@@ -143,7 +143,7 @@ public class CategHabitBuscar extends javax.swing.JFrame {
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, List, masterTable);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigoCategoria}"));
-        columnBinding.setColumnName("Código Categoría");
+        columnBinding.setColumnName("Codigo Categoria");
         columnBinding.setColumnClass(Integer.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
         columnBinding.setColumnName("Nombre");
@@ -326,7 +326,7 @@ public class CategHabitBuscar extends javax.swing.JFrame {
                      break;
          }
     }//GEN-LAST:event_masterTableMouseClicked
-
+ 
     /**
      * @param args the command line arguments
      */

@@ -240,7 +240,7 @@ private int resp;
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
         if (tf_nombre.getText().length()==0){
-                JOptionPane.showMessageDialog(null,"Ingrese algun valor para el campo nombre", "Advertencia",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Ingrese algun valor para el campo nombre", "Error",JOptionPane.ERROR_MESSAGE);
                 return;
          }else{
              query=entityManager.createNamedQuery("CategHabitacion.findByNombre");
