@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 public class ClienteEdit extends javax.swing.JFrame {
     private char ch;
     private int resp;
+    public static String llamadaReservaEditar;
 
     /**
      * Creates new form ClienteEdit
@@ -515,9 +516,15 @@ public class ClienteEdit extends javax.swing.JFrame {
                      entityManager.persist(as);
                      entityManager.getTransaction().commit();
                      entityManager.close();
-                     JOptionPane.showMessageDialog(null, "Modificación Exitosa");
-                     
-              }
+                     JOptionPane.showMessageDialog(null, "Modificación Exitosa"); 
+              }if (!llamadaReservaEditar.equals("")){
+                JFrame frame=new ReservaEditar();
+                frame.setVisible(true);
+                frame.setTitle("Editar Reserva");
+                frame.setLocationRelativeTo(null);
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                
+        }
           }
           this.dispose();
     }//GEN-LAST:event_btn_guardarActionPerformed

@@ -12,7 +12,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -23,6 +22,7 @@ import javax.swing.JOptionPane;
 public class ClienteCreate extends javax.swing.JFrame {
     private char ch;
     private int resp;
+    public static String llamadaCrearReserva ;
 
     /**
      * Creates new form ClienteCreate
@@ -489,6 +489,14 @@ public class ClienteCreate extends javax.swing.JFrame {
                     entityManager.getTransaction().commit();
                     JOptionPane.showMessageDialog(null,"Creación exitosa", "Confirmación",JOptionPane.INFORMATION_MESSAGE);
                }
+        }if (!llamadaCrearReserva.equals("")){
+                JFrame frame=new CrearReserva();
+                CrearReserva.tf_cedulaCliente.setText(tf_cedula.getText());
+                frame.setVisible(true);
+                frame.setTitle("Registar Reserva");
+                frame.setLocationRelativeTo(null);
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                
         }
         this.dispose();
     }//GEN-LAST:event_btn_guardarActionPerformed
@@ -550,7 +558,7 @@ public class ClienteCreate extends javax.swing.JFrame {
     private java.util.List<bean.Cliente> list;
     private javax.persistence.Query query;
     private javax.swing.JTextField tf_apellido;
-    private javax.swing.JTextField tf_cedula;
+    public static javax.swing.JTextField tf_cedula;
     private javax.swing.JTextField tf_direccion;
     private javax.swing.JTextField tf_email;
     private javax.swing.JTextField tf_nombre;

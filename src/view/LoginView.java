@@ -273,24 +273,24 @@ public class LoginView extends javax.swing.JFrame {
                         entityManager.getTransaction().commit();
                         entityManager.close();
                         //hacemos visible el menu para el usuario segun el rol que tenga asignado
-                        if("administrador del sistema".equals(u.get(0).getIdRol().getNombre())){
+                        /*if("administrador del sistema".equals(u.get(0).getIdRol().getNombre())){
                             String args[]=new String[1];
                             args[0]="Menu Administrador del Sistema";
                             MenuAdminSist.main(args);
                             this.dispose();
-                        }
-                        if("recepcionista".equals(u.get(0).getIdRol().getNombre())){
+                        }*/
+                        //if("recepcionista".equals(u.get(0).getIdRol().getNombre())){
                              String args[]=new String[1];
                             args[0]="Menu Recepcionista";
                             MenuRecepcionista.main(args);
                             this.dispose();
-                        }
-                        if("administrador del hotel".equals(u.get(0).getIdRol().getNombre())){
+                        //}
+                       /* if("administrador del hotel".equals(u.get(0).getIdRol().getNombre())){
                              String args[]=new String[1];
                             args[0]="Menu Administrador del Hotel";
                             MenuAdminHotel.main(args);
                             this.dispose();
-                        }
+                        }*/
                                    
                 }else{
                      JOptionPane.showMessageDialog(null,"Contraseña Incorrecta", "Error",JOptionPane.ERROR_MESSAGE);

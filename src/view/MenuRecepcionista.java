@@ -46,7 +46,9 @@ public class MenuRecepcionista extends javax.swing.JFrame {
         mItem_buscarC = new javax.swing.JMenuItem();
         menu_reserva = new javax.swing.JMenu();
         mItem_registrarReserva = new javax.swing.JMenuItem();
-        mItem_buscarReserva = new javax.swing.JMenuItem();
+        mItem_editarReserva = new javax.swing.JMenuItem();
+        mItem_eliminarReserva = new javax.swing.JMenuItem();
+        mItem_buscarReserva2 = new javax.swing.JMenuItem();
         menu_salir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -112,13 +114,29 @@ public class MenuRecepcionista extends javax.swing.JFrame {
         });
         menu_reserva.add(mItem_registrarReserva);
 
-        mItem_buscarReserva.setText("Buscar Reserva");
-        mItem_buscarReserva.addActionListener(new java.awt.event.ActionListener() {
+        mItem_editarReserva.setText("Editar Reserva");
+        mItem_editarReserva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mItem_buscarReservaActionPerformed(evt);
+                mItem_editarReservaActionPerformed(evt);
             }
         });
-        menu_reserva.add(mItem_buscarReserva);
+        menu_reserva.add(mItem_editarReserva);
+
+        mItem_eliminarReserva.setText("Eliminar Reserva");
+        mItem_eliminarReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItem_eliminarReservaActionPerformed(evt);
+            }
+        });
+        menu_reserva.add(mItem_eliminarReserva);
+
+        mItem_buscarReserva2.setText("Buscar Reserva");
+        mItem_buscarReserva2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItem_buscarReserva2ActionPerformed(evt);
+            }
+        });
+        menu_reserva.add(mItem_buscarReserva2);
 
         jMenuBar1.add(menu_reserva);
 
@@ -218,9 +236,29 @@ public class MenuRecepcionista extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menu_reservaActionPerformed
 
-    private void mItem_buscarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItem_buscarReservaActionPerformed
+    private void mItem_editarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItem_editarReservaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_mItem_buscarReservaActionPerformed
+        opcion = 1;
+        String args[] = new String[1];
+        args[0] = "Editar Reserva";
+        BuscarReserva.main(args);
+    }//GEN-LAST:event_mItem_editarReservaActionPerformed
+
+    private void mItem_eliminarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItem_eliminarReservaActionPerformed
+        // TODO add your handling code here:
+        opcion = 2;
+        String args[] = new String[1];
+        args[0] = "Eliminar Reserva";
+        BuscarReserva.main(args);
+    }//GEN-LAST:event_mItem_eliminarReservaActionPerformed
+
+    private void mItem_buscarReserva2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItem_buscarReserva2ActionPerformed
+        // TODO add your handling code here:
+        opcion = 3;
+        String args[] = new String[1];
+        args[0] = "Buscar Reserva";
+        BuscarReserva.main(args);
+    }//GEN-LAST:event_mItem_buscarReserva2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,10 +302,12 @@ public class MenuRecepcionista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem mItem_buscarC;
-    private javax.swing.JMenuItem mItem_buscarReserva;
+    private javax.swing.JMenuItem mItem_buscarReserva2;
     private javax.swing.JMenuItem mItem_crearC;
     private javax.swing.JMenuItem mItem_editarC;
+    private javax.swing.JMenuItem mItem_editarReserva;
     private javax.swing.JMenuItem mItem_eliminarC;
+    private javax.swing.JMenuItem mItem_eliminarReserva;
     private javax.swing.JMenuItem mItem_registrarReserva;
     private javax.swing.JMenu menu_cliente;
     private javax.swing.JMenu menu_reserva;

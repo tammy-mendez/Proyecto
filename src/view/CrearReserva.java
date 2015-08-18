@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static view.ReservaEditar.tf_cedulaCliente;
 import view.VerEstadodeHabitaciones;
 
 /**
@@ -54,7 +55,6 @@ public class CrearReserva extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("proyectoPU").createEntityManager();
         categHabitacionQuery = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT c FROM CategHabitacion c");
@@ -79,10 +79,10 @@ public class CrearReserva extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         tf_precioCategoria = new javax.swing.JTextField();
         tf_numeroHabitacion = new javax.swing.JTextField();
-        cb_cliente = new javax.swing.JComboBox();
         btn_calcularMonto = new javax.swing.JButton();
         btn_buscar = new javax.swing.JButton();
         tf_categoriaHabitacion = new javax.swing.JTextField();
+        tf_cedulaCliente = new javax.swing.JTextField();
         btn_registrarcliente = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btn_registrar = new javax.swing.JButton();
@@ -150,11 +150,6 @@ public class CrearReserva extends javax.swing.JFrame {
             }
         });
 
-        cb_cliente.setRenderer(clienteListRenderizar1);
-
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, clienteList, cb_cliente);
-        bindingGroup.addBinding(jComboBoxBinding);
-
         btn_calcularMonto.setText("Calcular Monto Total");
         btn_calcularMonto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,6 +165,17 @@ public class CrearReserva extends javax.swing.JFrame {
         });
 
         tf_categoriaHabitacion.setEnabled(false);
+
+        tf_cedulaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_cedulaClienteActionPerformed(evt);
+            }
+        });
+        tf_cedulaCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tf_cedulaClienteFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -193,9 +199,9 @@ public class CrearReserva extends javax.swing.JFrame {
                     .addComponent(btn_buscar, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
                     .addComponent(tf_numeroHabitacion)
                     .addComponent(tf_precioCategoria)
-                    .addComponent(cb_cliente, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tf_cantidadPersonas, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tf_categoriaHabitacion))
+                    .addComponent(tf_categoriaHabitacion)
+                    .addComponent(tf_cedulaCliente))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
@@ -238,10 +244,10 @@ public class CrearReserva extends javax.swing.JFrame {
                 .addComponent(btn_calcularMonto)
                 .addGap(40, 40, 40))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(52, 52, 52)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(cb_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf_cedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -362,8 +368,6 @@ public class CrearReserva extends javax.swing.JFrame {
                 .addGap(17, 17, 17))
         );
 
-        bindingGroup.bind();
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -399,9 +403,9 @@ public class CrearReserva extends javax.swing.JFrame {
                 } catch (ParseException ex) {
                     System.out.println("Formateo de fechas fallido");
                 }
-                Cliente cliente = new Cliente();
+                
                 Habitacion habitacion = new Habitacion();
-                cliente = (Cliente)cb_cliente.getSelectedItem();
+                Cliente cliente = obtenerCliente();
                 int respuesta = JOptionPane.showConfirmDialog(null, "¿Confirma el registro?");
                 if (respuesta == JOptionPane.YES_OPTION){
 
@@ -525,8 +529,7 @@ public class CrearReserva extends javax.swing.JFrame {
         tf_numeroHabitacion.setText("");
         tf_categoriaHabitacion.setText("");
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String auxIn = format.format(jc_checkin.getDate());
-        String auxOut = format.format(jc_checkout.getDate());
+
         java.util.Date fecha = new Date();
         //JOptionPane.showMessageDialog(null, auxIn.equals(auxOut));
         try {
@@ -537,23 +540,27 @@ public class CrearReserva extends javax.swing.JFrame {
         if ((jc_checkin.getDate() != null) 
                 && (jc_checkout.getDate() != null)){ 
             if( (jc_checkin.getDate().before(jc_checkout.getDate()))
-                && !auxIn.equals(auxOut)
                 && (fecha.before(jc_checkin.getDate()))
                 && (fecha.before(jc_checkout.getDate()))
                     ){
+                    String auxIn = format.format(jc_checkin.getDate());
+                    String auxOut = format.format(jc_checkout.getDate());
+                    if(!auxIn.equals(auxOut)){
+                        verEstadosHabitaciones();
+                    }
                     //creación de ventana
+                    else{
+                        JOptionPane.showMessageDialog(null, "Fechas Iguales");
+                    }
                     
-                    verEstadosHabitaciones();
                     
             }
             else{
-                JOptionPane.showMessageDialog(null, "Datos Invalidos o Incompletos "
-                               + "impiden el registro");
+                JOptionPane.showMessageDialog(null, "Fechas Invalidas");
             }
         }
         else{
-                JOptionPane.showMessageDialog(null, "Datos Invalidos o Incompletos "
-                + "impiden el registro");  
+                JOptionPane.showMessageDialog(null, "Fechas Invalidas");  
         }
     }//GEN-LAST:event_btn_buscarActionPerformed
 
@@ -561,6 +568,33 @@ public class CrearReserva extends javax.swing.JFrame {
         // TODO add your handling code here
         tf_montoAbonado.setText("0");
     }//GEN-LAST:event_tf_montoAbonadoFocusLost
+
+    private void tf_cedulaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_cedulaClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_cedulaClienteActionPerformed
+
+    private void tf_cedulaClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_cedulaClienteFocusLost
+        // TODO add your handling code here:
+        Cliente cliente = obtenerCliente();
+        int respuesta  = 0;
+        if (cliente == null){
+            respuesta = JOptionPane.showConfirmDialog(null, "Cliente Inexistente ¿Desea "
+                    + "registrarlo en el sistema?");
+            if (respuesta == JOptionPane.YES_OPTION){
+                JFrame frame=new ClienteCreate();
+                frame.setVisible(true);
+                frame.setTitle("Registar Cliente");
+                frame.setLocationRelativeTo(null);
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                ClienteCreate.llamadaCrearReserva = "Invocado";
+                ClienteCreate.tf_cedula.setText(tf_cedulaCliente.getText());
+            }else{
+                tf_cedulaCliente.setText("");
+                tf_cedulaCliente.requestFocus();
+            }
+        }
+        
+    }//GEN-LAST:event_tf_cedulaClienteFocusLost
 
     /**
      * @param args the command line arguments
@@ -619,7 +653,6 @@ public class CrearReserva extends javax.swing.JFrame {
     private javax.swing.JButton btn_registrarcliente;
     private java.util.List<bean.CategHabitacion> categHabitacionList;
     private javax.persistence.Query categHabitacionQuery;
-    private javax.swing.JComboBox cb_cliente;
     private java.util.List<bean.Cliente> clienteList;
     private renderizar.ClienteListRenderizar clienteListRenderizar1;
     private javax.persistence.Query clienteQuery;
@@ -641,14 +674,14 @@ public class CrearReserva extends javax.swing.JFrame {
     private javax.swing.JPanel panel_CrearReserva;
     private javax.swing.JTextField tf_cantidadPersonas;
     public static javax.swing.JTextField tf_categoriaHabitacion;
+    public static javax.swing.JTextField tf_cedulaCliente;
     private javax.swing.JTextField tf_montoAbonado;
     private javax.swing.JTextField tf_montoTotal;
     public static javax.swing.JTextField tf_numeroHabitacion;
     public static javax.swing.JTextField tf_precioCategoria;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
-        private Date obtenerFechaDia() throws ParseException{
+    private Date obtenerFechaDia() throws ParseException{
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date fecha = new Date();
             /*int anho = fecha.get(Calendar.YEAR);
@@ -658,7 +691,18 @@ public class CrearReserva extends javax.swing.JFrame {
                     +"-"+Integer.toString(dia);
             */        
             return format.parse(format.format(fecha));
-        }
-    
+    }
+    private Cliente obtenerCliente() {
+         clienteQuery = entityManager.createNamedQuery("Cliente.findByCedula");
+         clienteQuery.setParameter("cedula", tf_cedulaCliente.getText());
+         Cliente cliente = null;
+         try{
+            cliente = (Cliente)clienteQuery.getSingleResult();
+            System.out.println(cliente);
+         }catch(javax.persistence.NoResultException e){
+             System.out.println(cliente);
+         }
+         return cliente;
+     }
     
 }

@@ -144,9 +144,9 @@
                       <Component id="btn_buscar" pref="144" max="32767" attributes="0"/>
                       <Component id="tf_numeroHabitacion" alignment="0" max="32767" attributes="0"/>
                       <Component id="tf_precioCategoria" alignment="0" max="32767" attributes="0"/>
-                      <Component id="cb_cliente" alignment="1" max="32767" attributes="0"/>
                       <Component id="tf_cantidadPersonas" alignment="1" max="32767" attributes="0"/>
                       <Component id="tf_categoriaHabitacion" max="32767" attributes="0"/>
+                      <Component id="tf_cedulaCliente" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -197,10 +197,10 @@
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cb_cliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tf_cedulaCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -326,16 +326,6 @@
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cb_cliente">
-          <Properties>
-            <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="clienteListRenderizar1"/>
-            </Property>
-          </Properties>
-          <BindingProperties>
-            <BindingProperty name="elements" source="clienteList" target="cb_cliente" targetPath="elements" updateStrategy="0" immediately="false"/>
-          </BindingProperties>
-        </Component>
         <Component class="javax.swing.JButton" name="btn_calcularMonto">
           <Properties>
             <Property name="text" type="java.lang.String" value="Calcular Monto Total"/>
@@ -356,6 +346,15 @@
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tf_cedulaCliente">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tf_cedulaClienteActionPerformed"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tf_cedulaClienteFocusLost"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
