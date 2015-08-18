@@ -246,7 +246,7 @@ public class LoginView extends javax.swing.JFrame {
             }else{
                 if(u.get(0).getPassword().equals(tf_password.getText())){ 
                         //si no tiene asigado ningun rol, no puede ingresar
-                         if("sin rol".equals(u.get(0).getIdRol().getNombre())){
+                         if(" ".equals(u.get(0).getIdRol().getNombre())){
                              JOptionPane.showMessageDialog(null, "No tiene asignado ningun rol, no puede ingresar al sistema","Error",JOptionPane.ERROR_MESSAGE );
                              tf_codempl.setText(null);
                              tf_password.setText(null);

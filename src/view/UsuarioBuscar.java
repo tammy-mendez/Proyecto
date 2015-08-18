@@ -269,7 +269,7 @@ public class UsuarioBuscar extends javax.swing.JFrame {
 
     private void masterTableUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_masterTableUsuarioMouseClicked
         // TODO add your handling code here:
-          String iden2;
+          int iden2;
           switch (MenuAdminSist.opcion){
           case 1:
                  cantidad=masterTableUsuario.getSelectedRow();
@@ -280,10 +280,12 @@ public class UsuarioBuscar extends javax.swing.JFrame {
                     nombre = (Integer)null;
                  } 
                  iden=Integer.toString(id);
-                 iden2=Integer.toString(nombre);
+                 query=entityManager.createNamedQuery("Usuario.findByCodigoEmpleado");
+                 query.setParameter("codigoEmpleado", id);
+                 List<Usuario> u=query.getResultList();
                  JFrame frame=new EditarUsuario();
                  EditarUsuario.tf_idEmpleado.setText(iden);
-                 EditarUsuario.tf_idRol.setText(iden2);
+                 EditarUsuario.list_roles.setSelectedItem(u.get(0).getIdRol());
                  frame.setVisible(true);
                  frame.setTitle("Editar Usuario");
                  frame.setLocationRelativeTo(null);
@@ -294,12 +296,9 @@ public class UsuarioBuscar extends javax.swing.JFrame {
               
                  cantidad=masterTableUsuario.getSelectedRow();
                  id=(Integer) masterTableUsuario.getValueAt(cantidad, 0);
-                 nombre=(Integer)masterTableUsuario.getValueAt(cantidad, 1);
                  iden=Integer.toString(id);
-                 iden2=Integer.toString(nombre);
                  JFrame frame2=new EliminarUsuario();
                  EliminarUsuario.tf_idEmpleado.setText(iden);
-                 EliminarUsuario.tf_idrol.setText(iden2);
                  EliminarUsuario.tf_nombreRol.setText(masterTableUsuario.getValueAt(cantidad, 2).toString());
                  frame2.setVisible(true);
                  frame2.setTitle("Eliminar Usuario");
@@ -382,17 +381,17 @@ public class UsuarioBuscar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_cancelar;
-    public static javax.persistence.EntityManager entityManager;
+    private javax.persistence.EntityManager entityManager;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbl_BuscarUsuario;
-    public static java.util.List<bean.Usuario> list;
+    private java.util.List<bean.Usuario> list;
     private javax.swing.JComboBox list_filtros;
-    public static javax.swing.JTable masterTableUsuario;
+    private javax.swing.JTable masterTableUsuario;
     private javax.swing.JPanel panel_BuscarUsuario;
-    public static javax.persistence.Query query;
+    private javax.persistence.Query query;
     private javax.swing.JTextField tf_valor;
     private renderizar.UsuarioListRenderizar usuarioListRenderizar1;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;

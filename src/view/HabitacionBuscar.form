@@ -6,9 +6,6 @@
       <Properties>
         <Property name="persistenceUnit" type="java.lang.String" value="proyectoPU"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-      </AuxValues>
     </Component>
     <Component class="javax.persistence.Query" name="query">
       <Properties>
@@ -17,9 +14,6 @@
           <ComponentRef name="entityManager"/>
         </Property>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-      </AuxValues>
     </Component>
     <Component class="java.util.List" name="list">
       <Properties>
@@ -30,7 +24,6 @@
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;bean.Habitacion&gt;"/>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
       </AuxValues>
     </Component>
   </NonVisualComponents>

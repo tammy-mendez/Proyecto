@@ -23,7 +23,12 @@ import javax.persistence.Query;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import view.VerEstadodeHabitaciones;
 
 /**
  *
@@ -31,7 +36,9 @@ import java.util.Date;
  */
 public class CrearReserva extends javax.swing.JFrame {
     private Connection connection;
-    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    //SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    //public static int codigoCategoria = 0;
+    //public static int numHabitacion = 0;
     /**
      * Creates new form CrearReserva
      */
@@ -66,7 +73,6 @@ public class CrearReserva extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jc_checkout = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
-        cb_categoriaHabitacion = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         tf_montoTotal = new javax.swing.JTextField();
@@ -76,15 +82,17 @@ public class CrearReserva extends javax.swing.JFrame {
         cb_cliente = new javax.swing.JComboBox();
         btn_calcularMonto = new javax.swing.JButton();
         btn_buscar = new javax.swing.JButton();
+        tf_categoriaHabitacion = new javax.swing.JTextField();
         btn_registrarcliente = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btn_registrar = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
-        categHabitacionRenderizar1 = new renderizar.CategHabitacionRenderizar();
+        panel_CrearReserva = new javax.swing.JPanel();
+        lbl_BuscarRol = new javax.swing.JLabel();
 
         clienteListRenderizar1.setText("clienteListRenderizar1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
@@ -101,6 +109,12 @@ public class CrearReserva extends javax.swing.JFrame {
 
         jLabel4.setText("Monto Abonado:");
 
+        tf_montoAbonado.setText("0");
+        tf_montoAbonado.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tf_montoAbonadoFocusLost(evt);
+            }
+        });
         tf_montoAbonado.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tf_montoAbonadoKeyTyped(evt);
@@ -119,20 +133,6 @@ public class CrearReserva extends javax.swing.JFrame {
 
         jLabel6.setText("Categoría Hab:");
 
-        cb_categoriaHabitacion.setRenderer(categHabitacionRenderizar1);
-
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, categHabitacionList, cb_categoriaHabitacion);
-        bindingGroup.addBinding(jComboBoxBinding);
-
-        cb_categoriaHabitacion.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                cb_categoriaHabitacionFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                cb_categoriaHabitacionFocusLost(evt);
-            }
-        });
-
         jLabel7.setText("N° Habitación:");
 
         jLabel8.setText("Monto Total:");
@@ -143,9 +143,6 @@ public class CrearReserva extends javax.swing.JFrame {
 
         tf_precioCategoria.setEnabled(false);
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cb_categoriaHabitacion, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.costoxnoche}"), tf_precioCategoria, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
         tf_numeroHabitacion.setEnabled(false);
         tf_numeroHabitacion.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -155,7 +152,7 @@ public class CrearReserva extends javax.swing.JFrame {
 
         cb_cliente.setRenderer(clienteListRenderizar1);
 
-        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, clienteList, cb_cliente);
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, clienteList, cb_cliente);
         bindingGroup.addBinding(jComboBoxBinding);
 
         btn_calcularMonto.setText("Calcular Monto Total");
@@ -171,6 +168,8 @@ public class CrearReserva extends javax.swing.JFrame {
                 btn_buscarActionPerformed(evt);
             }
         });
+
+        tf_categoriaHabitacion.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -191,12 +190,12 @@ public class CrearReserva extends javax.swing.JFrame {
                                 .addComponent(jLabel11)))
                         .addGap(28, 28, 28)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_buscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_buscar, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
                     .addComponent(tf_numeroHabitacion)
                     .addComponent(tf_precioCategoria)
-                    .addComponent(cb_categoriaHabitacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cb_cliente, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tf_cantidadPersonas, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(tf_cantidadPersonas, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tf_categoriaHabitacion))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
@@ -214,7 +213,7 @@ public class CrearReserva extends javax.swing.JFrame {
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btn_calcularMonto, cb_categoriaHabitacion, jc_checkin, jc_checkout, tf_montoAbonado, tf_montoTotal});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btn_calcularMonto, jc_checkin, jc_checkout, tf_montoAbonado, tf_montoTotal});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,8 +248,8 @@ public class CrearReserva extends javax.swing.JFrame {
                     .addComponent(tf_cantidadPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cb_categoriaHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(tf_categoriaHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(4, 4, 4)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -306,41 +305,59 @@ public class CrearReserva extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        categHabitacionRenderizar1.setText("categHabitacionRenderizar1");
+        panel_CrearReserva.setBackground(new java.awt.Color(0, 153, 255));
+        panel_CrearReserva.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+
+        lbl_BuscarRol.setFont(new java.awt.Font("Corbel", 1, 30)); // NOI18N
+        lbl_BuscarRol.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_BuscarRol.setText("Registrar Reserva");
+
+        javax.swing.GroupLayout panel_CrearReservaLayout = new javax.swing.GroupLayout(panel_CrearReserva);
+        panel_CrearReserva.setLayout(panel_CrearReservaLayout);
+        panel_CrearReservaLayout.setHorizontalGroup(
+            panel_CrearReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_CrearReservaLayout.createSequentialGroup()
+                .addGap(179, 179, 179)
+                .addComponent(lbl_BuscarRol)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panel_CrearReservaLayout.setVerticalGroup(
+            panel_CrearReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_CrearReservaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbl_BuscarRol)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(btn_registrarcliente)
-                        .addGap(110, 110, 110)
-                        .addComponent(categHabitacionRenderizar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(panel_CrearReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btn_registrarcliente)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(btn_registrarcliente)
-                        .addGap(17, 17, 17))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(categHabitacionRenderizar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addComponent(panel_CrearReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_registrarcliente)
+                .addGap(13, 13, 13)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(17, 17, 17))
         );
@@ -363,7 +380,8 @@ public class CrearReserva extends javax.swing.JFrame {
                 && (jc_checkout.getDate() != null) 
                 && !tf_montoTotal.getText().equals("")
                 && !tf_cantidadPersonas.getText().equals("")
-                && !tf_numeroHabitacion.getText().equals("Sin habitaciones"))
+                && !tf_numeroHabitacion.getText().equals("")
+                && !tf_numeroHabitacion.getText().equals(""))
                         {
            if(jc_checkin.getDate().before(jc_checkout.getDate())                
                    && Integer.parseInt(tf_montoAbonado.getText()) < Integer.parseInt(tf_montoTotal.getText())
@@ -397,7 +415,11 @@ public class CrearReserva extends javax.swing.JFrame {
                     reserva.setCheckOut(dateOut);
                     //reserva.setCheckOut(format.parse(format.format(jc_checkout.toString())));
                     reserva.setCodigoCliente(cliente);
-                    reserva.setMontoAbonado(Integer.parseInt(tf_montoAbonado.getText()));
+                    if (tf_montoAbonado.getText().equals(""))
+                        reserva.setMontoAbonado(0);
+                    else
+                        reserva.setMontoAbonado(Integer.parseInt(tf_montoAbonado.getText()));
+                    
                     reserva.setMontoTotal(Integer.parseInt(tf_montoTotal.getText()));
                     //consulta para obtener habitacion
                     Query query = ema.createNamedQuery("Habitacion.findByNumero");
@@ -415,7 +437,7 @@ public class CrearReserva extends javax.swing.JFrame {
                     //trabajamos con la fecha
                     DateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                     as.setFechaHora(formato.format(fecha));
-                    as.setUsuario("nadie");
+                    as.setUsuario(LoginView.nombreUsuario);
                     ema.persist(as);
                     ema.flush();
                     ema.getTransaction().commit();
@@ -450,14 +472,6 @@ public class CrearReserva extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_tf_numeroHabitacionFocusLost
-
-    private void cb_categoriaHabitacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cb_categoriaHabitacionFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cb_categoriaHabitacionFocusLost
-
-    private void cb_categoriaHabitacionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cb_categoriaHabitacionFocusGained
-
-    }//GEN-LAST:event_cb_categoriaHabitacionFocusGained
 
     private void tf_cantidadPersonasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_cantidadPersonasKeyTyped
         // TODO add your handling code here:
@@ -508,93 +522,45 @@ public class CrearReserva extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_calcularMontoActionPerformed
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        tf_numeroHabitacion.setText("");
+        tf_categoriaHabitacion.setText("");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String auxIn = format.format(jc_checkin.getDate());
+        String auxOut = format.format(jc_checkout.getDate());
         java.util.Date fecha = new Date();
+        //JOptionPane.showMessageDialog(null, auxIn.equals(auxOut));
+        try {
+            fecha = obtenerFechaDia();
+        } catch (ParseException ex) {
+            System.out.println("Problemas con fechas");
+        }
         if ((jc_checkin.getDate() != null) 
                 && (jc_checkout.getDate() != null)){ 
-            if( jc_checkin.getDate().before(jc_checkout.getDate())
-                  //  &&jc_checkin.getDate().after(fecha)
-                   //&&jc_checkin.getDate().after(fecha)
+            if( (jc_checkin.getDate().before(jc_checkout.getDate()))
+                && !auxIn.equals(auxOut)
+                && (fecha.before(jc_checkin.getDate()))
+                && (fecha.before(jc_checkout.getDate()))
                     ){
-                    //Declaraciones
-                    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-                    String fechain = sf.format(jc_checkin.getDate());
-                    String fechaout = sf.format(jc_checkout.getDate());
-                    //java.sql.Date fechaInSql = null;
-                    //java.sql.Date fechaOutSql = null;
-                  /*  try {
-                        fechaInSql = new java.sql.Date(sf.parse(fechain).getTime());
-                        fechaOutSql = new java.sql.Date(sf.parse(fechaout).getTime());
-                    } catch (ParseException ex) {
-                        System.out.println("Fechas no funcionan");
-                    }*/
-                    int numeroHabitacion = 0, resultado = 0;
-                    CategHabitacion categoria = new CategHabitacion();
-                    categoria = (CategHabitacion)cb_categoriaHabitacion.getSelectedItem();
-                    int numCategoria = categoria.getCodigoCategoria();
-
-                    //********************************************************************
-
-                    Conneccion();
-                    String query = "select funcion_hab_libre(" +"'"
-                            +fechain+"', "+"'"+fechaout+"', "+Integer.toString(numCategoria)
-                            + ") as libre";
-                    //JOptionPane.showMessageDialog(null, query);
-                    try {
-                        java.sql.Statement stm = connection.createStatement();
-                        java.sql.ResultSet rs = stm.executeQuery(query);
-                        while(rs.next()){
-                            numeroHabitacion = rs.getInt("libre");
-                        }
-                        rs.close();
-                    } catch (SQLException ex) {
-                        System.out.println("Algo falló");
-                    }catch(Exception e){
-                        System.out.println("Error");
-                    }
-                    try {
-                        connection.close();
-                    } catch (SQLException ex) {
-                        System.out.println("No pudo cerrarse la conexion");
-                    }
-
-                  /*  try{
-                        CallableStatement proc;
-                        proc = connection.prepareCall("{?=CALL funcion_hab_libre(?,?,?)}");
-
-                        proc.setDate("dateIn",  fechaInSql);
-                        proc.setDate("dateOut", fechaOutSql);
-                        proc.setInt("categ_hab", numCategoria);
-                        proc.registerOutParameter(1 , Types.INTEGER);
-                        if (proc.execute()){
-                            resultado = proc.getInt(1);
-                            proc.close();
-                            proc.close();
-                        }else{
-                            System.out.println("Sin resultados");
-                        }
-                    }catch(SQLException e){
-                        System.out.println("Error sql");;
-                    }catch(Exception e){
-                        System.out.println("Error");
-                    }*/
-                        tf_numeroHabitacion.setText("");
-                        if(numeroHabitacion == 0){
-                            tf_numeroHabitacion.setText("Sin habitaciones");
-
-                        }else{
-                            tf_numeroHabitacion.setText(Integer.toString(numeroHabitacion));
-                        }
-                    }
-                    else{
-                       JOptionPane.showMessageDialog(null, "Datos Invalidos o Incompletos "
+                    //creación de ventana
+                    
+                    verEstadosHabitaciones();
+                    
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Datos Invalidos o Incompletos "
                                + "impiden el registro");
-                    }
-        } 
+            }
+        }
         else{
                 JOptionPane.showMessageDialog(null, "Datos Invalidos o Incompletos "
                 + "impiden el registro");  
-            }
+        }
     }//GEN-LAST:event_btn_buscarActionPerformed
+
+    private void tf_montoAbonadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_montoAbonadoFocusLost
+        // TODO add your handling code here
+        tf_montoAbonado.setText("0");
+    }//GEN-LAST:event_tf_montoAbonadoFocusLost
 
     /**
      * @param args the command line arguments
@@ -630,24 +596,20 @@ public class CrearReserva extends javax.swing.JFrame {
                 frame.pack();
                 frame.setVisible(true);
                 frame.setLocationRelativeTo(null);
+                
                 //frame.setTitle(args[0]);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
     }
-    private void Conneccion(){
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            String BaseDeDatos = "jdbc:mysql://localhost/hotel db?user=root&password=user";
-            connection = DriverManager.getConnection(BaseDeDatos);
-            if(connection != null){
-                System.out.println("Conexion Exitosa!");
-            }else{
-                System.out.println("Conexion Fallida!");                
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+    private void verEstadosHabitaciones(){
+        JFrame ventana = new VerEstadodeHabitaciones();
+        ventana.setLocationRelativeTo(null);
+        ventana.setTitle("Ver Estado de Habitaciones");
+        ventana.setVisible(true);
+                    
+
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_buscar;
@@ -657,8 +619,6 @@ public class CrearReserva extends javax.swing.JFrame {
     private javax.swing.JButton btn_registrarcliente;
     private java.util.List<bean.CategHabitacion> categHabitacionList;
     private javax.persistence.Query categHabitacionQuery;
-    private renderizar.CategHabitacionRenderizar categHabitacionRenderizar1;
-    private javax.swing.JComboBox cb_categoriaHabitacion;
     private javax.swing.JComboBox cb_cliente;
     private java.util.List<bean.Cliente> clienteList;
     private renderizar.ClienteListRenderizar clienteListRenderizar1;
@@ -675,14 +635,30 @@ public class CrearReserva extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private com.toedter.calendar.JDateChooser jc_checkin;
-    private com.toedter.calendar.JDateChooser jc_checkout;
+    public static com.toedter.calendar.JDateChooser jc_checkin;
+    public static com.toedter.calendar.JDateChooser jc_checkout;
+    private javax.swing.JLabel lbl_BuscarRol;
+    private javax.swing.JPanel panel_CrearReserva;
     private javax.swing.JTextField tf_cantidadPersonas;
+    public static javax.swing.JTextField tf_categoriaHabitacion;
     private javax.swing.JTextField tf_montoAbonado;
     private javax.swing.JTextField tf_montoTotal;
-    private javax.swing.JTextField tf_numeroHabitacion;
-    private javax.swing.JTextField tf_precioCategoria;
+    public static javax.swing.JTextField tf_numeroHabitacion;
+    public static javax.swing.JTextField tf_precioCategoria;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
+        private Date obtenerFechaDia() throws ParseException{
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date fecha = new Date();
+            /*int anho = fecha.get(Calendar.YEAR);
+            int mes = fecha.get(Calendar.MONTH + 1);
+            int dia = fecha.get(Calendar.DAY_OF_MONTH);
+            String fechaActual = Integer.toString(anho) +"-"+Integer.toString(mes)
+                    +"-"+Integer.toString(dia);
+            */        
+            return format.parse(format.format(fecha));
+        }
+    
+    
 }

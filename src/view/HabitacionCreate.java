@@ -241,9 +241,8 @@ public class HabitacionCreate extends javax.swing.JFrame {
                    EntityManager em=fact.createEntityManager();
                    em.getTransaction().begin();
                    Habitacion ha=new Habitacion();
-                   CategHabitacion c=new CategHabitacion();
                    ha.setNumero(Integer.parseInt(tf_numeroHabit.getText()));
-                   c=(CategHabitacion) list_categoria.getSelectedItem();
+                   CategHabitacion c=(CategHabitacion) list_categoria.getSelectedItem();
                    ha.setCodigoCategoria(c);
                    em.persist(ha);
                    em.flush();
@@ -261,7 +260,6 @@ public class HabitacionCreate extends javax.swing.JFrame {
                     em.persist(as);
                     em.getTransaction().commit();
                     em.close();
-                    System.out.print(ha.toString());
                      JOptionPane.showMessageDialog(null,"Creación exitosa", "Confirmación",JOptionPane.INFORMATION_MESSAGE);
                    
                }

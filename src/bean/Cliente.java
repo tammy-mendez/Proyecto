@@ -7,7 +7,9 @@
 package bean;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -34,6 +37,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "Cliente.findByTelefono", query = "SELECT c FROM Cliente c WHERE c.telefono = :telefono"),
     @NamedQuery(name = "Cliente.findByRuc", query = "SELECT c FROM Cliente c WHERE c.ruc = :ruc")})
 public class Cliente implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoCliente")
+    private Collection<Reserva> reservaCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -170,6 +175,14 @@ public class Cliente implements Serializable {
     @Override
     public String toString() {
         return  "codigoCliente=" + codigoCliente + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", direccion=" + direccion + ", telefono=" + telefono + ", ruc=" + ruc;
+    }
+
+    public Collection<Reserva> getReservaCollection() {
+        return reservaCollection;
+    }
+
+    public void setReservaCollection(Collection<Reserva> reservaCollection) {
+        this.reservaCollection = reservaCollection;
     }
     
     

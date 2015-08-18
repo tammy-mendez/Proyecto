@@ -80,6 +80,11 @@ public class VerAuditoriaSistema extends javax.swing.JFrame {
                 btn_buscarActionPerformed(evt);
             }
         });
+        btn_buscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                btn_buscarFocusLost(evt);
+            }
+        });
 
         tf_valor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -315,6 +320,11 @@ public class VerAuditoriaSistema extends javax.swing.JFrame {
          }
             
     }//GEN-LAST:event_list_filtrosFocusLost
+
+    private void btn_buscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_buscarFocusLost
+        // TODO add your handling code here:
+        tf_valor.setText(null);
+    }//GEN-LAST:event_btn_buscarFocusLost
 
     /**
     * @param args the command line arguments

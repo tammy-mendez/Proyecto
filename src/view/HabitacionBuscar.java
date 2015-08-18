@@ -6,6 +6,7 @@
 
 package view;
 
+import bean.CategHabitacion;
 import bean.Habitacion;
 import java.util.List;
 import javax.swing.JFrame;
@@ -309,12 +310,13 @@ public class HabitacionBuscar extends javax.swing.JFrame {
             case 1:
                     fila=masterTable.getSelectedRow();
                     numero=(Integer) masterTable.getValueAt(fila, 0);
-                    categoria=(Integer)masterTable.getValueAt(fila, 1);
-                    nombre=(String)masterTable.getValueAt(fila, 2);
+                    //aqui obtenemos la categoria para que la muestre seleccionada en el combo box
+                    query=entityManager.createNamedQuery("Habitacion.findByNumero");
+                    query.setParameter("numero", numero);
+                    List<Habitacion> h=query.getResultList();
                     JFrame frame= new HabitacionEdit();
                     HabitacionEdit.tf_numeroHabit.setText(Integer.toString(numero));
-                    HabitacionEdit.tf_codigo.setText(Integer.toString(categoria));
-                    HabitacionEdit.list_categoria.setSelectedItem(nombre);
+                    HabitacionEdit.list_categoria.setSelectedItem(h.get(0).getCodigoCategoria());
                     frame.setVisible(true);
                     frame.setTitle("Modificar Habitación");
                     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -384,17 +386,17 @@ public class HabitacionBuscar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_cancelar;
-    public static javax.persistence.EntityManager entityManager;
+    private javax.persistence.EntityManager entityManager;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_BuscarHabitacion;
     private javax.swing.JLabel lbl_valor;
-    public static java.util.List<bean.Habitacion> list;
+    private java.util.List<bean.Habitacion> list;
     private javax.swing.JComboBox list_filtros;
     private javax.swing.JTable masterTable;
     private javax.swing.JPanel panel_BuscarHabitacion;
-    public static javax.persistence.Query query;
+    private javax.persistence.Query query;
     private javax.swing.JTextField tf_valor;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables

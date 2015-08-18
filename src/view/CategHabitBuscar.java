@@ -305,7 +305,7 @@ public class CategHabitBuscar extends javax.swing.JFrame {
                     frame.setTitle("Editar Categoría de Habitación");
                     frame.setLocationRelativeTo(null);
                     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    this.setVisible(false);
+                    this.dispose();
                     break;
              case 2:
                     fila=masterTable.getSelectedRow();

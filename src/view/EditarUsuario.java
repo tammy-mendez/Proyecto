@@ -48,11 +48,9 @@ public class EditarUsuario extends javax.swing.JFrame {
         rolListRenderizar1 = new renderizar.RolListRenderizar();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         list_roles = new javax.swing.JComboBox();
         tf_idEmpleado = new javax.swing.JTextField();
-        tf_idRol = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btn_guardar = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
@@ -70,9 +68,6 @@ public class EditarUsuario extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
         jLabel1.setText("Id Empleado:");
 
-        jLabel2.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
-        jLabel2.setText("Id Rol:");
-
         jLabel3.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
         jLabel3.setText("Rol:");
 
@@ -80,15 +75,10 @@ public class EditarUsuario extends javax.swing.JFrame {
 
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rolList, list_roles);
         bindingGroup.addBinding(jComboBoxBinding);
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tf_idRol, org.jdesktop.beansbinding.ObjectProperty.create(), list_roles, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, new javax.swing.JTextField(), org.jdesktop.beansbinding.ObjectProperty.create(), list_roles, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
         tf_idEmpleado.setEnabled(false);
-
-        tf_idRol.setEnabled(false);
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list_roles, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.idRol}"), tf_idRol, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -97,15 +87,12 @@ public class EditarUsuario extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(list_roles, 0, 170, Short.MAX_VALUE)
-                    .addComponent(tf_idEmpleado)
-                    .addComponent(tf_idRol))
+                    .addComponent(tf_idEmpleado))
                 .addGap(38, 38, 38))
         );
         jPanel1Layout.setVerticalGroup(
@@ -115,15 +102,11 @@ public class EditarUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tf_idEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(tf_idRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(list_roles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(25, 25, 25))
+                    .addComponent(jLabel3)
+                    .addComponent(list_roles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45))
         );
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
@@ -213,7 +196,7 @@ public class EditarUsuario extends javax.swing.JFrame {
                 .addComponent(panel_editarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(40, 40, 40)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -322,19 +305,17 @@ public class EditarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbl_editarUsuario;
-    private javax.swing.JComboBox list_roles;
+    public static javax.swing.JComboBox list_roles;
     private javax.swing.JPanel panel_editarUsuario;
     private javax.persistence.EntityManager proyectoPUEntityManager;
     private java.util.List<bean.Rol> rolList;
     private renderizar.RolListRenderizar rolListRenderizar1;
     private javax.persistence.Query rolQuery;
     public static javax.swing.JTextField tf_idEmpleado;
-    public static javax.swing.JTextField tf_idRol;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

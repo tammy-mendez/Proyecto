@@ -8,11 +8,11 @@ package view;
 
 import bean.AuditoriaSistema;
 import bean.CategoriaProdSer;
+import bean.ProductoServicio;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import static view.CategHabitEliminar.tf_codigo;
 
 /**
  *

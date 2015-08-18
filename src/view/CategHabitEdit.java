@@ -231,7 +231,7 @@ public class CategHabitEdit extends javax.swing.JFrame {
                             return;
                          }
                     }
-                        resp=  JOptionPane.showConfirmDialog(null,"Desea Registrar una nueva Categoría de Habitación?", "Confirmar Creación",JOptionPane.YES_NO_OPTION );
+                        resp=  JOptionPane.showConfirmDialog(null,"Desea Guardar los cambios?", "Confirmar Creación",JOptionPane.YES_NO_OPTION );
                     if (resp==JOptionPane.YES_OPTION){
                         query=entityManager.createNamedQuery("CategHabitacion.findByCodigoCategoria");
                         query.setParameter("codigoCategoria",Integer.parseInt(tf_codigo.getText()));

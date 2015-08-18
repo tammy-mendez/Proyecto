@@ -9,7 +9,9 @@ package bean;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -30,6 +33,8 @@ import javax.persistence.Transient;
     @NamedQuery(name = "Habitacion.findAll", query = "SELECT h FROM Habitacion h"),
     @NamedQuery(name = "Habitacion.findByNumero", query = "SELECT h FROM Habitacion h WHERE h.numero = :numero")})
 public class Habitacion implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "numHabitacion")
+    private Collection<Reserva> reservaCollection;
     @Transient
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
@@ -104,6 +109,14 @@ public class Habitacion implements Serializable {
 
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
+    }
+
+    public Collection<Reserva> getReservaCollection() {
+        return reservaCollection;
+    }
+
+    public void setReservaCollection(Collection<Reserva> reservaCollection) {
+        this.reservaCollection = reservaCollection;
     }
     
 }

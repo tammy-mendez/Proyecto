@@ -55,8 +55,6 @@ public class HabitacionEdit extends javax.swing.JFrame {
         tf_numeroHabit = new javax.swing.JTextField();
         list_categoria = new javax.swing.JComboBox();
         lbl_categoria = new javax.swing.JLabel();
-        lbl_codigo = new javax.swing.JLabel();
-        tf_codigo = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btn_cancelar = new javax.swing.JButton();
         btn_guardar = new javax.swing.JButton();
@@ -115,48 +113,33 @@ public class HabitacionEdit extends javax.swing.JFrame {
         lbl_categoria.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
         lbl_categoria.setText("Nombre de Categoría:");
 
-        lbl_codigo.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
-        lbl_codigo.setText("Código de Categoría:");
-
-        tf_codigo.setEnabled(false);
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list_categoria, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.codigoCategoria}"), tf_codigo, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_numeroHabit)
-                    .addComponent(lbl_categoria)
-                    .addComponent(lbl_codigo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                    .addComponent(lbl_categoria))
+                .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(list_categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(tf_codigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                        .addComponent(tf_numeroHabit, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addGap(56, 56, 56))
+                    .addComponent(tf_numeroHabit, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tf_numeroHabit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_numeroHabit))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_codigo)
-                    .addComponent(tf_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                    .addComponent(lbl_numeroHabit)
+                    .addComponent(tf_numeroHabit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_categoria)
                     .addComponent(list_categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31))
+                .addGap(46, 46, 46))
         );
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
@@ -270,7 +253,7 @@ public class HabitacionEdit extends javax.swing.JFrame {
                         +" AND h.numero="
                         +n, Habitacion.class);
                 List<Habitacion> habit=query.getResultList();
-                if(habit.size()!=0){
+                if(!habit.isEmpty()){
                     JOptionPane.showMessageDialog(null, "Esta habitación tiene reservas asignadas, no puede modificar","Error",JOptionPane.ERROR_MESSAGE );
                     this.dispose();
                     return;
@@ -296,8 +279,7 @@ public class HabitacionEdit extends javax.swing.JFrame {
                     //guardar los cambios
                     Habitacion ha=new Habitacion();
                     ha.setNumero(Integer.parseInt(tf_numeroHabit.getText()));
-                    CategHabitacion ch=new CategHabitacion();
-                    ch=(CategHabitacion) list_categoria.getSelectedItem();
+                    CategHabitacion ch=(CategHabitacion)list_categoria.getSelectedItem();
                     ha.setCodigoCategoria(ch);
                     entityManager.getTransaction().begin();
                     entityManager.merge(ha);
@@ -381,14 +363,12 @@ public class HabitacionEdit extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbl_categoria;
-    private javax.swing.JLabel lbl_codigo;
     private javax.swing.JLabel lbl_editarHabitacion;
     private javax.swing.JLabel lbl_numeroHabit;
     private java.util.List<bean.CategHabitacion> list;
     public static javax.swing.JComboBox list_categoria;
     private javax.swing.JPanel panel_editarHabitacion;
     private javax.persistence.Query query;
-    public static javax.swing.JTextField tf_codigo;
     public static javax.swing.JTextField tf_numeroHabit;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
