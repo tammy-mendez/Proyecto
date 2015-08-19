@@ -373,6 +373,7 @@ public class ReservaEditar extends javax.swing.JFrame {
                     antes = reserva.toString();
                     
                     ema.getTransaction().begin();
+                    reservaLocal.setCodigoReserva(reserva.getCodigoReserva());
                     reservaLocal.setCantPersonas(Integer.parseInt(tf_cantidadPersonas.getText()));
                     reservaLocal.setCheckIn(dateIn);
                     reservaLocal.setCheckOut(dateOut);
