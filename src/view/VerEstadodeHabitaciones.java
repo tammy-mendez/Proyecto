@@ -25,7 +25,6 @@ import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import view.CrearReserva;
 /**
  *
  * @author Vladimir
@@ -197,7 +196,7 @@ public class VerEstadodeHabitaciones extends javax.swing.JFrame {
                             "on  h.numero=r.numHabitacion " +
                             "where ((r.checkIn>= '"+fechain+"' and r.checkIn<= '"+fechaout+"' ) or "
                             + "(r.checkOut >= '"+fechain+"' and r.checkOut<= '"+fechaout+"'))"
-                            + " and h.numero=ha.numero)";
+                            + " and h.numero=ha.numero) order by ha.numero";
                     
                     
                     
@@ -211,8 +210,13 @@ public class VerEstadodeHabitaciones extends javax.swing.JFrame {
                     nombreCategoria.setFont(new Font("Serif", Font.BOLD, 13));
                     
                     final JLabel costoCategoria = new JLabel(Integer.toString(categorias.get(i).getCostoxnoche()));
-                    getContentPane().add(costoCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints((px+100), (py-20), 200, -1));
+                    getContentPane().add(costoCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints((px+170), (py-20), 200, -1));
                     nombreCategoria.setBorder(BorderFactory.createBevelBorder(5));
+                    
+                    JLabel etiquetaCosto = new JLabel("Costo:");
+                    getContentPane().add(etiquetaCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints((px+130), (py-20), 200, -1));
+                    etiquetaCosto.setFont(new Font("Serif", Font.BOLD, 13));
+                    
                     JLabel hb = new JLabel("Sin habitaciones");
                     hb.setForeground(Color.red);
                     getContentPane().add(hb, new org.netbeans.lib.awtextra.AbsoluteConstraints(px, py, 200, -1));
@@ -262,7 +266,8 @@ public class VerEstadodeHabitaciones extends javax.swing.JFrame {
                         numeroHabitacion.add(habitacion);
                         px+=50;
                         if (px >= 300){
-                            py += 30;
+                            px = 30;
+                            py += 25;
                         }
                     }
                     

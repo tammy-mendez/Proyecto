@@ -56,7 +56,7 @@ public class MenuRecepcionista extends javax.swing.JFrame {
         mItem_buscarConsumo = new javax.swing.JMenuItem();
         menu_salir = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         menu_cliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         menu_cliente.setText("Administrar Clientes");
@@ -185,6 +185,11 @@ public class MenuRecepcionista extends javax.swing.JFrame {
         menu_salir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 menu_salirMouseClicked(evt);
+            }
+        });
+        menu_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_salirActionPerformed(evt);
             }
         });
         jMenuBar1.add(menu_salir);
@@ -332,6 +337,11 @@ public class MenuRecepcionista extends javax.swing.JFrame {
         BuscarConsumoPS.main(args);
     }//GEN-LAST:event_mItem_buscarConsumoActionPerformed
 
+    private void menu_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_salirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_menu_salirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -366,7 +376,7 @@ public class MenuRecepcionista extends javax.swing.JFrame {
                 frame.setTitle("Menu Recepcionista");
                 frame.setVisible(true);
                 frame.setLocationRelativeTo(null);
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                //frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
     }
@@ -383,13 +393,9 @@ public class MenuRecepcionista extends javax.swing.JFrame {
     private javax.swing.JMenuItem mItem_eliminarConsumo;
     private javax.swing.JMenuItem mItem_eliminarReserva;
     private javax.swing.JMenuItem mItem_modificarConsumo;
-    private javax.swing.JMenuItem mItem_registrarConsumo;
-    private javax.swing.JMenuItem mItem_registrarConsumo1;
     private javax.swing.JMenuItem mItem_registrarConsumo2;
     private javax.swing.JMenuItem mItem_registrarReserva;
     private javax.swing.JMenu menu_cliente;
-    private javax.swing.JMenu menu_consumo;
-    private javax.swing.JMenu menu_consumo1;
     private javax.swing.JMenu menu_consumo2;
     private javax.swing.JMenu menu_reserva;
     private javax.swing.JMenu menu_salir;

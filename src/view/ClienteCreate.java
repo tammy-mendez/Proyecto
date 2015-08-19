@@ -22,8 +22,8 @@ import javax.swing.JOptionPane;
 public class ClienteCreate extends javax.swing.JFrame {
     private char ch;
     private int resp;
-    public static String llamadaCrearReserva ;
-    public static String llamadaEditarReserva;
+    public static String llamadaCrearReserva = "";
+    public static String llamadaEditarReserva = "";
 
     /**
      * Creates new form ClienteCreate
