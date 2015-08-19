@@ -33,7 +33,8 @@ import view.CrearReserva;
 public class VerEstadodeHabitaciones extends javax.swing.JFrame {
     private Connection connection;
     List<List<JButton>> numeroHabitacionesxCategoria= new ArrayList<List<JButton>>(10);
-    
+    public static String llamadaCrearReserva="";
+    public static String llamadaEditarReserva="";
     
 
     /**
@@ -156,8 +157,16 @@ public class VerEstadodeHabitaciones extends javax.swing.JFrame {
             List<JButton> numeroHabitacion = new ArrayList<JButton>(10);
             List<CategHabitacion> categorias = obtenerListaCategorias();
             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-            String fechain = sf.format(CrearReserva.jc_checkin.getDate());
-            String fechaout = sf.format(CrearReserva.jc_checkout.getDate());
+            String fechain = null;
+            String fechaout = null;
+            if (!llamadaCrearReserva.equals("")){
+                fechain = sf.format(CrearReserva.jc_checkin.getDate());
+                fechaout = sf.format(CrearReserva.jc_checkout.getDate());
+            }
+            if(!llamadaEditarReserva.equals("")){
+                fechain = sf.format(ReservaEditar.jc_checkin.getDate());
+                fechaout = sf.format(ReservaEditar.jc_checkout.getDate());
+            } 
             String query;
             java.sql.Statement stm;
             java.sql.ResultSet rs = null;
@@ -220,10 +229,18 @@ public class VerEstadodeHabitaciones extends javax.swing.JFrame {
                                // CrearReserva.numHabitacion = Integer.parseInt(habitacion.getText());
                                 
                                 //CrearReserva.cb_categoriaHabitacion.setSelectedIndex(codCategoria);
-                                CrearReserva.tf_categoriaHabitacion.setText(nombreCategoria.getText());
-                                CrearReserva.tf_precioCategoria.setText(costoCategoria.getText());
-                                CrearReserva.tf_numeroHabitacion.setText(habitacion.getText());
-                                setVisible(false);
+                                if(!llamadaCrearReserva.equals("")){
+                                    CrearReserva.tf_categoriaHabitacion.setText(nombreCategoria.getText());
+                                    CrearReserva.tf_precioCategoria.setText(costoCategoria.getText());
+                                    CrearReserva.tf_numeroHabitacion.setText(habitacion.getText());
+                                    dispose();
+                                }
+                                if(!llamadaEditarReserva.equals("")){
+                                    ReservaEditar.tf_categoriaHabitacion.setText(nombreCategoria.getText());
+                                    ReservaEditar.tf_precioCategoria.setText(costoCategoria.getText());
+                                    ReservaEditar.tf_numeroHabitacion.setText(habitacion.getText());
+                                    dispose();
+                                }
                             }
                         });
                         habitacion.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));

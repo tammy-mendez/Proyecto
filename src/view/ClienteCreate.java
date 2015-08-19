@@ -23,6 +23,7 @@ public class ClienteCreate extends javax.swing.JFrame {
     private char ch;
     private int resp;
     public static String llamadaCrearReserva ;
+    public static String llamadaEditarReserva;
 
     /**
      * Creates new form ClienteCreate
@@ -494,6 +495,15 @@ public class ClienteCreate extends javax.swing.JFrame {
                 CrearReserva.tf_cedulaCliente.setText(tf_cedula.getText());
                 frame.setVisible(true);
                 frame.setTitle("Registar Reserva");
+                frame.setLocationRelativeTo(null);
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                
+        }
+        if (!llamadaEditarReserva.equals("")){
+                JFrame frame=new ReservaEditar();
+                CrearReserva.tf_cedulaCliente.setText(tf_cedula.getText());
+                frame.setVisible(true);
+                frame.setTitle("Editar Reserva");
                 frame.setLocationRelativeTo(null);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 

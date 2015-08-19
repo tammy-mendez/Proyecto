@@ -14,7 +14,6 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import static view.ReservaEditar.tf_cedulaCliente;
 
 /**
  *
@@ -333,6 +332,7 @@ public class BuscarReserva extends javax.swing.JFrame {
                  frame1.setLocationRelativeTo(null);
                  frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                  this.dispose();
+                 break;
           case 2:
 
                  fila = masterTable.getSelectedRow();
@@ -342,8 +342,8 @@ public class BuscarReserva extends javax.swing.JFrame {
                  frame2.setTitle("Eliminar Reserva");
                  frame2.setLocationRelativeTo(null);
                  frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                 this.dispose();
-                 
+                 this.dispose();    
+                 break;
 
           case 3:
               break;

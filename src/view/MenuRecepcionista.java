@@ -49,6 +49,11 @@ public class MenuRecepcionista extends javax.swing.JFrame {
         mItem_editarReserva = new javax.swing.JMenuItem();
         mItem_eliminarReserva = new javax.swing.JMenuItem();
         mItem_buscarReserva2 = new javax.swing.JMenuItem();
+        menu_consumo2 = new javax.swing.JMenu();
+        mItem_registrarConsumo2 = new javax.swing.JMenuItem();
+        mItem_modificarConsumo = new javax.swing.JMenuItem();
+        mItem_eliminarConsumo = new javax.swing.JMenuItem();
+        mItem_buscarConsumo = new javax.swing.JMenuItem();
         menu_salir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -140,6 +145,42 @@ public class MenuRecepcionista extends javax.swing.JFrame {
 
         jMenuBar1.add(menu_reserva);
 
+        menu_consumo2.setText("Administrar Consumo ");
+
+        mItem_registrarConsumo2.setText("Registrar Consumo");
+        mItem_registrarConsumo2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItem_registrarConsumo2ActionPerformed(evt);
+            }
+        });
+        menu_consumo2.add(mItem_registrarConsumo2);
+
+        mItem_modificarConsumo.setText("Modificar Consumo");
+        mItem_modificarConsumo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItem_modificarConsumoActionPerformed(evt);
+            }
+        });
+        menu_consumo2.add(mItem_modificarConsumo);
+
+        mItem_eliminarConsumo.setText("Eliminar Consumo");
+        mItem_eliminarConsumo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItem_eliminarConsumoActionPerformed(evt);
+            }
+        });
+        menu_consumo2.add(mItem_eliminarConsumo);
+
+        mItem_buscarConsumo.setText("Buscar Consumo");
+        mItem_buscarConsumo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItem_buscarConsumoActionPerformed(evt);
+            }
+        });
+        menu_consumo2.add(mItem_buscarConsumo);
+
+        jMenuBar1.add(menu_consumo2);
+
         menu_salir.setText("Salir");
         menu_salir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -158,7 +199,7 @@ public class MenuRecepcionista extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGap(0, 280, Short.MAX_VALUE)
         );
 
         pack();
@@ -260,6 +301,37 @@ public class MenuRecepcionista extends javax.swing.JFrame {
         BuscarReserva.main(args);
     }//GEN-LAST:event_mItem_buscarReserva2ActionPerformed
 
+    private void mItem_registrarConsumo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItem_registrarConsumo2ActionPerformed
+        // TODO add your handling code here:
+        String args[]=new String[1];
+        args[0]="Registrar Consumo de Producto/Servicio";
+        ConsumoPSCreate.main(args);
+    }//GEN-LAST:event_mItem_registrarConsumo2ActionPerformed
+
+    private void mItem_modificarConsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItem_modificarConsumoActionPerformed
+        // TODO add your handling code here:
+        opcion=1;
+        String args[]=new String[1];
+        args[0]="Buscar Consumo de Producto/Servicio";
+        BuscarConsumoPS.main(args);
+    }//GEN-LAST:event_mItem_modificarConsumoActionPerformed
+
+    private void mItem_eliminarConsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItem_eliminarConsumoActionPerformed
+        // TODO add your handling code here:
+        opcion=2;
+        String args[]=new String[1];
+        args[0]="Buscar Consumo de Producto/Servicio";
+        BuscarConsumoPS.main(args);
+    }//GEN-LAST:event_mItem_eliminarConsumoActionPerformed
+
+    private void mItem_buscarConsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItem_buscarConsumoActionPerformed
+        // TODO add your handling code here:
+        opcion=3;
+        String args[]=new String[1];
+        args[0]="Buscar Consumo de Producto/Servicio";
+        BuscarConsumoPS.main(args);
+    }//GEN-LAST:event_mItem_buscarConsumoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -302,14 +374,23 @@ public class MenuRecepcionista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem mItem_buscarC;
+    private javax.swing.JMenuItem mItem_buscarConsumo;
     private javax.swing.JMenuItem mItem_buscarReserva2;
     private javax.swing.JMenuItem mItem_crearC;
     private javax.swing.JMenuItem mItem_editarC;
     private javax.swing.JMenuItem mItem_editarReserva;
     private javax.swing.JMenuItem mItem_eliminarC;
+    private javax.swing.JMenuItem mItem_eliminarConsumo;
     private javax.swing.JMenuItem mItem_eliminarReserva;
+    private javax.swing.JMenuItem mItem_modificarConsumo;
+    private javax.swing.JMenuItem mItem_registrarConsumo;
+    private javax.swing.JMenuItem mItem_registrarConsumo1;
+    private javax.swing.JMenuItem mItem_registrarConsumo2;
     private javax.swing.JMenuItem mItem_registrarReserva;
     private javax.swing.JMenu menu_cliente;
+    private javax.swing.JMenu menu_consumo;
+    private javax.swing.JMenu menu_consumo1;
+    private javax.swing.JMenu menu_consumo2;
     private javax.swing.JMenu menu_reserva;
     private javax.swing.JMenu menu_salir;
     // End of variables declaration//GEN-END:variables
