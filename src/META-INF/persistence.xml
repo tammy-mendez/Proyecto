@@ -15,9 +15,12 @@
     <class>bean.ProductoServicio</class>
     <class>bean.CategoriaProdSer</class>
     <class>bean.ConsumoProSer</class>
+    <class>bean.Articulo</class>
+    <class>bean.OrdenCompra</class>
+    <class>bean.Proveedor</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/hotel db?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.password" value="user"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/hotel db"/>
+      <property name="javax.persistence.jdbc.password" value="1234"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
     </properties>

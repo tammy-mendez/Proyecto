@@ -110,6 +110,12 @@ public class HabitacionEdit extends javax.swing.JFrame {
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, list_categoria);
         bindingGroup.addBinding(jComboBoxBinding);
 
+        list_categoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                list_categoriaActionPerformed(evt);
+            }
+        });
+
         lbl_categoria.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
         lbl_categoria.setText("Nombre de Categoría:");
 
@@ -314,6 +320,10 @@ public class HabitacionEdit extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_tf_numeroHabitFocusLost
+
+    private void list_categoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_list_categoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_list_categoriaActionPerformed
 
     /**
      * @param args the command line arguments

@@ -52,6 +52,11 @@ public class MenuAdminHotel extends javax.swing.JFrame {
         mItem_editarPS = new javax.swing.JMenuItem();
         mItem_eliminarPS = new javax.swing.JMenuItem();
         mItem_buscarPS = new javax.swing.JMenuItem();
+        menu_proveedor = new javax.swing.JMenu();
+        mitem_crearProveedor = new javax.swing.JMenuItem();
+        mitem_modifProveedor = new javax.swing.JMenuItem();
+        mitem_elimProveedor = new javax.swing.JMenuItem();
+        mitem_buscarProveedor = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -209,6 +214,43 @@ public class MenuAdminHotel extends javax.swing.JFrame {
 
         jMenuBar1.add(menu_PS);
 
+        menu_proveedor.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        menu_proveedor.setText("Administrar Proveedor");
+
+        mitem_crearProveedor.setText("Crear Proveedor");
+        mitem_crearProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitem_crearProveedorActionPerformed(evt);
+            }
+        });
+        menu_proveedor.add(mitem_crearProveedor);
+
+        mitem_modifProveedor.setText("Modificar Proveedor");
+        mitem_modifProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitem_modifProveedorActionPerformed(evt);
+            }
+        });
+        menu_proveedor.add(mitem_modifProveedor);
+
+        mitem_elimProveedor.setText("Eliminar Proveedor");
+        mitem_elimProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitem_elimProveedorActionPerformed(evt);
+            }
+        });
+        menu_proveedor.add(mitem_elimProveedor);
+
+        mitem_buscarProveedor.setText("Buscar Proveedor");
+        mitem_buscarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitem_buscarProveedorActionPerformed(evt);
+            }
+        });
+        menu_proveedor.add(mitem_buscarProveedor);
+
+        jMenuBar1.add(menu_proveedor);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -219,7 +261,7 @@ public class MenuAdminHotel extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGap(0, 276, Short.MAX_VALUE)
         );
 
         pack();
@@ -362,6 +404,37 @@ public class MenuAdminHotel extends javax.swing.JFrame {
         ProdSerBuscar.main(args);
     }//GEN-LAST:event_mItem_buscarPSActionPerformed
 
+    private void mitem_crearProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitem_crearProveedorActionPerformed
+        // TODO add your handling code here:
+        String args[]=new String[1];
+        args[0]="Crear Proveedor";
+        ProveedorCreate.main(args);
+    }//GEN-LAST:event_mitem_crearProveedorActionPerformed
+
+    private void mitem_modifProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitem_modifProveedorActionPerformed
+        // TODO add your handling code here:
+        opcion = 1;
+        String args[]=new String[1];
+        args[0]="Modificar proveedor";
+        ProveedorBuscar.main(args);
+    }//GEN-LAST:event_mitem_modifProveedorActionPerformed
+
+    private void mitem_elimProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitem_elimProveedorActionPerformed
+        // TODO add your handling code here:
+        opcion = 2;
+        String args[]=new String[1];
+        args[0]="Eliminar Proveedor";
+        ProveedorBuscar.main(args);
+    }//GEN-LAST:event_mitem_elimProveedorActionPerformed
+
+    private void mitem_buscarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitem_buscarProveedorActionPerformed
+        // TODO add your handling code here:
+        opcion = 3;
+        String args[]=new String[1];
+        args[0]="Buscar proveedor";
+        ProveedorBuscar.main(args);
+    }//GEN-LAST:event_mitem_buscarProveedorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -423,5 +496,10 @@ public class MenuAdminHotel extends javax.swing.JFrame {
     private javax.swing.JMenu menu_CategPS;
     private javax.swing.JMenu menu_Habitacion;
     private javax.swing.JMenu menu_PS;
+    private javax.swing.JMenu menu_proveedor;
+    private javax.swing.JMenuItem mitem_buscarProveedor;
+    private javax.swing.JMenuItem mitem_crearProveedor;
+    private javax.swing.JMenuItem mitem_elimProveedor;
+    private javax.swing.JMenuItem mitem_modifProveedor;
     // End of variables declaration//GEN-END:variables
 }
